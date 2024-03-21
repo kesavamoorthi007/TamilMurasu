@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.Design;
 using System.ComponentModel;
+using TamilMurasu.Interface.Admin;
+using TamilMurasu.Services.Admin;
 
 
 
@@ -25,6 +27,7 @@ internal class Program
         builder.Services.TryAddSingleton<ILoginService, LoginService>();
        
         builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        builder.Services.TryAddSingleton<ICategoryService, CategoryService>();
 
 
         builder.Services.AddSession();

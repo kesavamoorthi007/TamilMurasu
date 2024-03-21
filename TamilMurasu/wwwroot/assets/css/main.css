@@ -62,17 +62,15 @@ RESET & DOC
 -------------------------------------------------*/
 
 body {
-    color: #1a1a1a;
+    color:#676a6c;
     margin: 0;
-    padding: 0;
-    font-size: 13px;
-    /*font-family: "oxygen", "Roboto Condensed", sans-serif, Arial;*/
-    font-family: "ebrima", sans-serif, Arial;
+    padding:0;
+    font-size:13px;
+    font-family:  "oxygen", "Roboto Condensed", sans-serif, Arial;
 }
 
 .label, body, h1, h2, h3, h4, h5, h6 {
-    /*font-family:  "oxygen", "Roboto Condensed", sans-serif, Arial;*/
-    font-family: "ebrima", sans-serif, Arial;
+    font-family:  "oxygen", "Roboto Condensed", sans-serif, Arial;
 }
 
 .border-bottom {
@@ -426,8 +424,7 @@ Button css
 }
 
 .aqua-bg {
-     background-color:#49b6d6;
-   /* background-image: url("assets/images/arasan banner.jpg")*/
+    background-color:#49b6d6;
 }
 
 .purple-bg {
@@ -1121,9 +1118,8 @@ Tab class
 .tabs-container .nav-tabs > li.active > a, .tabs-container .nav-tabs > li.active > a:hover, .tabs-container .nav-tabs > li.active > a:focus {
     border: 1px solid #e7eaec;
     border-bottom-color: transparent;
-    background-color: #49b6d6;
+    background-color: #fff;
 }
-
 
 .tabs-container .nav-tabs > li {
     float: left;
@@ -2125,7 +2121,7 @@ Error, Login & Lockscreen
     max-width: 400px;
     z-index: 100;
     margin: 0 auto;
-    padding-top: 150px;
+    padding-top: 40px;
 }
 
 .lockscreen.middle-box {
@@ -3466,7 +3462,7 @@ footer
 }
 
 .nav-tabs > li > a {
-    color: #808080;
+    color: #a7b1c2;
     font-weight: 600;
     padding: 10px 20px 10px 25px;
 }
