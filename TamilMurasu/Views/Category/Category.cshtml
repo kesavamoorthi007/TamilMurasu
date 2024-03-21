@@ -1,0 +1,161 @@
+﻿@model TamilMurasu.Models.Category
+
+@{
+    ViewData["Title"] = "Category";
+}
+<style>
+
+    .mandatory {
+        color: red;
+        position: relative;
+        top: 2px;
+        left: 5px;
+    }
+</style>
+<script type="text/javascript">
+    @if (TempData["notice"] != null)
+    {
+        @:alert('@TempData["notice"]');
+    }
+</script>
+
+<div class="row wrapper border-bottom page-heading">
+    <div class="col-lg-12">
+
+        <ol class="breadcrumb">
+            <li> <a href="#">Home</a> </li>
+            <li> <a>Admin</a> </li>
+            <li class="active"> <strong> Category </strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper-content ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widgets-container">
+                    <h5 style="font-size:14px">Category</h5>
+                    <hr>
+                    @using (Html.BeginForm("Category", "Category", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+              <form>
+
+                            <div class="row">
+                                <div class="col-lg-7">
+                                
+                                    <div class="form-group">
+
+                                        <br><label for="inputName3" class="col-sm-4 control-label">Category Name (Tamil)<label class="mandatory">*</label></label>
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(C => C.C_Name, new { @id = "txtC_Name", @class = "form-control", @TabIndex = 1 })
+                                            @Html.HiddenFor(C => C.ID)
+                                        </div>
+
+                                    </div>
+                                </div> 
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-7">
+                                    <div class="form-group">
+
+                                        <br />   <label for="inputName3" class="col-sm-4 control-label">Category Name (English)<label class="mandatory">*</label></label>
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(C => C.C_NameEN, new { @id = "txtC_NameEN", @class = "form-control", @TabIndex = 1 })
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                
+			              <div class="row">
+                            <div class="col-md-7">
+                                <div class="form-group">
+
+                                        <br /><label for="inputName3" class="col-sm-4 control-label">Enter Title<label class="mandatory">*</label></label>
+                                    <div class="col-sm-8">
+                                            @Html.TextBoxFor(C => C.Title_Eng, new { @id = "txtTitle_Eng", @class = "form-control", @TabIndex = 2 })
+                                    </div>
+
+                                </div>
+                            </div>
+                          </div>
+                            <div style="height:30px;"></div>
+                            <div class="col-lg-5"></div>
+                            <div class="text-center">
+                            <button type="submit" name="submit" class="btn btn-primary" id="btnSave" value="Save" tabindex="18">Save</button>
+                            <button class="btn btn-warning" type="reset">Reset</button>
+                            <a button class="btn btn-danger" type="submit" href="@Url.Action("ListCategory", "Category")">Cancel</a>
+                            </div>
+              </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(function () {
+        $('._select').select2();
+    });
+                $(document).ready(function () {
+                    $('#btnSave').click(function (e) {
+                        var isValid = true;
+                        if (document.getElementById("txtC_Name").value == "") {
+                            isValid = false;
+                            $(txtC_Name).css({
+                                "border": "1px solid red",
+                                "background": "#FFCECE"
+                            });
+
+                            alert("Please Enter  CategoryName(Tamil)");
+                            return false;
+                        }
+                        else {
+                            $(txtC_Name).css({
+                                "border": "",
+                                "background": ""
+                            });
+                        }
+                         if (document.getElementById("Title_Eng").value == "") {
+                            isValid = false;
+                            $(Title_Eng).css({
+                                "border": "1px solid red",
+                                "background": "#FFCECE"
+                            });
+
+                            alert("Please Enter  CategoryName(English)");
+                            return false;
+                        }
+                        else {
+                            $(Title_Eng).css({
+                                "border": "",
+                                "background": ""
+                            });
+                        }
+                         if (document.getElementById("Title_Eng").value == "") {
+                            isValid = false;
+                            $(Title_Eng).css({
+                                "border": "1px solid red",
+                                "background": "#FFCECE"
+                            });
+
+                            alert("Please Enter  Enter Title");
+                            return false;
+                        }
+                        else {
+                            $(Title_Eng).css({
+                                "border": "",
+                                "background": ""
+                            });
+                        }
+
+                    if (isValid == false)
+                            e.preventDefault();
+                    });
+
+                });
+</script>
