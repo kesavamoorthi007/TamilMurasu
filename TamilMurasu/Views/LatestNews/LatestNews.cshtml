@@ -1,0 +1,195 @@
+﻿@model TamilMurasu.Models.LatestNews
+@{
+    ViewData["Title"] = "Latest News";
+}
+<style>
+
+    .mandatory {
+        color: red;
+        position: relative;
+        top: 2px;
+        left: 5px;
+    }
+</style>
+<script type="text/javascript">
+    @if (TempData["notice"] != null)
+    {
+        @:alert('@TempData["notice"]');
+    }
+
+</script>
+
+
+<div class="row wrapper border-bottom page-heading">
+    <div class="col-lg-12">
+
+        <ol class="breadcrumb">
+            <li> <a href="#">Home</a> </li>
+            <li> <a>News</a> </li>
+            <li class="active"> <strong> Latest News </strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper-content ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widgets-container">
+                    <h5 style="font-size:14px">News</h5>
+                    <hr>
+                    @using (Html.BeginForm("LatestNews", "LatestNews", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <form>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <br><label for="inputName3" class="col-sm-4 control-label">News Head<label class="mandatory">*</label></label>
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(C => C.NewsHead, new { @id = "txtNewsHead", @class = "form-control", @TabIndex = 1 })
+                                            @Html.HiddenFor(C => C.ID)
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <br /> <label for="checkbox" class="col-sm-4 control-label">News Detail<label class="mandatory">*</label></label>
+                                        <div class="col-sm-8">
+@*                                             @Html.TextBoxFor(C => C.NewsDetail, new { @id = "txtNewsDetail", @class = "form-control", @TabIndex = 1 })
+                                        *@     @Html.TextAreaFor(C => C.NewsDetail, new { @id = "myeditor", @class = "form-control", @TabIndex = 1 })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <br /> <label for="datePicker" class="col-sm-4 control-label">Publish Up<label class="mandatory">*</label></label>
+                                        <div class="input-group date form_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
+                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32", @readonly = true })
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <br /> <label for="inputName3" class="col-sm-4 control-label">Publish Down<label class="mandatory">*</label></label>
+                                        <div class="input-group date to_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
+                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32", @readonly = true })
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="height:30px;"></div>
+                            <div class="col-lg-5"></div>
+                            <div class="text-center">
+                                <button type="submit" name="submit" class="btn btn-primary" id="btnSave" value="Save" tabindex="18">Save</button>
+                                <button class="btn btn-warning" type="reset">Reset</button>
+                                <a button class="btn btn-danger" type="submit" href="@Url.Action("ListNews", "News")">Cancel</a>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('._select').select2();
+    });
+</script>
+<script>
+    $('.to_date').datetimepicker({
+        //   language:  'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        endDate: new Date(),
+        forceParse: 0
+
+    });
+    $('.form_date').datetimepicker({
+        //   language:  'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        endDate: new Date(),
+        forceParse: 0
+    }).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        $('.to_date').datetimepicker('setStartDate', minDate);
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#btnSave').click(function (e) {
+            var isValid = true;
+            if (document.getElementById("txtNewsHead").value == "") {
+                isValid = false;
+                $(txtNewsHead).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Enter NewsHead");
+                return false;
+            }
+            else {
+                $(txtNewsHead).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (document.getElementById("PublishUp").value == "") {
+                isValid = false;
+                $(PublishUp).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Select Publish Up");
+                return false;
+            }
+            else {
+                $(PublishUp).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (document.getElementById("PublishDown").value == "") {
+                isValid = false;
+                $(PublishDown).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please select Publish Down");
+                return false;
+            }
+            else {
+                $(PublishDown).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+
+            if (isValid == false)
+                e.preventDefault();
+        });
+
+    });
+</script>

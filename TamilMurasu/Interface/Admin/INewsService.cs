@@ -5,10 +5,11 @@ using System.Data;
 
 namespace TamilMurasu.Interface.Admin
 {
-    public interface ICategoryService
+    public interface INewsService
     {
-        string CategoryCRUD(Category cy);
-        DataTable GetAllCategory();
-        DataTable GetEditCategory(string id);
+        DataTable GetAllNews();
+        DataTable GetCategory();
+        string NewsCRUD(News cy);
+      
     }
 }

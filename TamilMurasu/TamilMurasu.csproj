@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.102.2" />
     <PackageReference Include="Dapper" Version="2.0.143" />
+    <PackageReference Include="Google.Apis.Translate.v2" Version="1.67.0.875" />
     <PackageReference Include="jsTree" Version="3.1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
@@ -16,7 +17,6 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
     <PackageReference Include="NEST" Version="7.17.5" />
     <PackageReference Include="System.CodeDom" Version="7.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />

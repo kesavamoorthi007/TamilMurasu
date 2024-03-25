@@ -31,6 +31,20 @@ namespace TamilMurasu.Controllers.Admin
             {
                
             }
+            else
+            {
+                DataTable dt = new DataTable();
+                dt = CategoryService.GetEditCategory(id);
+
+                if (dt.Rows.Count > 0)
+                {
+                    br.C_Name = dt.Rows[0]["C_Name"].ToString();
+                    br.C_NameEN = dt.Rows[0]["C_NameEN"].ToString();
+                    br.Title_Eng = dt.Rows[0]["Title_Eng"].ToString();
+                    br.ID = id;
+
+                }
+            }
             return View(br);
 
         }
