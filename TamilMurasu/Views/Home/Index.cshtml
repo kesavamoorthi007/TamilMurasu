@@ -1,9 +1,247 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@* 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col-lg-6 top15">
+
+        <!-- begin col-3 -->
+        <div class="col-lg-6">
+            <div class="widget red-bg box-shadow">
+                <div class="row">
+                    <div class="col-xs-4 text-center">
+                        <i class="fa fa-bank fa-5x"></i>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <span>Total Expenses</span>
+
+                        <h2 class="font-bold">$ 9,982</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- begin col-3 -->
+        <div class="col-lg-6">
+            <div class="widget white-bg box-shadow">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <i class="fa fa-cloud fa-5x"></i>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <span> Today degrees </span>
+
+                        <h2 class="font-bold">30'C</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- begin col-3 -->
+        <div class="col-lg-6">
+            <div class="widget white-bg box-shadow">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <i class="fa fa-line-chart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <span> Other Stats</span>
+
+                        <h2 class="font-bold">290</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="widget white-bg box-shadow">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <i class="fa fa-shopping-cart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <span>PENDING ORDERS</span>
+
+                        <h2 class="font-bold">40</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- begin col-2 -->
+        <div class="col-lg-4">
+            <div class="widget box-shadow green-bg">
+                <div class="row vertical-align">
+                    <div class="col-xs-3">
+                        <i class="fa fa-bus fa-2x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <span>Last Booking</span>
+                        <h2 class="font-bold">320</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- begin col-2 -->
+        <div class="col-lg-4">
+            <div class="widget box-shadow aqua-bg">
+                <div class="row vertical-align">
+                    <div class="col-xs-3">
+                        <i class="fa fa-ship fa-2x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <span>Last Booking</span>
+                        <h2 class="font-bold">10</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- begin col-2 -->
+        <div class="col-lg-4">
+            <div class="widget box-shadow red-bg">
+                <div class="row vertical-align">
+                    <div class="col-xs-3">
+                        <i class="fa fa-plane fa-2x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <span>Last Booking</span>
+                        <h2 class="font-bold">610</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+ </div>
+<!-- tabs -->
+<div class="col-lg-8 top20">
+    <div class="tabs-container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab-1" data-toggle="tab"><i class="fa fa-money" aria-hidden="true"></i> Transactions Panel  </a></li>
+            <li><a href="#tab-2" data-toggle="tab"><i class="fa fa-tasks" aria-hidden="true"></i> Tasks Panel</a></li>
+
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab-1">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover bottom0 ">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Order Date</th>
+                                    <th>Order Time</th>
+                                    <th>Amount (USD)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>3128</td>
+                                    <td>4/10/2017</td>
+                                    <td>3:29 PM</td>
+                                    <td>$323.33</td>
+                                </tr>
+                                <tr>
+                                    <td>3128</td>
+                                    <td>4/11/2017</td>
+                                    <td>3:20 PM</td>
+                                    <td>$233.34</td>
+                                </tr>
+                                <tr>
+                                    <td>3128</td>
+                                    <td>4/12/2017</td>
+                                    <td>3:03 PM</td>
+                                    <td>$723.17</td>
+                                </tr>
+                                <tr>
+                                    <td>3128</td>
+                                    <td>4/13/2017</td>
+                                    <td>3:00 PM</td>
+                                    <td>$23.71</td>
+                                </tr>
+                                <tr>
+                                    <td>3128</td>
+                                    <td>4/14/2017</td>
+                                    <td>2:49 PM</td>
+                                    <td>$8343.23</td>
+                                </tr>
+                                <tr>
+                                    <td>3128</td>
+                                    <td>4/18/2017</td>
+                                    <td>2:23 PM</td>
+                                    <td>$243.12</td>
+                                </tr>
+                                <tr>
+                                    <td>3128</td>
+                                    <td>4/12/2017</td>
+                                    <td>2:15 PM</td>
+                                    <td>$5663.54</td>
+                                </tr>
+                                <tr>
+                                    <td>3118</td>
+                                    <td>4/4/2017</td>
+                                    <td>2:32 PM</td>
+                                    <td>$943.45</td>
+                                </tr>
+                                <tr>
+                                    <td>3158</td>
+                                    <td>4/8/2017</td>
+                                    <td>2:32 PM</td>
+                                    <td>$943.45</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="panel-footer text-right">
+                            <a href="#" class="btn red btn-sm">View All Transactions</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab-2">
+                <div class="panel-body">
+                    <!-- START list group-->
+                    <div class="task-list">
+                        <a href="#" class="list-group-item bt0">
+                            <span class="label label-warning pull-right">just now</span>
+                            <em class="fa fa-fw fa-calendar mr"></em>Calendar updated
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="label label-warning pull-right">4 minutes ago</span>
+                            <em class="fa fa-fw fa-comment mr"></em>Commented on a post
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="label label-warning pull-right">23 minutes ago</span>
+                            <em class="fa fa-fw fa-truck mr"></em>Order 392 shipped
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="label label-warning pull-right">46 minutes ago</span>
+                            <em class="fa fa-fw fa-money mr"></em>Invoice 653 has been paid
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="label label-warning pull-right">1 hour ago</span>
+                            <em class="fa fa-fw fa-user mr"></em>A new user has been added
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="label label-warning pull-right">2 hours ago</span>
+                            <em class="fa fa-fw fa-check mr"></em>Completed task: "pick up dry cleaning"
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="label label-warning pull-right">yesterday</span>
+                            <em class="fa fa-fw fa-globe mr"></em>Saved the world
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="label label-warning pull-right">two days ago</span>
+                            <em class="fa fa-fw fa-check mr"></em>Completed task: "fix error on sales page"
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="label label-warning pull-right">two days ago</span>
+                            <em class="fa fa-fw fa-check mr"></em>Completed task: "fix error on sales page"
+                        </a>
+                    </div>
+                    <!-- END list group-->
+                    <div class="panel-footer text-right">
+                        <a href="#" class="btn red btn-sm">View All Activity</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
- *@
+<!-- tabs -->

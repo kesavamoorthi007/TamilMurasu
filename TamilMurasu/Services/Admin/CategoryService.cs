@@ -40,6 +40,7 @@ namespace TamilMurasu.Services.Admin
 
                 using (SqlConnection objConn = new SqlConnection(_connectionString))
                 {
+                    objConn.Open();
                     if (Cy.ID == null)
                     {
                         svSQL = "Insert into TMCategory_N (C_Id,C_Name,C_NameEN,Title_Eng) VALUES ('" + Cy.ID + "','" + Cy.C_Name + "','" + Cy.C_NameEN + "','" + Cy.Title_Eng + "')";
@@ -54,7 +55,9 @@ namespace TamilMurasu.Services.Admin
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
                     }
+                    objConn.Close();
                 }
+
               
             }
             catch (Exception ex)
@@ -69,6 +72,16 @@ namespace TamilMurasu.Services.Admin
         {
             string SvSql = string.Empty;
             SvSql = "select C_Id,C_Name,C_NameEN,Title_Eng from TMCategory_N ORDER BY C_Id DESC ";
+            DataTable dtt = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            adapter.Fill(dtt);
+            return dtt;
+        }
+        public DataTable GetEditCategory(string id)
+        {
+            string SvSql = string.Empty;
+            SvSql = "select C_Id,C_Name,C_NameEN,Title_Eng from TMCategory_N ORDER BY C_Id DESC Where TMCategory_N.C_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);

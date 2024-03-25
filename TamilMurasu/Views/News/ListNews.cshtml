@@ -1,8 +1,8 @@
-﻿@model TamilMurasu.Models.Category
+﻿@model TamilMurasu.Models.News
 
 @{
-    ViewData["Title"] = "Category";
-    
+    ViewData["Title"] = "News";
+
 }
 <partial name="JqxGridPartial" />
 <script type="text/javascript" src="~/jqwidgets/jqxgrid.columnsresize.js"></script>
@@ -18,8 +18,8 @@
     <div class="col-lg-12">
         <ol class="breadcrumb">
             <li> <a href="#">Home</a> </li>
-            <li> <a>Admin</a> </li>
-            <li class="active"> <strong> Category </strong> </li>
+            <li> <a>News</a> </li>
+            <li class="active"> <strong> News </strong> </li>
         </ol>
     </div>
 </div>
@@ -28,10 +28,10 @@
         $(document).ready(function () {
             var source =
             {
-                url: "/Category/MyListCategorygrid",
+                url: "/News/MyListNewsgrid",
 
                 data: {
-                  
+
                 },
                 datatype: "json",
                 updaterow: function (rowid, rowdata) {
@@ -39,8 +39,9 @@
                 },
                 datafields: [
                     { name: 'cname', type: 'string' },
-                    { name: 'cnameeng', type: 'string' },
-                    { name: 'tittle', type: 'string' },
+                    { name: 'newshead', type: 'string' },
+                    { name: 'des', type: 'string' },
+                    { name: 'keyword', type: 'string' },
                     { name: 'editrow', type: 'string' },
 
 
@@ -79,9 +80,10 @@
 
                     columns: [
 
-                        { text: 'Category Name(Tamil)', filtertype: 'checkedlist', datafield: 'cname', width: 350 },
-                        { text: 'Category Name(English)', filtertype: 'checkedlist', datafield: 'cnameeng', width: 200 },
-                        { text: 'Enter Title', filtertype: 'input', datafield: 'tittle', width: 350 },
+                        { text: 'Category', filtertype: 'checkedlist', datafield: 'cname', width: 200 },
+                        { text: 'News Head', filtertype: 'checkedlist', datafield: 'newshead', width: 350 },
+                        { text: 'Description', filtertype: 'input', datafield: 'des', width: 350 },
+                        { text: 'Key Words', filtertype: 'input', datafield: 'keyword', width: 350 },
                         { text: 'Edit', datafield: 'editrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
                     ]
                 });
@@ -107,16 +109,16 @@
 
                     <form>
                         <div class="row">
-                           @*  <div class="col-md-2 ">
-                                @Html.DropDownListFor(n => n.ddlStatus, new SelectListItem[]
-                                         { new SelectListItem() {Text = "Enabled", Value="Y"},
-                                new SelectListItem() {Text = "Disabled", Value="N"}},
-                                         new { @id = "ddlStatus", Class = "dropdownlist margin_bottom_new form-control" })
+                            @*  <div class="col-md-2 ">
+                            @Html.DropDownListFor(n => n.ddlStatus, new SelectListItem[]
+                            { new SelectListItem() {Text = "Enabled", Value="Y"},
+                            new SelectListItem() {Text = "Disabled", Value="N"}},
+                            new { @id = "ddlStatus", Class = "dropdownlist margin_bottom_new form-control" })
                             </div> *@
 
                             <div class="col-md-9 ">
                                 <div class=" textalignright">
-                                    <a href="@Url.Action("Category","Category")" class="btn btn-danger" style="float: right; color:white;">Add Category</a>
+                                    <a href="@Url.Action("News","News")" class="btn btn-danger" style="float: right; color:white;">Add News</a>
                                     <br>
                                 </div>
 
@@ -125,9 +127,9 @@
                         <div class="row">
 
                             @* <div class="col-md-10 "> *@
-                                <div id="grid">
-                                </div>
-                           @*  </div> *@
+                            <div id="grid">
+                            </div>
+                            @*  </div> *@
                         </div>
 
                     </form>

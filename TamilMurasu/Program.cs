@@ -28,6 +28,10 @@ internal class Program
        
         builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         builder.Services.TryAddSingleton<ICategoryService, CategoryService>();
+        builder.Services.TryAddSingleton<INewsService, NewsService>();
+        builder.Services.TryAddSingleton<ILatestNewsService, LatestNewsService>();
+        builder.Services.TryAddSingleton<IAnmeegamService, AnmeegamService>();
+        builder.Services.TryAddSingleton<IAdangapaService, AdangapaService>();
 
 
         builder.Services.AddSession();

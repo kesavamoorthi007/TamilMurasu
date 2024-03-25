@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Data;
 
+
 namespace TamilMurasu.Interface.Admin
 {
-    public interface ICategoryService
+    public interface IAdangapaService
     {
-        string CategoryCRUD(Category cy);
-        DataTable GetAllCategory();
-        DataTable GetEditCategory(string id);
+        string AdangapaCRUD(Adangapa cy);
     }
 }
