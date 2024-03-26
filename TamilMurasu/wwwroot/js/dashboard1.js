@@ -36,9 +36,6 @@
     }
 
 
-    var ctx = document.getElementById("barChart").getContext("2d");
-    var myNewChart = new Chart(ctx).Bar(barData, barOptions);
-
 
  $('#SalaryTable').DataTable({
         dom: 'Bfrtip',
