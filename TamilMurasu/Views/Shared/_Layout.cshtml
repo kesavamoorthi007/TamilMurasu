@@ -50,6 +50,8 @@
     <link href="~/assets/css/main.media.css" rel="stylesheet">
     <!-- AdminUI demo css-->
     <link href="~/assets/css/adminUIdemo.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap-select.min.css" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -264,9 +266,8 @@
                         </form>
                         <!-- END RESPONSIVE SEARCH FORM -->
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-th-large"></i> <span class="title">Dashboard</span> <span class="arrow"></span> </a>
-
+                    <li class="nav-item active open">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon fa fa-home"></i> <span class="title">Home</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("Index", "Home")">  <i class="fa fa-shopping-cart"></i><span class="title">Home</span> </a>
@@ -292,7 +293,7 @@
                         </ul>
                     </li>
                     <li class="nav-item active open">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-flask"></i> <span class="title">News</span> <span class="arrow"></span> </a>
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon fa fa-newspaper-o"></i> <span class="title">News</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
                             <li class="nav-item">
                                 <a class="nav-link" href="@Url.Action("News", "News")"> <span class="title">New News </span> </a>
@@ -313,19 +314,29 @@
                         </ul>
                     </li>
                     <li class="nav-item active open">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-table"></i> <span class="title">Images</span> <span class="arrow"></span> </a>
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon fa fa-picture-o"></i> <span class="title">Images</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
                             <li class="nav-item">
                                 <a class="nav-link" href="@Url.Action("Adangapa", "Adangapa")"> <span class="title"> Adangapa Image </span> </a>
                             </li>
                         </ul>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("NewImage", "NewImage")"> <span class="title"> Album Image </span> </a>
+                            </li>
+                        </ul>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("NewAlbum", "NewAlbum")"> <span class="title"> Gallery Image</span> </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
+                    @* <li class="nav-item">
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-bar-chart-o"></i> <span class="title">Charts</span> <span class="arrow"></span> </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-map"></i> <span class="title">Maps</span> <span class="arrow"></span> </a>
-                    </li>
+                    </li> *@
                 </ul>
 
             </div>
@@ -340,22 +351,11 @@
                 <script src="~/assets/js/vendor/bootstrap.min.js"></script>
                 <!--  morris Charts  -->
 
-                <script src="@Url.Content("~/js/chosen.jquery.js")"></script>
-
-                <link href="@Url.Content("~/css/chosen.css")" rel="stylesheet" />
+            
                 <script type="text/javascript">
-                    jQuery.browser = {};
-                    (function () {
-                        jQuery.browser.msie = false;
-                        jQuery.browser.version = 0;
-                        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
-                            jQuery.browser.msie = true;
-                            jQuery.browser.version = RegExp.$1;
-                        }
-                    })();
 
 
-                    $(".chosen-select").chosen();
+                    
                     function isNumeric(keyCode) {
                         return ((keyCode >= 48 && keyCode <= 57) || keyCode == 37 || keyCode == 39 || keyCode == 46 || keyCode == 8 || keyCode == 9 || (keyCode >= 96 && keyCode <= 105));
                     }

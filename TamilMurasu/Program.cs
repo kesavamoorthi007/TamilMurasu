@@ -32,6 +32,8 @@ internal class Program
         builder.Services.TryAddSingleton<ILatestNewsService, LatestNewsService>();
         builder.Services.TryAddSingleton<IAnmeegamService, AnmeegamService>();
         builder.Services.TryAddSingleton<IAdangapaService, AdangapaService>();
+        builder.Services.TryAddSingleton<INewImageService, NewImageService>();
+        builder.Services.TryAddSingleton<INewAlbumService, NewAlbumService>();
 
 
         builder.Services.AddSession();

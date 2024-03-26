@@ -18,6 +18,8 @@
     }
 
 </script>
+<script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
+
 
 
 <div class="row wrapper border-bottom page-heading">
@@ -65,12 +67,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <br /> <label for="checkbox" class="col-sm-4 control-label">News Detail<label class="mandatory">*</label></label>
-                                        <div class="col-sm-8">
-                                            @*                                             @Html.TextBoxFor(C => C.NewsDetail, new { @id = "txtNewsDetail", @class = "form-control", @TabIndex = 1 })
-                                        *@     @Html.TextAreaFor(C => C.NewsDetail, new { @id = "myeditor", @class = "form-control", @TabIndex = 1 })
+                                        <br /> <label for="checkbox" class="col-sm-2 control-label">News Detail<label class="mandatory">*</label></label>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(C => C.NewsDetail, new { @id = "NewsDetail", @class = "form-control", @TabIndex = 1 })
                                         </div>
                                     </div>
                                 </div>
@@ -112,6 +113,9 @@
 <script>
     $(function () {
         $('._select').select2();
+    });
+    $(function () {
+        CKEDITOR.replace('NewsDetail');
     });
 </script>
 <script>
