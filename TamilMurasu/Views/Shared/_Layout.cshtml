@@ -274,21 +274,11 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="nav-item active open">
-
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon fa fa-user-o"></i> <span class="title">Admin</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
-
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:;"> Pages <span class="arrow nav-toggle"></span> </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="@Url.Action("ListCategory", "Category")"> <span class="title">Category </span> </a>
-                                    </li>
-
-                                </ul>
-                               
+                                 <a class="nav-link" href="@Url.Action("ListCategory", "Category")"> <span class="title">Category </span> </a>
                             </li>
                         </ul>
                     </li>
@@ -296,7 +286,7 @@
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon fa fa-newspaper-o"></i> <span class="title">News</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("News", "News")"> <span class="title">New News </span> </a>
+                                <a class="nav-link" href="@Url.Action("ListNews", "News")"> <span class="title">New News </span> </a>
                             </li>
 
                         </ul>
@@ -330,11 +320,21 @@
                                 <a class="nav-link" href="@Url.Action("NewAlbum", "NewAlbum")"> <span class="title"> Gallery Image</span> </a>
                             </li>
                         </ul>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Relex", "Relex")"> <span class="title"> Relex Image</span> </a>
+                            </li>
+                        </ul>
                     </li>
-                    @* <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-bar-chart-o"></i> <span class="title">Charts</span> <span class="arrow"></span> </a>
+                    <li class="nav-item active open">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon fa fa-file-movie-o"></i> <span class="title">Video Image</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Video", "Video")"> <span class="title"> Video Image</span> </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
+                    @*<li class="nav-item">
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-map"></i> <span class="title">Maps</span> <span class="arrow"></span> </a>
                     </li> *@
                 </ul>

@@ -27,7 +27,7 @@ namespace TamilMurasu.Controllers.Admin
         {
             Category br = new Category();
 
-            if (id != null)
+            if (id == null)
             {
                
             }

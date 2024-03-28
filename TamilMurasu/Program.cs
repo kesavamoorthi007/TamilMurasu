@@ -34,6 +34,8 @@ internal class Program
         builder.Services.TryAddSingleton<IAdangapaService, AdangapaService>();
         builder.Services.TryAddSingleton<INewImageService, NewImageService>();
         builder.Services.TryAddSingleton<INewAlbumService, NewAlbumService>();
+        builder.Services.TryAddSingleton<IRelexService, RelexService>();
+        builder.Services.TryAddSingleton<IVideoService, VideoService>();
 
 
         builder.Services.AddSession();

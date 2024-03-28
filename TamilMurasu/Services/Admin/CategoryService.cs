@@ -8,6 +8,7 @@ using System.Data;
 using DocumentFormat.OpenXml.Bibliography;
 using System.Linq;
 using System.Data.SqlClient;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TamilMurasu.Services.Admin
 {
@@ -28,30 +29,28 @@ namespace TamilMurasu.Services.Admin
                 string StatementType = string.Empty;
                 string svSQL = "";
 
-                //if (ss.ID == null)
-                //{
-                //    svSQL = " SELECT Count(CITYNAME) as cnt FROM CITYMASTER WHERE CITYNAME = LTRIM(RTRIM('" + ss.Cit + "')) ";
-                //    if (datatrans.GetDataId(svSQL) > 0)
-                //    {
-                //        msg = "City Already Existed";
-                //        return msg;
-                //    }
-                //}
-
+                if (Cy.ID == null)
+                {
+                    svSQL = " SELECT Count(C_Name) as cnt FROM TMCategory_N WHERE C_Name = LTRIM(RTRIM('" + Cy.C_Name + "')) ";
+                    if (datatrans.GetDataId(svSQL) > 0)
+                    {
+                        msg = "Category Name(Tamil) Already Existed";
+                        return msg;
+                    }
+                }
                 using (SqlConnection objConn = new SqlConnection(_connectionString))
                 {
                     objConn.Open();
                     if (Cy.ID == null)
                     {
-                        svSQL = "Insert into TMCategory_N (C_Id,C_Name,C_NameEN,Title_Eng) VALUES ('" + Cy.ID + "','" + Cy.C_Name + "','" + Cy.C_NameEN + "','" + Cy.Title_Eng + "')";
+                        svSQL = "Insert into TMCategory_N (C_Name,C_NameEN,Title_Eng) VALUES ('" + Cy.C_Name + "','" + Cy.C_NameEN + "','" + Cy.Title_Eng + "')";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
 
                     }
-
                     else
                     {
-                        svSQL = "Update into TMCategory_N (C_Id,C_Name,C_NameEN,Title_Eng) VALUES ('" + Cy.ID + "','" + Cy.C_Name + "','" + Cy.C_NameEN + "','" + Cy.Title_Eng + "')";
+                        svSQL = "Update TMCategory_N set C_Name = '" + Cy.C_Name + "',C_NameEN = '" + Cy.C_NameEN + "',Title_Eng = '" + Cy.Title_Eng + "' WHERE TMCategory_N.C_Id ='" + Cy.ID + "'";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
                     }
@@ -81,7 +80,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetEditCategory(string id)
         {
             string SvSql = string.Empty;
-            SvSql = "select C_Id,C_Name,C_NameEN,Title_Eng from TMCategory_N ORDER BY C_Id DESC Where TMCategory_N.C_Id='" + id + "' ";
+            SvSql = "select C_Id,C_Name,C_NameEN,Title_Eng from TMCategory_N  Where TMCategory_N.C_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
