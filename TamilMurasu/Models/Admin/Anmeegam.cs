@@ -20,4 +20,11 @@ namespace TamilMurasu.Models
         public string PublishDown { get; set; }
 
     }
+    public class Anmeegamgrid
+    {
+        public long id { get; set; }
+        public string name { get; set; }
+        public string desc { get; set; }
+        public string editrow { get; set; }
+    }
 }

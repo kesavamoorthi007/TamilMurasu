@@ -20,6 +20,16 @@ namespace TamilMurasu.Services.Admin
             _connectionString = _configuratio.GetConnectionString("MySqlConnection");
             datatrans = new DataTransactions(_connectionString);
         }
+        public DataTable GetCategory()
+        {
+            string SvSql = string.Empty;
+            SvSql = "select C_Id,C_NameEN from TMCategory_N";
+            DataTable dtt = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            adapter.Fill(dtt);
+            return dtt;
+        }
 
         public string NewImageCRUD(NewImage cy)
         {

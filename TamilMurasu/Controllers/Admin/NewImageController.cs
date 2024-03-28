@@ -27,6 +27,7 @@ namespace TamilMurasu.Controllers.Admin
         public IActionResult NewImage(string id)
         {
             NewImage br = new NewImage();
+            br.Categorylst = BindCategory();
 
             if (id != null)
             {
@@ -75,6 +76,23 @@ namespace TamilMurasu.Controllers.Admin
             }
 
             return View(Cy);
+        }
+        public List<SelectListItem> BindCategory()
+        {
+            try
+            {
+                DataTable dtDesg = NewImageService.GetCategory();
+                List<SelectListItem> lstdesg = new List<SelectListItem>();
+                for (int i = 0; i < dtDesg.Rows.Count; i++)
+                {
+                    lstdesg.Add(new SelectListItem() { Text = dtDesg.Rows[i]["C_NameEN"].ToString(), Value = dtDesg.Rows[i]["C_Id"].ToString() });
+                }
+                return lstdesg;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

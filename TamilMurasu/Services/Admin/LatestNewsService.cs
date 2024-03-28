@@ -22,14 +22,101 @@ namespace TamilMurasu.Services.Admin
             datatrans = new DataTransactions(_connectionString);
         }
 
-        public DataTable GetAllLatestNews()
+        public DataTable GetAllLatestNews(string strStatus)
         {
-            throw new NotImplementedException();
+            string SvSql = string.Empty;
+            if (strStatus == "Y" || strStatus == null)
+            {
+                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
+            }
+            else
+            {
+                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
+            }
+            DataTable dtt = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            adapter.Fill(dtt);
+            return dtt;
+        }
+        public string StatusDeleteMR(string tag, int id)
+        {
+
+            try
+            {
+                string svSQL = string.Empty;
+                using (SqlConnection objConnT = new SqlConnection(_connectionString))
+                {
+                    svSQL = "UPDATE TMImages_N SET deletenews ='N' WHERE I_Id='" + id + "'";
+                    SqlCommand objCmds = new SqlCommand(svSQL, objConnT);
+                    objConnT.Open();
+                    objCmds.ExecuteNonQuery();
+                    objConnT.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return "";
+        }
+        public string LatestNewsCRUD(LatestNews Cy)
+        {
+            string msg = "";
+            try
+            {
+                string StatementType = string.Empty;
+                string svSQL = "";
+
+                //if (Cy.ID == null)
+                //{
+                //    svSQL = " SELECT Count(C_Name) as cnt FROM TMCategory_N WHERE C_Name = LTRIM(RTRIM('" + Cy.C_Name + "')) ";
+                //    if (datatrans.GetDataId(svSQL) > 0)
+                //    {
+                //        msg = "Category Name(Tamil) Already Existed";
+                //        return msg;
+                //    }
+                //}
+                using (SqlConnection objConn = new SqlConnection(_connectionString))
+                {
+                    objConn.Open();
+                    if (Cy.ID == null)
+                    {
+                        svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,Addeddate,publish_up,publish_down,News_head,deletenews,most_view,tag) VALUES ('21','21','0','0','" + Cy.NewsDetail + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.NewsHead + "','Y','0','0')";
+                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                        objCmds.ExecuteNonQuery();
+
+                    }
+                    else
+                    {
+                        svSQL = "Update TMImages_N set I_cat = '21',I_Cid = '21',S_Image = '0',L_image = '0',Foot_Note = '" + Cy.NewsDetail + "',publish_up = '" + Cy.PublishUp + "',publish_down = '" + Cy.PublishDown + "',News_head = '" + Cy.NewsHead + "',deletenews = 'Y',most_view = '0',tag = '0' WHERE TMImages_N.I_Id ='" + Cy.ID + "'";
+                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                        objCmds.ExecuteNonQuery();
+                    }
+                    objConn.Close();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                msg = "Error Occurs, While inserting / updating Data";
+                throw ex;
+            }
+
+            return msg;
         }
 
-        public string LatestNewsCRUD(LatestNews cy)
+        public DataTable GetEditLatestNews(string id)
         {
-            throw new NotImplementedException();
+            string SvSql = string.Empty;
+            SvSql = "select I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N  Where TMImages_N.I_Id='" + id + "' ";
+            DataTable dtt = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            adapter.Fill(dtt);
+            return dtt;
         }
     }
 }

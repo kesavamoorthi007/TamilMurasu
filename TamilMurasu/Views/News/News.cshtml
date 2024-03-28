@@ -37,7 +37,7 @@
                 <div class="widgets-container">
                     <h5 style="font-size:14px">News</h5>
                     <hr>
-                    @using (Html.BeginForm("News", "News", FormMethod.Post))
+                    @using (Html.BeginForm("News", "News", FormMethod.Post, new { @id = "form1", @enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         <form>
@@ -53,17 +53,16 @@
 
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <br /> <label for="inputName3" class="col-sm-4 control-label">Category<label class="mandatory">*</label></label>
                                         <div class="col-sm-8">
-                                            @Html.DropDownListFor(C => C.Category, Model.Categorylst, "--Please Select--", new { @id = "ddlCategory",@Class = "form-control _select", @TabIndex = 1 })
+                                            @Html.DropDownListFor(C => C.Category, Model.Categorylst, "--Please Select--", new { @id = "ddlCategory", @Class = "form-control _select", @TabIndex = 1 })
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                          
                            
                             <div class="row">
                                 <div class="col-md-6">
@@ -95,23 +94,26 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <br /> <div class="form-group">
-                                        <label for="formFile" class="col-sm-4 control-label">Picture Thumbnail<label class="mandatory">*</label></label>
-                                        <div class="col-md-8">
+                                        <label for="formFile" class="col-sm-2 control-label">Picture Thumbnail<label class="mandatory">*</label></label>
+                                        <div class="col-md-10">
                                             <input class="form-control" type="file" name="file" multiple />
                                      </div>
                                   </div>
                                 </div>
-                               @*  <div class="col-md-6">
-                                        <div class="form-group">
-                                        <br /> <label for="formFile" class="col-sm-4 control-label">Picture Large<label class="mandatory">*</label></label>
-                                         <div class="col-md-8">
-                                          <input class="form-control" type="file" id="formFile">
-                                        </div>
-                                   </div>
-                                </div> *@
+                               
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <br /> <label for="formFile" class="col-sm-2 control-label">Picture Large<label class="mandatory">*</label></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="file" name="file" multiple />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -231,22 +233,54 @@
                     "background": ""
                 });
             }
-            // if (document.getElementById("Title_Eng").value == "") {
-            //     isValid = false;
-            //     $(Title_Eng).css({
-            //         "border": "1px solid red",
-            //         "background": "#FFCECE"
-            //     });
+            if (document.getElementById("PublishUp").value == "") {
+                isValid = false;
+                $(PublishUp).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
 
-            //     alert("Please Enter  Enter Title");
-            //     return false;
-            // }
-            // else {
-            //     $(Title_Eng).css({
-            //         "border": "",
-            //         "background": ""
-            //     });
-            // }
+                alert("Please Select Publish UpPublishDown");
+                return false;
+            }
+            else {
+                $(PublishUp).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (document.getElementById("PublishDown").value == "") {
+                isValid = false;
+                $(PublishDown).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Select Publish Down");
+                return false;
+            }
+            else {
+                $(PublishDown).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (document.getElementById("NewsDetail").value == "") {
+                isValid = false;
+                $(NewsDetail).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Select News Detail");
+                return false;
+            }
+            else {
+                $(NewsDetail).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
             if (isValid == false)
                 e.preventDefault();
         });

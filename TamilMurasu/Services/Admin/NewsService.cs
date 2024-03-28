@@ -8,6 +8,7 @@ using System.Data;
 using DocumentFormat.OpenXml.Bibliography;
 using System.Linq;
 using System.Data.SqlClient;
+using DocumentFormat.OpenXml.Office2010.CustomUI;
 
 namespace TamilMurasu.Services.Admin
 {
@@ -43,7 +44,7 @@ namespace TamilMurasu.Services.Admin
             return dtt;
         }
 
-        public string NewsCRUD(List<IFormFile> files,News cy)
+        public string NewsCRUD(List<IFormFile> files,News Cy)
         {
             string msg = "";
             try
@@ -75,11 +76,23 @@ namespace TamilMurasu.Services.Admin
 
                                 using (var fileStream = new FileStream(fileName, FileMode.Create))
                                 {
-                                    file.CopyTo(fileStream);
-                                    svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword) VALUES ('" + cy.Category + "','" + cy.NewsHead + "','" + cy.NewsDetail + "','" + name + "','" + cy.Banner + "','" + cy.Highlights + "','" + cy.Editor + "','" + cy.PublishUp + "','" + cy.PublishDown + ",'" + cy.KeyWords + "')";
-                                    SqlCommand objCmdss = new SqlCommand(svSQL, objConn);
-                                    objCmdss.ExecuteNonQuery();
-                                   
+                                    if (Cy.ID == null)
+                                    {
+                                        file.CopyTo(fileStream);
+                                        svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews) VALUES ('" + Cy.Category + "','" + Cy.NewsHead + "','" + Cy.NewsDetail + "','" + name + "','" + name + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.KeyWords + "','0','0','Y')";
+                                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                                        objCmds.ExecuteNonQuery();
+                                    }
+                                    else
+                                    {
+                                        file.CopyTo(fileStream);
+                                        svSQL = "Update TMNews_N set C_Id = '" + Cy.Category + "',NT_Head = '" + Cy.NewsHead + "',N_Description = '" + Cy.NewsDetail + "',S_Image = '" + name + "',L_Image = '" + name + "',Banner = '" + Cy.Banner + "',Highlights = '" + Cy.Highlights + "',EditorPick = '" + Cy.Editor + "',Publish_Up = '" + Cy.PublishUp + "',Publish_down = '" + Cy.PublishDown + "',Keyword = '" + Cy.KeyWords + "' WHERE TMNews_N.N_Id ='" + Cy.ID + "'";
+                                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                                        objCmds.ExecuteNonQuery();
+
+                                    }
+
+
                                 }
                             }
 
