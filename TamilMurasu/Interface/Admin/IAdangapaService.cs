@@ -8,6 +8,9 @@ namespace TamilMurasu.Interface.Admin
 {
     public interface IAdangapaService
     {
-        string AdangapaCRUD(Adangapa cy);
+        string AdangapaCRUD(List<IFormFile> file, Adangapa Cy);
+        DataTable GetAllAdangapa(string strStatus);
+        DataTable GetEditAdangapa(string id);
+        string StatusDeleteMR(string tag, int id);
     }
 }

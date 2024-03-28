@@ -29,9 +29,23 @@ namespace TamilMurasu.Controllers.Admin
         {
             LatestNews br = new LatestNews();
 
-            if (id != null)
+            if (id == null)
             {
 
+            }
+            else
+            {
+                DataTable dt = new DataTable();
+                dt = LatestNewsService.GetEditLatestNews(id);
+                if (dt.Rows.Count > 0)
+                {
+                    br.NewsDetail = dt.Rows[0]["Foot_Note"].ToString();
+                    br.PublishUp = dt.Rows[0]["publish_up"].ToString();
+                    br.PublishDown = dt.Rows[0]["publish_down"].ToString();
+                    br.NewsHead = dt.Rows[0]["News_head"].ToString();
+                    br.ID = id;
+
+                }
             }
             return View(br);
 
@@ -77,27 +91,32 @@ namespace TamilMurasu.Controllers.Admin
 
             return View(Cy);
         }
-        public ActionResult MyLatestNewsgrid()
+        public ActionResult MyLatestNewsgrid(string strStatus)
         {
             List<LatestNewsgrid> Reg = new List<LatestNewsgrid>();
             DataTable dtUsers = new DataTable();
-            dtUsers = LatestNewsService.GetAllLatestNews();
+            strStatus = strStatus == "" ? "Y" : strStatus;
+            dtUsers = LatestNewsService.GetAllLatestNews(strStatus);
             for (int i = 0; i < dtUsers.Rows.Count; i++)
             {
 
                 string EditRow = string.Empty;
+                string DeleteRow = string.Empty;
 
-                EditRow = "<a href=LatestNews?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/editing-icon-vector.jpg' alt='Edit' width='30' /></a>";
+                EditRow = "<a href=LatestNews?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/editing-icon-vector.jpg' alt='Edit' width='30' /></a>";
+                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/Inactive.png' alt='Deactivate' width='20' /></a>";
+
 
 
                 Reg.Add(new LatestNewsgrid
                 {
-                    id = Convert.ToInt64(dtUsers.Rows[i]["N_Id"].ToString()),
-                    cname = dtUsers.Rows[i]["C_Name"].ToString(),
-                    newshead = dtUsers.Rows[i]["NT_Head"].ToString(),
-                    des = dtUsers.Rows[i]["N_Description"].ToString(),
-                    keyword = dtUsers.Rows[i]["Keyword"].ToString(),
+                    id = Convert.ToInt64(dtUsers.Rows[i]["I_Id"].ToString()),
+                    footnote = dtUsers.Rows[i]["Foot_Note"].ToString(),
+                    publishup = dtUsers.Rows[i]["publish_up"].ToString(),
+                    publishdown = dtUsers.Rows[i]["publish_down"].ToString(),
+                    head = dtUsers.Rows[i]["News_head"].ToString(),
                     editrow = EditRow,
+                    delrow = DeleteRow,
 
                 });
             }
@@ -107,6 +126,21 @@ namespace TamilMurasu.Controllers.Admin
                 Reg
             });
 
+        }
+        public ActionResult DeleteMR(string tag, int id)
+        {
+
+            string flag = LatestNewsService.StatusDeleteMR(tag, id);
+            if (string.IsNullOrEmpty(flag))
+            {
+
+                return RedirectToAction("ListLatestNews");
+            }
+            else
+            {
+                TempData["notice"] = flag;
+                return RedirectToAction("ListLatestNews");
+            }
         }
     }
 }

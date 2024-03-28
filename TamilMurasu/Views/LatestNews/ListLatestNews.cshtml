@@ -28,7 +28,7 @@
     $(document).ready(function () {
         var source =
         {
-            url: "/LatestNews/MyListNewsgrid",
+            url: "/LatestNews/MyLatestNewsgrid",
 
             data: {
 
@@ -38,11 +38,12 @@
                 // synchronize with the server - send update command
             },
             datafields: [
-                { name: 'cname', type: 'string' },
-                { name: 'newshead', type: 'string' },
-                { name: 'des', type: 'string' },
-                { name: 'keyword', type: 'string' },
+                { name: 'footnote', type: 'string' },
+                { name: 'publishup', type: 'string' },
+                { name: 'publishdown', type: 'string' },
+                { name: 'head', type: 'string' },
                 { name: 'editrow', type: 'string' },
+                { name: 'delrow', type: 'string' },
 
 
             ],
@@ -70,7 +71,7 @@
                 pageable: true,
                 showfilterbar: true,
                 //showfilterrow: true,
-                theme: 'ui-redmond',
+                theme: 'classic',
                 autorowheight: true,
                 filterbarmode: 'simple',
                 enablebrowserselection: true,
@@ -80,11 +81,12 @@
 
                 columns: [
 
-                    { text: 'Category', filtertype: 'checkedlist', datafield: 'cname', width: 200 },
-                    { text: 'News Head', filtertype: 'checkedlist', datafield: 'newshead', width: 350 },
-                    { text: 'Description', filtertype: 'input', datafield: 'des', width: 350 },
-                    { text: 'Key Words', filtertype: 'input', datafield: 'keyword', width: 350 },
+                    { text: 'News Detail', filtertype: 'checkedlist', datafield: 'footnote', width: 300 },
+                    { text: 'Publish Up', filtertype: 'checkedlist', datafield: 'publishup', width: 150 },
+                    { text: 'Publish Down', filtertype: 'input', datafield: 'publishdown', width: 150 },
+                    { text: 'News Head', filtertype: 'input', datafield: 'head', width: 300 },
                     { text: 'Edit', datafield: 'editrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
+                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
                 ]
             });
         $("#ddlStatus").change(function () {
@@ -109,16 +111,15 @@
 
                     <form>
                         <div class="row">
-                            @*  <div class="col-md-2 ">
+                             <div class="col-md-2 ">
                             @Html.DropDownListFor(n => n.ddlStatus, new SelectListItem[]
                             { new SelectListItem() {Text = "Enabled", Value="Y"},
                             new SelectListItem() {Text = "Disabled", Value="N"}},
                             new { @id = "ddlStatus", Class = "dropdownlist margin_bottom_new form-control" })
-                            </div> *@
-
+                            </div>
                             <div class="col-md-9 ">
                                 <div class=" textalignright">
-                                    <a href="@Url.Action("News","News")" class="btn btn-danger" style="float: right; color:white;">Add News</a>
+                                    <a href="@Url.Action("LatestNews","LatestNews")" class="btn btn-danger" style="float: right; color:white;">Add Latest News</a>
                                     <br>
                                 </div>
 

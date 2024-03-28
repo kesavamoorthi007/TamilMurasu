@@ -8,5 +8,6 @@ namespace TamilMurasu.Interface.Admin
     public interface INewImageService
     {
         string NewImageCRUD(NewImage cy);
+        DataTable GetCategory();
     }
 }

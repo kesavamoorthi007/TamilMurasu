@@ -9,7 +9,7 @@ namespace TamilMurasu.Interface.Admin
     {
         DataTable GetAllNews();
         DataTable GetCategory();
-        string NewsCRUD(List<IFormFile> file, News cy);
+        string NewsCRUD(List<IFormFile> file, News Cy);
       
     }
 }

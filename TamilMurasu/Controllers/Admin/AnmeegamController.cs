@@ -30,9 +30,24 @@ namespace TamilMurasu.Controllers.Admin
             Anmeegam br = new Anmeegam();
             br.Categorylst = BindCategory();
 
-            if (id != null)
+            if (id == null)
             {
 
+            }
+            else
+            {
+                DataTable dt = new DataTable();
+                dt = AnmeegamService.GetEditAnmeegam(id);
+                if (dt.Rows.Count > 0)
+                {
+                    br.Category = dt.Rows[0]["A_Cat"].ToString();
+                    br.Aanmegam = dt.Rows[0]["A_Name"].ToString();
+                    br.NewsDetail = dt.Rows[0]["A_Decription"].ToString();
+                    br.PublishUp = dt.Rows[0]["APublish_Up"].ToString();
+                    br.PublishDown = dt.Rows[0]["APublish_Down"].ToString();
+                    br.ID = id;
+
+                }
             }
             return View(br);
 
@@ -83,9 +98,9 @@ namespace TamilMurasu.Controllers.Admin
             try
             {
                 List<SelectListItem> lstdesg = new List<SelectListItem>();
-                lstdesg.Add(new SelectListItem() { Text = "இந்து", Value = "இந்து" });
-                lstdesg.Add(new SelectListItem() { Text = "கிறிஸ்தவம்", Value = "கிறிஸ்தவம்" });
-                lstdesg.Add(new SelectListItem() { Text = "இஸ்லாம்", Value = "இஸ்லாம்" });
+                lstdesg.Add(new SelectListItem() { Text = "இந்து", Value = "1" });
+                lstdesg.Add(new SelectListItem() { Text = "கிறிஸ்தவம்", Value = "2" });
+                lstdesg.Add(new SelectListItem() { Text = "இஸ்லாம்", Value = "3" });
 
                 return lstdesg;
             }
@@ -93,6 +108,35 @@ namespace TamilMurasu.Controllers.Admin
             {
                 throw ex;
             }
+        }
+        public ActionResult MyAnmeegamgrid()
+        {
+            List<Anmeegamgrid> Reg = new List<Anmeegamgrid>();
+            DataTable dtUsers = new DataTable();
+            dtUsers = AnmeegamService.GetAllAnmeegam();
+            for (int i = 0; i < dtUsers.Rows.Count; i++)
+            {
+
+                string EditRow = string.Empty;
+
+                EditRow = "<a href=Anmeegam?id=" + dtUsers.Rows[i]["A_Id"].ToString() + "><img src='../Images/editing-icon-vector.jpg' alt='Edit' width='30' /></a>";
+
+
+                Reg.Add(new Anmeegamgrid
+                {
+                    id = Convert.ToInt64(dtUsers.Rows[i]["A_Id"].ToString()),
+                    name = dtUsers.Rows[i]["A_Name"].ToString(),
+                    desc = dtUsers.Rows[i]["A_Decription"].ToString(),
+                    editrow = EditRow,
+
+                });
+            }
+
+            return Json(new
+            {
+                Reg
+            });
+
         }
 
     }

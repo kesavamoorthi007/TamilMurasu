@@ -35,7 +35,6 @@ namespace TamilMurasu.Controllers.Admin
             {
                 DataTable dt = new DataTable();
                 dt = CategoryService.GetEditCategory(id);
-
                 if (dt.Rows.Count > 0)
                 {
                     br.C_Name = dt.Rows[0]["C_Name"].ToString();

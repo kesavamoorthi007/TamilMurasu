@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <br><label for="inputName3" class="col-sm-4 control-label">Aanmegam Thalaivar Name<label class="mandatory">*</label></label>
                                         <div class="col-sm-8">
-                                            @Html.TextBoxFor(C => C.Aanmegam, new { @id = "txtAanmegam", @class = "form-control", @TabIndex = 1 })
+                                            @Html.TextAreaFor(C => C.Aanmegam, new { @id = "txtAanmegam", @class = "form-control", @TabIndex = 1 })
                                             @Html.HiddenFor(C => C.ID)
                                         </div>
 
@@ -59,7 +59,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <br /> <label for="inputName3" class="col-sm-4 control-label">Category<label class="Mandatory"></label></label>
+                                        <br /> <label for="inputName3" class="col-sm-4 control-label">Category<label class="mandatory">*</label></label>
                                         <div class="col-sm-8">
                                             @Html.DropDownListFor(C => C.Category, Model.Categorylst, "--Please Select--", new { @id = "ddlCategory", @Class = "form-control _select", @TabIndex = 1 })
                                         </div>
@@ -81,7 +81,7 @@
                                     <div class="form-group">
                                         <br /> <label for="datePicker" class="col-sm-4 control-label">Publish Up<label class="mandatory">*</label></label>
                                         <div class="input-group date form_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32", @readonly = true })
+                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32" })
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                     <div class="form-group">
                                         <br /> <label for="inputName3" class="col-sm-4 control-label">Publish Down<label class="mandatory">*</label></label>
                                         <div class="input-group date to_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32", @readonly = true })
+                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32" })
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -183,22 +183,22 @@
                     "background": ""
                 });
             }
-            // if (document.getElementById("Title_Eng").value == "") {
-            //     isValid = false;
-            //     $(Title_Eng).css({
-            //         "border": "1px solid red",
-            //         "background": "#FFCECE"
-            //     });
+            if (document.getElementById("NewsDetail").value == "") {
+                isValid = false;
+                $(NewsDetail).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
 
-            //     alert("Please Enter  Enter Title");
-            //     return false;
-            // }
-            // else {
-            //     $(Title_Eng).css({
-            //         "border": "",
-            //         "background": ""
-            //     });
-            // }
+                alert("Please Enter News Detail");
+                return false;
+            }
+            else {
+                $(NewsDetail).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
             if (isValid == false)
                 e.preventDefault();
         });
