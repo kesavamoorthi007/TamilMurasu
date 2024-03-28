@@ -5,11 +5,8 @@ using System.Data;
 
 namespace TamilMurasu.Interface.Admin
 {
-    public interface INewsService
+    public interface IVideoService
     {
-        DataTable GetAllNews();
-        DataTable GetCategory();
-        string NewsCRUD(List<IFormFile> file, News cy);
-      
+        string VideoCRUD(Video cy);
     }
 }

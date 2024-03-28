@@ -41,13 +41,13 @@ namespace TamilMurasu.Controllers.Admin
             return View();
         }
         [HttpPost]
-        public ActionResult News(News Cy, string id)
+        public ActionResult News(List<IFormFile> file,News Cy, string id)
         {
 
             try
             {
                 Cy.ID = id;
-                string Strout = NewsService.NewsCRUD(Cy);
+                string Strout = NewsService.NewsCRUD(file,Cy);
                 if (string.IsNullOrEmpty(Strout))
                 {
                     if (Cy.ID == null)

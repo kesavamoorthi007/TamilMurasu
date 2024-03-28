@@ -1,0 +1,131 @@
+﻿@model TamilMurasu.Models.Relex 
+@{
+    ViewData["Title"] = "Relex Image";
+}
+<style>
+
+    .mandatory {
+        color: red;
+        position: relative;
+        top: 2px;
+        left: 5px;
+    }
+</style>
+<script type="text/javascript">
+    @if (TempData["notice"] != null)
+    {
+        @:alert('@TempData["notice"]');
+    }
+
+</script>
+<script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+<div class="row wrapper border-bottom page-heading">
+    <div class="col-lg-12">
+
+        <ol class="breadcrumb">
+            <li> <a href="#">Home</a> </li>
+            <li> <a>Images</a> </li>
+            <li class="active"> <strong> Relex Image </strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper-content ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widgets-container">
+                    <h5 style="font-size:14px">Relex Image</h5>
+                    <hr>
+                    @using (Html.BeginForm("Relex", "Relex", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <form>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <br><label for="inputName3" class="col-sm-4 control-label">Image Type<label class="mandatory">*</label></label>
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(C => C.Type, new { @id = "txtType", @class = "form-control", @TabIndex = 1 })
+                                            @Html.HiddenFor(C => C.ID)
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height:30px;"></div>
+                            <div class="col-lg-5"></div>
+                            <div class="text-center">
+                                <button type="submit" name="submit" class="btn btn-primary" id="btnSave" value="Save" tabindex="18">Save</button>
+                                <button class="btn btn-warning" type="reset">Reset</button>
+                                <a button class="btn btn-danger" type="submit" href="@Url.Action("ListRelex", "Relex")">Cancel</a>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+       $('._select').select2();
+    });
+</script>
+<script>
+    $('.to_date').datetimepicker({
+        //   language:  'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        endDate: new Date(),
+        forceParse: 0
+
+    });
+    $('.form_date').datetimepicker({
+        //   language:  'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        endDate: new Date(),
+        forceParse: 0
+    }).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        $('.to_date').datetimepicker('setStartDate', minDate);
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#btnSave').click(function (e) {
+            var isValid = true;
+            if (document.getElementById("txtType").value == "") {
+                isValid = false;
+                $(txtType).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Enter Image Type");
+                return false;
+            }
+            else {
+                $(txtType).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (isValid == false)
+                e.preventDefault();
+        });
+
+    });
+</script>
