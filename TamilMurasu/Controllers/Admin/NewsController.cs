@@ -36,18 +36,24 @@ namespace TamilMurasu.Controllers.Admin
             }
             else
             {
-                //DataTable dt = new DataTable();
-                //dt = NewsService.GetEditNews(id);
-                //if (dt.Rows.Count > 0)
-                //{
-                //    br.NewsHead = dt.Rows[0]["Foot_Note"].ToString();
-                //    br.Category = dt.Rows[0]["News_head"].ToString();
-                //    br.Category = dt.Rows[0]["News_head"].ToString();
-                //    br.Category = dt.Rows[0]["News_head"].ToString();
-                 
-                //    br.ID = id;
+                DataTable dt = new DataTable();
+                dt = NewsService.GetEditNews(id);
+                if (dt.Rows.Count > 0)
+                {
+                    br.NewsHead = dt.Rows[0]["NT_Head"].ToString();
+                    br.Categorylst = BindCategory();
+                    br.Category = dt.Rows[0]["C_Id"].ToString();
+                    br.Editor = Convert.ToBoolean(dt.Rows[0]["EditorPick"].ToString());
+                    br.Highlights = Convert.ToBoolean(dt.Rows[0]["Highlights"].ToString());
+                    br.Banner = Convert.ToBoolean(dt.Rows[0]["Banner"].ToString());
+                    br.NewsDetail = dt.Rows[0]["N_Description"].ToString();
+                    br.PublishUp = dt.Rows[0]["Publish_Up"].ToString();
+                    br.PublishDown = dt.Rows[0]["Publish_down"].ToString();
+                    br.KeyWords = dt.Rows[0]["Keyword"].ToString();
 
-                //}
+                    br.ID = id;
+
+                }
             }
             return View(br);
         }
@@ -57,12 +63,12 @@ namespace TamilMurasu.Controllers.Admin
         }
         [HttpPost]
         public ActionResult News(List<IFormFile> file,News Cy, string id)
-        {
+       {
 
             try
             {
                 Cy.ID = id;
-                string Strout = NewsService.NewsCRUD(file,Cy);
+                string Strout = "";//NewsService.NewsCRUD(file,Cy);
                 if (string.IsNullOrEmpty(Strout))
                 {
                     if (Cy.ID == null)
@@ -100,7 +106,7 @@ namespace TamilMurasu.Controllers.Admin
                 List<SelectListItem> lstdesg = new List<SelectListItem>();
                 for (int i = 0; i < dtDesg.Rows.Count; i++)
                 {
-                    lstdesg.Add(new SelectListItem() { Text = dtDesg.Rows[i]["C_NameEN"].ToString(), Value = dtDesg.Rows[i]["C_Id"].ToString() });
+                    lstdesg.Add(new SelectListItem() { Text = dtDesg.Rows[i]["C_Name"].ToString(), Value = dtDesg.Rows[i]["C_Id"].ToString() });
                 }
                 return lstdesg;
             }
@@ -109,11 +115,12 @@ namespace TamilMurasu.Controllers.Admin
                 throw ex;
             }
         }
-        public ActionResult MyListNewsgrid()
+        public ActionResult MyListNewsgrid(string strStatus)
         {
             List<Newsgrid> Reg = new List<Newsgrid>();
             DataTable dtUsers = new DataTable();
-            dtUsers = NewsService.GetAllNews();
+            strStatus = strStatus == "" ? "Y" : strStatus;
+            dtUsers = NewsService.GetAllNews(strStatus);
             for (int i = 0; i < dtUsers.Rows.Count; i++)
             {
 
@@ -127,7 +134,7 @@ namespace TamilMurasu.Controllers.Admin
                 Reg.Add(new Newsgrid
                 {
                     id = Convert.ToInt64(dtUsers.Rows[i]["N_Id"].ToString()),
-                    cname = dtUsers.Rows[i]["C_Name"].ToString(),
+                    //cname = dtUsers.Rows[i]["C_Name"].ToString(),
                     newshead = dtUsers.Rows[i]["NT_Head"].ToString(),
                     des = dtUsers.Rows[i]["N_Description"].ToString(),
                     keyword = dtUsers.Rows[i]["Keyword"].ToString(),

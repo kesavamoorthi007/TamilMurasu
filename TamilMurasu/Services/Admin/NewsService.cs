@@ -23,10 +23,18 @@ namespace TamilMurasu.Services.Admin
             datatrans = new DataTransactions(_connectionString);
         }
 
-        public DataTable GetAllNews()
+        public DataTable GetAllNews(string strStatus)
         {
             string SvSql = string.Empty;
-            SvSql = "select top 100 N_Id,TMCategory_N.C_Name,NT_Head,N_Description,Keyword from TMNews_N left outer join TMCategory_N ON TMCategory_N.C_Id=TMNews_N.C_Id ";
+            if (strStatus == "Y" || strStatus == null)
+            {
+                SvSql = "select top 100 N_Id,NT_Head,N_Description,Keyword,deletenews from TMNews_N  WHERE deletenews='Y' ORDER BY TMNews_N.N_Id DESC";
+            }
+            else
+            {
+                SvSql = "select top 100 N_Id,NT_Head,N_Description,Keyword,deletenews from TMNews_N  WHERE deletenews='N' ORDER BY TMNews_N.N_Id DESC";
+
+            }
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
@@ -37,7 +45,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetCategory()
         {
             string SvSql = string.Empty;
-            SvSql = "select C_Id,C_NameEN from TMCategory_N";
+            SvSql = "select C_Id,C_Name from TMCategory_N";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
@@ -103,7 +111,7 @@ namespace TamilMurasu.Services.Admin
                                     }
                                 }
                             }
-                            svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES ('" + Cy.Category + "','" + Cy.NewsHead + "','" + Cy.NewsDetail + "','" + filename1 + "','" + filename1 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                            svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES ('" + Cy.Category + "','" + Cy.NewsHead + "','" + Cy.NewsDetail + "','" + filename1 + "','" + filename1 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor  + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                             SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                             objCmds.ExecuteNonQuery();
                         }
@@ -125,6 +133,17 @@ namespace TamilMurasu.Services.Admin
             }
 
             return msg;
+        }
+
+        public DataTable GetEditNews(string id)
+        {
+            string SvSql = string.Empty;
+            SvSql = "select N_Id,C_Id,NT_Head,EditorPick,Highlights,Banner,N_Description,Publish_Up,Publish_down,Keyword from TMNews_N  Where TMNews_N.N_Id='" + id + "' ";
+            DataTable dtt = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            adapter.Fill(dtt);
+            return dtt;
         }
     }
 }

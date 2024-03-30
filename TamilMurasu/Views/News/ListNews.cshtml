@@ -38,7 +38,6 @@
                     // synchronize with the server - send update command
                 },
                 datafields: [
-                    { name: 'cname', type: 'string' },
                     { name: 'newshead', type: 'string' },
                     { name: 'editrow', type: 'string' },
                     { name: 'delrow', type: 'string' },
@@ -79,8 +78,7 @@
 
                     columns: [
 
-                        { text: 'Category', filtertype: 'checkedlist', datafield: 'cname', width: 200 },
-                        { text: 'News Head', filtertype: 'checkedlist', datafield: 'newshead', width: 500 },
+                        { text: 'News Head', filtertype: 'checkedlist', datafield: 'newshead', width: 800 },
                         { text: 'Edit', datafield: 'editrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
                         { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
                     ]

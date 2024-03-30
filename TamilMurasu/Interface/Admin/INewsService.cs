@@ -7,11 +7,11 @@ namespace TamilMurasu.Interface.Admin
 {
     public interface INewsService
     {
-        DataTable GetAllNews();
+        DataTable GetAllNews(string strStatus);
         DataTable GetCategory();
         string StatusDeleteMR(string tag, int id);
 
         string NewsCRUD(List<IFormFile> file, News Cy);
-      
+        DataTable GetEditNews(string id);
     }
 }
