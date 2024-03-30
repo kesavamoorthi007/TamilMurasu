@@ -14,7 +14,7 @@ namespace TamilMurasu.Models
     public class Categorygrid
     {
         public long id { get; set; }
-        public string cname { get; set; }
+        public string  cname { get; set; }
         public string cnameeng { get; set; }
         public string tittle { get; set; }
         public string editrow { get; set; }
