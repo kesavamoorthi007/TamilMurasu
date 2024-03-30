@@ -9,6 +9,8 @@ namespace TamilMurasu.Interface.Admin
     {
         DataTable GetAllNews();
         DataTable GetCategory();
+        string StatusDeleteMR(string tag, int id);
+
         string NewsCRUD(List<IFormFile> file, News Cy);
       
     }

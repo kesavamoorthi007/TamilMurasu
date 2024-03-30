@@ -7,6 +7,10 @@ namespace TamilMurasu.Interface.Admin
 {
     public interface INewAlbumService
     {
-        string NewAlbumCRUD(NewAlbum cy);
+        DataTable GetAllNewAlbum(string strStatus);
+        DataTable GetEditNewAlbum(string id);
+        string NewAlbumCRUD(List<IFormFile> file, NewAlbum Cy);
+        string StatusDeleteMR(string tag, int id);
+
     }
 }

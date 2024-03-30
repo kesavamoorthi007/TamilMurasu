@@ -39,8 +39,6 @@
             },
             datafields: [
                 { name: 'footnote', type: 'string' },
-                { name: 'publishup', type: 'string' },
-                { name: 'publishdown', type: 'string' },
                 { name: 'head', type: 'string' },
                 { name: 'editrow', type: 'string' },
                 { name: 'delrow', type: 'string' },
@@ -81,10 +79,8 @@
 
                 columns: [
 
-                    { text: 'Original Head', filtertype: 'checkedlist', datafield: 'footnote', width: 300 },
-                    { text: 'Publish Up', filtertype: 'checkedlist', datafield: 'publishup', width: 150 },
-                    { text: 'Publish Down', filtertype: 'input', datafield: 'publishdown', width: 150 },
-                    { text: 'Comedy Head', filtertype: 'input', datafield: 'head', width: 300 },
+                    { text: 'Original Head', filtertype: 'checkedlist', datafield: 'footnote', width: 450 },
+                    { text: 'Comedy Head', filtertype: 'input', datafield: 'head', width: 450 },
                     { text: 'Edit', datafield: 'editrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
                     { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
                 ]
