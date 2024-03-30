@@ -29,9 +29,24 @@ namespace TamilMurasu.Controllers.Admin
             NewImage br = new NewImage();
             br.Categorylst = BindCategory();
 
-            if (id != null)
+            if (id == null)
             {
 
+            }
+            else
+            {
+                DataTable dt = new DataTable();
+                dt = NewImageService.GetEditNewImage(id);
+                if (dt.Rows.Count > 0)
+                {
+                    br.Categorylst = BindCategory();
+                    br.Category = dt.Rows[0]["I_Cid"].ToString();
+                    br.FootNote = dt.Rows[0]["Foot_Note"].ToString();
+                    br.PublishUp = dt.Rows[0]["publish_up"].ToString();
+                    br.PublishDown = dt.Rows[0]["publish_down"].ToString();
+                    br.ID = id;
+
+                }
             }
             return View(br);
 
@@ -41,13 +56,13 @@ namespace TamilMurasu.Controllers.Admin
             return View();
         }
         [HttpPost]
-        public ActionResult NewImage(NewImage Cy, string id)
+        public ActionResult NewImage(List<IFormFile> file, NewImage Cy, string id)
         {
 
             try
             {
                 Cy.ID = id;
-                string Strout = NewImageService.NewImageCRUD(Cy);
+                string Strout = NewImageService.NewImageCRUD(file,Cy);
                 if (string.IsNullOrEmpty(Strout))
                 {
                     if (Cy.ID == null)
@@ -92,6 +107,56 @@ namespace TamilMurasu.Controllers.Admin
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+        public ActionResult MyNewImagegrid(string strStatus)
+        {
+            List<NewImagegrid> Reg = new List<NewImagegrid>();
+            DataTable dtUsers = new DataTable();
+            strStatus = strStatus == "" ? "Y" : strStatus;
+            dtUsers = NewImageService.GetAllNewImage(strStatus);
+            for (int i = 0; i < dtUsers.Rows.Count; i++)
+            {
+
+                string EditRow = string.Empty;
+                string DeleteRow = string.Empty;
+
+                EditRow = "<a href=NewImage?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/editing-icon-vector.jpg' alt='Edit' width='30' /></a>";
+                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/Inactive.png' alt='Deactivate' width='20' /></a>";
+
+
+
+                Reg.Add(new NewImagegrid
+                {
+                    id = Convert.ToInt64(dtUsers.Rows[i]["I_Id"].ToString()),
+                    footnote = dtUsers.Rows[i]["Foot_Note"].ToString(),
+                    Thumb = dtUsers.Rows[i]["S_Image"].ToString(),
+                    large = dtUsers.Rows[i]["L_image"].ToString(),
+                    editrow = EditRow,
+                    delrow = DeleteRow,
+
+                });
+            }
+
+            return Json(new
+            {
+                Reg
+            });
+
+        }
+        public ActionResult DeleteMR(string tag, int id)
+        {
+
+            string flag = NewImageService.StatusDeleteMR(tag, id);
+            if (string.IsNullOrEmpty(flag))
+            {
+
+                return RedirectToAction("ListNewImage");
+            }
+            else
+            {
+                TempData["notice"] = flag;
+                return RedirectToAction("ListNewImage");
             }
         }
     }

@@ -27,11 +27,11 @@ namespace TamilMurasu.Services.Admin
             string SvSql = string.Empty;
             if (strStatus == "Y" || strStatus == null)
             {
-                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE I_cat='21'  and TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
             }
             else
             {
-                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE I_cat='21'  and TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
             }
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
@@ -90,7 +90,7 @@ namespace TamilMurasu.Services.Admin
                     }
                     else
                     {
-                        svSQL = "Update TMImages_N set I_cat = '21',I_Cid = '21',S_Image = '0',L_image = '0',Foot_Note = '" + Cy.NewsDetail + "',publish_up = '" + Cy.PublishUp + "',publish_down = '" + Cy.PublishDown + "',News_head = '" + Cy.NewsHead + "',deletenews = 'Y',most_view = '0',tag = '0' WHERE TMImages_N.I_Id ='" + Cy.ID + "'";
+                        svSQL = "Update TMImages_N set Foot_Note = '" + Cy.NewsDetail + "',publish_up = '" + Cy.PublishUp + "',publish_down = '" + Cy.PublishDown + "',News_head = '" + Cy.NewsHead + "' WHERE TMImages_N.I_Id ='" + Cy.ID + "'";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
                     }

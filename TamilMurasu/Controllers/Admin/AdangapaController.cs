@@ -85,7 +85,7 @@ namespace TamilMurasu.Controllers.Admin
             }
             catch (Exception ex)
             {
-                throw ex;
+               throw ex;
             }
 
             return View(Cy);

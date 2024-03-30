@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace TamilMurasu.Controllers.Admin
 {
@@ -29,12 +30,26 @@ namespace TamilMurasu.Controllers.Admin
             News br = new News();
             br.Categorylst = BindCategory();
 
-            if (id != null)
+            if (id == null)
             {
 
             }
-            return View(br);
+            else
+            {
+                //DataTable dt = new DataTable();
+                //dt = NewsService.GetEditNews(id);
+                //if (dt.Rows.Count > 0)
+                //{
+                //    br.NewsHead = dt.Rows[0]["Foot_Note"].ToString();
+                //    br.Category = dt.Rows[0]["News_head"].ToString();
+                //    br.Category = dt.Rows[0]["News_head"].ToString();
+                //    br.Category = dt.Rows[0]["News_head"].ToString();
+                 
+                //    br.ID = id;
 
+                //}
+            }
+            return View(br);
         }
         public IActionResult ListNews()
         {
@@ -103,8 +118,10 @@ namespace TamilMurasu.Controllers.Admin
             {
 
                 string EditRow = string.Empty;
+                string DeleteRow = string.Empty;
 
                 EditRow = "<a href=News?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/editing-icon-vector.jpg' alt='Edit' width='30' /></a>";
+                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/Inactive.png' alt='Deactivate' width='20' /></a>";
 
 
                 Reg.Add(new Newsgrid
@@ -115,6 +132,7 @@ namespace TamilMurasu.Controllers.Admin
                     des = dtUsers.Rows[i]["N_Description"].ToString(),
                     keyword = dtUsers.Rows[i]["Keyword"].ToString(),
                     editrow = EditRow,
+                     delrow = DeleteRow,
 
                 });
             }
@@ -124,6 +142,21 @@ namespace TamilMurasu.Controllers.Admin
                 Reg
             });
 
+        }
+        public ActionResult DeleteMR(string tag, int id)
+        {
+
+            string flag = NewsService.StatusDeleteMR(tag, id);
+            if (string.IsNullOrEmpty(flag))
+            {
+
+                return RedirectToAction("ListNews");
+            }
+            else
+            {
+                TempData["notice"] = flag;
+                return RedirectToAction("ListNews");
+            }
         }
     }
 }

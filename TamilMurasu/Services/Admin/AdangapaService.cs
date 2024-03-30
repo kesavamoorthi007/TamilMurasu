@@ -8,6 +8,7 @@ using System.Data;
 using DocumentFormat.OpenXml.Bibliography;
 using System.Linq;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace TamilMurasu.Services.Admin
 {
@@ -25,11 +26,11 @@ namespace TamilMurasu.Services.Admin
             string SvSql = string.Empty;
             if (strStatus == "Y" || strStatus == null)
             {
-                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
             }
             else
             {
-                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
             }
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
@@ -70,49 +71,52 @@ namespace TamilMurasu.Services.Admin
                 using (SqlConnection objConn = new SqlConnection(_connectionString))
                 {
                     objConn.Open();
-                    if (files != null && files.Count > 0)
+                    if (Cy.ID == null)
                     {
-
-                        foreach (var file in files)
+                        
+                        if (files != null && files.Count > 0)
                         {
-                            if (file.Length > 0)
+                            string filename1 = "";
+                            foreach (var file in files)
                             {
-                                // Get the file name and combine it with the target folder path
-                                String strLongFilePath1 = file.FileName;
-                                String sFileType1 = "";
-                                sFileType1 = System.IO.Path.GetExtension(file.FileName);
-                                sFileType1 = sFileType1.ToLower();
-
-                                String strFleName = strLongFilePath1.Replace(sFileType1, "") + String.Format("{0:ddMMMyyyy-hhmmsstt}", DateTime.Now) + sFileType1;
-                                var fileName = Path.Combine("wwwroot/Uploads", strFleName);
-                                var fileName1 = Path.Combine("Uploads", strFleName);
-                                var name = file.FileName;
-                                // Save the file to the target folder
-
-                                using (var fileStream = new FileStream(fileName, FileMode.Create))
+                                if (file.Length > 0)
                                 {
-                                    if (Cy.ID == null)
-                                    {
-                                        file.CopyTo(fileStream);
-                                        svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,Addeddate,publish_up,publish_down,News_head,deletenews,most_view,tag) VALUES ('21','21','" + name + "','0','" + Cy.Original + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.Comedy + "','Y','0','0')";
-                                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
-                                        objCmds.ExecuteNonQuery();
-                                    }
-                                    else
-                                    {
-                                        file.CopyTo(fileStream);
-                                        svSQL = "Update TMImages_N set I_cat = '21',I_Cid = '21',S_Image = '" + name + "',L_image = '0',Foot_Note = '" + Cy.Original + "',publish_up = '" + Cy.PublishUp + "',publish_down = '" + Cy.PublishDown + "',News_head = '" + Cy.Comedy + "',deletenews = 'Y',most_view = '0',tag = '0' WHERE TMImages_N.I_Id ='" + Cy.ID + "'";
-                                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
-                                        objCmds.ExecuteNonQuery();
+                                    // Get the file name and combine it with the target folder path
+                                    String strLongFilePath1 = file.FileName;
+                                    String sFileType1 = "";
+                                    sFileType1 = System.IO.Path.GetExtension(file.FileName);
+                                    sFileType1 = sFileType1.ToLower();
 
-                                    }
+                                    String strFleName = strLongFilePath1.Replace(sFileType1, "") + String.Format("{0:ddMMMyyyy-hhmmsstt}", DateTime.Now) + sFileType1;
+                                    var fileName = Path.Combine("wwwroot/Uploads", strFleName);
+                                    filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
+                                    var name = file.FileName;
+                                    // Save the file to the target folder
 
+                                    using (var fileStream = new FileStream(fileName, FileMode.Create))
+                                    {
+
+                                      file.CopyTo(fileStream);
+                                        
+                                    }
                                 }
+
                             }
+                            svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,Addeddate,publish_up,publish_down,News_head,deletenews,most_view,tag) VALUES ('21','21','" + filename1 + "','0','" + Cy.Original + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.Comedy + "','Y','0','0')";
+                            SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                            objCmds.ExecuteNonQuery();
 
                         }
-                        objConn.Close();
                     }
+                    else
+                    {
+
+                        svSQL = "Update TMImages_N set Foot_Note = '" + Cy.Original + "',publish_up = '" + Cy.PublishUp + "',publish_down = '" + Cy.PublishDown + "',News_head = '" + Cy.Comedy + "' WHERE TMImages_N.I_Id ='" + Cy.ID + "'";
+                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                        objCmds.ExecuteNonQuery();
+
+                    }
+                    objConn.Close();
                 }
             }
             catch (Exception ex)

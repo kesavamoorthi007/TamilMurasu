@@ -1,7 +1,7 @@
-﻿@model TamilMurasu.Models.LatestNews
+﻿@model TamilMurasu.Models.Cinema
 
 @{
-    ViewData["Title"] = "Latest News";
+    ViewData["Title"] = "Cinema Gallery";
 
 }
 <partial name="JqxGridPartial" />
@@ -18,8 +18,8 @@
     <div class="col-lg-12">
         <ol class="breadcrumb">
             <li> <a href="#">Home</a> </li>
-            <li> <a>News</a> </li>
-            <li class="active"> <strong> Latest News </strong> </li>
+            <li> <a>Images</a> </li>
+            <li class="active"> <strong>Cinema Gallery</strong> </li>
         </ol>
     </div>
 </div>
@@ -28,7 +28,7 @@
     $(document).ready(function () {
         var source =
         {
-            url: "/LatestNews/MyLatestNewsgrid",
+            url: "/Cinema/MyCinemagrid",
 
             data: {
 
@@ -39,7 +39,6 @@
             },
             datafields: [
                 { name: 'footnote', type: 'string' },
-                { name: 'head', type: 'string' },
                 { name: 'editrow', type: 'string' },
                 { name: 'delrow', type: 'string' },
 
@@ -79,8 +78,7 @@
 
                 columns: [
 
-                    { text: 'News Detail', filtertype: 'checkedlist', datafield: 'footnote', width: 450 },
-                    { text: 'News Head', filtertype: 'input', datafield: 'head', width: 450 },
+                    { text: 'Album Head', filtertype: 'checkedlist', datafield: 'footnote', width: 800 },
                     { text: 'Edit', datafield: 'editrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
                     { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
                 ]
@@ -107,15 +105,15 @@
 
                     <form>
                         <div class="row">
-                             <div class="col-md-2 ">
-                            @Html.DropDownListFor(n => n.ddlStatus, new SelectListItem[]
-                            { new SelectListItem() {Text = "Enabled", Value="Y"},
-                            new SelectListItem() {Text = "Disabled", Value="N"}},
-                            new { @id = "ddlStatus", Class = "dropdownlist margin_bottom_new form-control" })
+                            <div class="col-md-2 ">
+                                @Html.DropDownListFor(n => n.ddlStatus, new SelectListItem[]
+                                         { new SelectListItem() {Text = "Enabled", Value="Y"},
+                                new SelectListItem() {Text = "Disabled", Value="N"}},
+                                         new { @id = "ddlStatus", Class = "dropdownlist margin_bottom_new form-control" })
                             </div>
                             <div class="col-md-9 ">
                                 <div class=" textalignright">
-                                    <a href="@Url.Action("LatestNews","LatestNews")" class="btn btn-danger" style="float: right; color:white;">Add Latest News</a>
+                                    <a href="@Url.Action("Cinema","Cinema")" class="btn btn-danger" style="float: right; color:white;">Add Cinema Gallery</a>
                                     <br>
                                 </div>
 

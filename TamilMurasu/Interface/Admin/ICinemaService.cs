@@ -8,6 +8,10 @@ namespace TamilMurasu.Interface.Admin
 {
     public interface ICinemaService
     {
-        string CinemaCRUD(Cinema cy);
+        string CinemaCRUD(List<IFormFile> file, Cinema Cy);
+        DataTable GetAllCinema(string strStatus);
+        DataTable GetEditCinema(string id);
+        string StatusDeleteMR(string tag, int id);
+
     }
 }

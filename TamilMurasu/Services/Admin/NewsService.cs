@@ -9,6 +9,7 @@ using DocumentFormat.OpenXml.Bibliography;
 using System.Linq;
 using System.Data.SqlClient;
 using DocumentFormat.OpenXml.Office2010.CustomUI;
+using System.IO;
 
 namespace TamilMurasu.Services.Admin
 {
@@ -25,7 +26,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetAllNews()
         {
             string SvSql = string.Empty;
-            SvSql = "select N_Id,TMCategory_N.C_Name,NT_Head,N_Description,Keyword from TMNews_N left outer join TMCategory_N ON TMCategory_N.C_Id=TMNews_N.C_Id ";
+            SvSql = "select top 100 N_Id,TMCategory_N.C_Name,NT_Head,N_Description,Keyword from TMNews_N left outer join TMCategory_N ON TMCategory_N.C_Id=TMNews_N.C_Id ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
@@ -43,7 +44,28 @@ namespace TamilMurasu.Services.Admin
             adapter.Fill(dtt);
             return dtt;
         }
+        public string StatusDeleteMR(string tag, int id)
+        {
 
+            try
+            {
+                string svSQL = string.Empty;
+                using (SqlConnection objConnT = new SqlConnection(_connectionString))
+                {
+                    svSQL = "UPDATE TMNews_N SET deletenews ='N' WHERE N_Id='" + id + "'";
+                    SqlCommand objCmds = new SqlCommand(svSQL, objConnT);
+                    objConnT.Open();
+                    objCmds.ExecuteNonQuery();
+                    objConnT.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return "";
+        }
         public string NewsCRUD(List<IFormFile> files,News Cy)
         {
             string msg = "";
@@ -54,51 +76,46 @@ namespace TamilMurasu.Services.Admin
 
                 using (SqlConnection objConn = new SqlConnection(_connectionString))
                 {
-                    objConn.Open();
-                    if (files != null && files.Count > 0)
+                    if (Cy.ID == null)
                     {
-                       
-                        foreach (var file in files)
+                        objConn.Open();
+                        if (files != null && files.Count > 0)
                         {
-                            if (file.Length > 0)
+                            string filename1 = "";
+                            foreach (var file in files)
                             {
-                                // Get the file name and combine it with the target folder path
-                                String strLongFilePath1 = file.FileName;
-                                String sFileType1 = "";
-                                sFileType1 = System.IO.Path.GetExtension(file.FileName);
-                                sFileType1 = sFileType1.ToLower();
-
-                                String strFleName = strLongFilePath1.Replace(sFileType1, "") + String.Format("{0:ddMMMyyyy-hhmmsstt}", DateTime.Now) + sFileType1;
-                                var fileName = Path.Combine("wwwroot/Uploads", strFleName);
-                                var fileName1 = Path.Combine("Uploads", strFleName);
-                                var name = file.FileName;
-                                // Save the file to the target folder
-
-                                using (var fileStream = new FileStream(fileName, FileMode.Create))
+                                if (file.Length > 0)
                                 {
-                                    if (Cy.ID == null)
+                                    // Get the file name and combine it with the target folder path
+                                    String strLongFilePath1 = file.FileName;
+                                    String sFileType1 = "";
+                                    sFileType1 = System.IO.Path.GetExtension(file.FileName);
+                                    sFileType1 = sFileType1.ToLower();
+
+                                    String strFleName = strLongFilePath1.Replace(sFileType1, "") + String.Format("{0:ddMMMyyyy-hhmmsstt}", DateTime.Now) + sFileType1;
+                                    var fileName = Path.Combine("wwwroot\\Uploads", strFleName);
+                                    filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
+                                    var name = file.FileName;
+                                    // Save the file to the target folder
+                                    using (var fileStream = new FileStream(fileName, FileMode.Create))
                                     {
-                                        file.CopyTo(fileStream);
-                                        svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews) VALUES ('" + Cy.Category + "','" + Cy.NewsHead + "','" + Cy.NewsDetail + "','" + name + "','" + name + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.KeyWords + "','0','0','Y')";
-                                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
-                                        objCmds.ExecuteNonQuery();
+                                            file.CopyTo(fileStream);
                                     }
-                                    else
-                                    {
-                                        file.CopyTo(fileStream);
-                                        svSQL = "Update TMNews_N set C_Id = '" + Cy.Category + "',NT_Head = '" + Cy.NewsHead + "',N_Description = '" + Cy.NewsDetail + "',S_Image = '" + name + "',L_Image = '" + name + "',Banner = '" + Cy.Banner + "',Highlights = '" + Cy.Highlights + "',EditorPick = '" + Cy.Editor + "',Publish_Up = '" + Cy.PublishUp + "',Publish_down = '" + Cy.PublishDown + "',Keyword = '" + Cy.KeyWords + "' WHERE TMNews_N.N_Id ='" + Cy.ID + "'";
-                                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
-                                        objCmds.ExecuteNonQuery();
-
-                                    }
-
-
                                 }
                             }
-
+                            svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES ('" + Cy.Category + "','" + Cy.NewsHead + "','" + Cy.NewsDetail + "','" + filename1 + "','" + filename1 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                            SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                            objCmds.ExecuteNonQuery();
                         }
-                        objConn.Close();
                     }
+                    else
+                    {
+                        svSQL = "Update TMNews_N set C_Id = '" + Cy.Category + "',NT_Head = '" + Cy.NewsHead + "',N_Description = '" + Cy.NewsDetail + "',Banner = '" + Cy.Banner + "',Highlights = '" + Cy.Highlights + "',EditorPick = '" + Cy.Editor + "',Publish_Up = '" + Cy.PublishUp + "',Publish_down = '" + Cy.PublishDown + "',Keyword = '" + Cy.KeyWords + "' WHERE TMNews_N.N_Id ='" + Cy.ID + "'";
+                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                        objCmds.ExecuteNonQuery();
+
+                    }
+                    objConn.Close();
                 }
             }
             catch (Exception ex)

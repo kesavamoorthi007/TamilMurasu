@@ -7,7 +7,10 @@ namespace TamilMurasu.Interface.Admin
 {
     public interface INewImageService
     {
-        string NewImageCRUD(NewImage cy);
+        string NewImageCRUD(List<IFormFile> file, NewImage Cy);
         DataTable GetCategory();
+        string StatusDeleteMR(string tag, int id);
+        DataTable GetAllNewImage(string strStatus);
+        DataTable GetEditNewImage(string id);
     }
 }

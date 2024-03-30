@@ -1,6 +1,6 @@
 ﻿@model TamilMurasu.Models.NewAlbum
 @{
-    ViewData["Title"] = " New For Album";
+    ViewData["Title"] = "New For Album";
 }
 <style>
 
@@ -37,7 +37,7 @@
                 <div class="widgets-container">
                     <h5 style="font-size:14px"> New For Album</h5>
                     <hr>
-                    @using (Html.BeginForm("NewAlbum", "NewAlbum", FormMethod.Post))
+                    @using (Html.BeginForm("NewAlbum", "NewAlbum", FormMethod.Post, new { @id = "form1", @enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         <form>
@@ -65,11 +65,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <br /> <div class="form-group">
-                                        <label for="formFile" class="col-sm-4 control-label">Picture Thumbnail<label class="mandatory">*</label></label>
-                                        <div class="col-md-8">
-                                            <input class="form-control" type="file" id="formFile">
+                                        <label for="formFile" class="col-sm-2 control-label">Picture Thumbnail<label class="mandatory">*</label></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="file" name="file" multiple />
                                         </div>
                                     </div>
                                 </div>
