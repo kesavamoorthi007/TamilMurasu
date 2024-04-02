@@ -28,6 +28,7 @@
     }
 
 </script>
+
 <script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
 
 <div class="row wrapper border-bottom page-heading">
@@ -110,7 +111,7 @@
                                     <div class="form-group">
                                         <br /> <label for="checkbox" class="col-sm-2 control-label">News Detail<label class="mandatory">*</label></label>
                                         <div class="col-sm-10">
-                                            @Html.TextBoxFor(C => C.NewsDetail, new { @id = "News", @class = "form-control", @TabIndex = 1 })
+                                            @Html.TextAreaFor(C => C.NewsDetail, new { @id = "News", @class = "form-control", @TabIndex = 1 })
                                         </div>
                                     </div>
                                 </div>
@@ -181,14 +182,21 @@
         </div>
     </div>
 </div>
-
 <script>
     $(function () {
        $('._select').select2();
     });
-    // $(function () {
-    //     CKEDITOR.replace('News');
-    // });
+</script>
+<script>
+    $(document).ready(function () {
+        CKEDITOR.replace('News' ,{
+           height : 300,
+            filebrowserUploadUrl: '/News/UploadImage',
+            filebrowserBrowseUrl: '/News/filebrowse'
+
+        });
+    });
+
 </script>
 <script>
     $('.to_date').datetimepicker({
