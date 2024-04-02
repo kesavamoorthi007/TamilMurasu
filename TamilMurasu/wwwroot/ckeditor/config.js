@@ -1,6 +1,6 @@
 
-CKEDITOR.editorConfig = function( config ) {
-	
+CKEDITOR.editorConfig = function (config) {
+
     config.filebrowserUploadMethod = 'form';
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
