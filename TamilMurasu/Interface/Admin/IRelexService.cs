@@ -7,6 +7,9 @@ namespace TamilMurasu.Interface.Admin
 {
     public interface IRelexService
     {
-        string RelexCRUD(Relex cy);
+        DataTable GetAllRelex(string strStatus);
+        DataTable GetEditRelex(string id);
+        string RelexCRUD(Relex Cy);
+         string StatusDeleteMR(string tag, int id);
     }
 }

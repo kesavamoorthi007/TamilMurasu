@@ -28,25 +28,37 @@ namespace TamilMurasu.Controllers.Admin
         {
             Video br = new Video();
 
-            if (id != null)
+            if (id == null)
             {
 
             }
-            return View(br);
+            else
+            {
+                DataTable dt = new DataTable();
+                dt = VideoService.GetEditVideo(id);
+                if (dt.Rows.Count > 0)
+                {
+                    br.VideoTittle = dt.Rows[0]["Foot_Note"].ToString();
+                    br.PublishUp = dt.Rows[0]["publish_up"].ToString();
+                    br.PublishDown = dt.Rows[0]["publish_down"].ToString();
+                    br.ID = id;
 
+                }
+            }
+            return View(br);
         }
-        public IActionResult ListNews()
+        public IActionResult ListVideo()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Video(Video Cy, string id)
+        public ActionResult Video(List<IFormFile> file, Video Cy, string id)
         {
 
             try
             {
                 Cy.ID = id;
-                string Strout = VideoService.VideoCRUD(Cy);
+                string Strout = VideoService.VideoCRUD(file,Cy);
                 if (string.IsNullOrEmpty(Strout))
                 {
                     if (Cy.ID == null)
@@ -75,6 +87,55 @@ namespace TamilMurasu.Controllers.Admin
             }
 
             return View(Cy);
+        }
+        public ActionResult MyVideogrid(string strStatus)
+        {
+            List<Videogrid> Reg = new List<Videogrid>();
+            DataTable dtUsers = new DataTable();
+            strStatus = strStatus == "" ? "Y" : strStatus;
+            dtUsers = VideoService.GetAllVideo(strStatus);
+            for (int i = 0; i < dtUsers.Rows.Count; i++)
+            {
+
+                string EditRow = string.Empty;
+                string DeleteRow = string.Empty;
+
+                EditRow = "<a href=Video?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/editing-icon-vector.jpg' alt='Edit' width='30' /></a>";
+                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/Inactive.png' alt='Deactivate' width='20' /></a>";
+
+
+
+                Reg.Add(new Videogrid
+                {
+                    id = Convert.ToInt64(dtUsers.Rows[i]["I_Id"].ToString()),
+                    title = dtUsers.Rows[i]["S_Image"].ToString(),
+                    foot = dtUsers.Rows[i]["Foot_Note"].ToString(),
+                    editrow = EditRow,
+                    delrow = DeleteRow,
+
+                });
+            }
+
+            return Json(new
+            {
+                Reg
+            });
+
+        }
+        public ActionResult DeleteMR(string tag, int id)
+        {
+
+            string flag = VideoService.StatusDeleteMR(tag, id);
+            if (string.IsNullOrEmpty(flag))
+            {
+
+                return RedirectToAction("ListVideo");
+            }
+            else
+            {
+                TempData["notice"] = flag;
+                return RedirectToAction("ListVideo");
+            }
         }
     }
 }

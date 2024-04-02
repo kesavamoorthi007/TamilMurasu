@@ -7,6 +7,9 @@ namespace TamilMurasu.Interface.Admin
 {
     public interface IVideoService
     {
-        string VideoCRUD(Video cy);
+        DataTable GetAllVideo(string strStatus);
+        string VideoCRUD(List<IFormFile> file,Video Cy);
+        string StatusDeleteMR(string tag, int id);
+        DataTable GetEditVideo(string id);
     }
 }
