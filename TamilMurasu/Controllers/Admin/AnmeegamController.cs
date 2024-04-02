@@ -19,11 +19,14 @@ namespace TamilMurasu.Controllers.Admin
         IConfiguration? _configuratio;
         private string? _connectionString;
         DataTransactions datatrans;
-        public AnmeegamController(IAnmeegamService _AnmeegamService, IConfiguration _configuratio)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public AnmeegamController(IAnmeegamService _AnmeegamService, IConfiguration _configuratio, IWebHostEnvironment webHostEnvironment)
         {
             AnmeegamService = _AnmeegamService;
             _connectionString = _configuratio.GetConnectionString("MySqlConnection");
             datatrans = new DataTransactions(_connectionString);
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Anmeegam(string id)
         {
@@ -136,6 +139,31 @@ namespace TamilMurasu.Controllers.Admin
             {
                 Reg
             });
+
+        }
+        [HttpPost]
+        public IActionResult UploadImage(IFormFile upload)
+        {
+            if (upload == null || upload.Length == 0)
+                return BadRequest("File is empty");
+
+            var fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + upload.FileName;
+            var path = Path.Combine(Directory.GetCurrentDirectory(),
+                _webHostEnvironment.WebRootPath, "Uploads", fileName);
+
+            var stream = new FileStream(path, FileMode.Create);
+            upload.CopyToAsync(stream);
+            return new JsonResult(new { path = "/Uploads/" + fileName });
+
+        }
+
+        [HttpGet]
+        public IActionResult filebrowse()
+        {
+            var dir = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(),
+                _webHostEnvironment.WebRootPath, "Uploads"));
+            ViewBag.fileInfo = dir.GetFiles();
+            return View("~/Views/Home/FileExplorer.cshtml");
 
         }
 

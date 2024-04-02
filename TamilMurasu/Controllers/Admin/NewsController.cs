@@ -195,7 +195,7 @@ namespace TamilMurasu.Controllers.Admin
             var dir = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(),
                 _webHostEnvironment.WebRootPath, "Uploads"));
             ViewBag.fileInfo = dir.GetFiles();
-            return View("FileExplorer");
+            return View("~/Views/Home/FileExplorer.cshtml");
 
         }
 
