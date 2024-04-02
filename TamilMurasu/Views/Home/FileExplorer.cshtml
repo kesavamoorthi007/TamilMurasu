@@ -1,13 +1,16 @@
-﻿<div id="browseFile">
-@foreach(var item in @ViewBag.fileInfo)
-{
- <div class="img-thumbnail">
+﻿@{
+    Layout = "_PopupLayout";
+}
+<div id="browseFile">
+    @foreach (var item in @ViewBag.fileInfo)
+    {
+        <div class="img-thumbnail">
             <img src="~/Uploads/@item.Name" alt="thumb" title="@item.Name" width="120" height="100" />
             <br />
             @item.Name
- </div>
+        </div>
 
-}
+    }
 </div>
 <script src="~/ckeditor/ckeditor.js"></script>
 <script>

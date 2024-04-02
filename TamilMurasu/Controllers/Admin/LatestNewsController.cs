@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.InkML;
+using Microsoft.AspNetCore.Hosting;
 
 
 namespace TamilMurasu.Controllers.Admin
@@ -19,8 +20,10 @@ namespace TamilMurasu.Controllers.Admin
         IConfiguration? _configuratio;
         private string? _connectionString;
         DataTransactions datatrans;
-        public LatestNewsController(ILatestNewsService _LatestNewsService, IConfiguration _configuratio)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public LatestNewsController(ILatestNewsService _LatestNewsService, IConfiguration _configuratio, IWebHostEnvironment webHostEnvironment)
         {
+            _webHostEnvironment = webHostEnvironment;
             LatestNewsService = _LatestNewsService;
             _connectionString = _configuratio.GetConnectionString("MySqlConnection");
             datatrans = new DataTransactions(_connectionString);
@@ -141,6 +144,30 @@ namespace TamilMurasu.Controllers.Admin
                 TempData["notice"] = flag;
                 return RedirectToAction("ListLatestNews");
             }
+        }
+        [HttpPost]
+        public IActionResult UploadImage(IFormFile upload)
+        {
+            if (upload == null || upload.Length == 0)
+                return BadRequest("File is empty");
+
+            var fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + upload.FileName;
+            var path = Path.Combine(Directory.GetCurrentDirectory(),
+                _webHostEnvironment.WebRootPath, "Uploads", fileName);
+
+            var stream = new FileStream(path, FileMode.Create);
+            upload.CopyToAsync(stream);
+            return new JsonResult(new { path = "/Uploads/" + fileName });
+
+        }
+        [HttpGet]
+        public IActionResult filebrowse()
+        {
+            var dir = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(),
+                _webHostEnvironment.WebRootPath, "Uploads"));
+            ViewBag.fileInfo = dir.GetFiles();
+            return View("~/Views/Home/FileExplorer.cshtml");
+
         }
     }
 }
