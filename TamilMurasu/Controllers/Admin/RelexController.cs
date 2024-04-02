@@ -28,9 +28,20 @@ namespace TamilMurasu.Controllers.Admin
         {
             Relex br = new Relex();
 
-            if (id != null)
+            if (id == null)
             {
 
+            }
+            else
+            {
+                DataTable dt = new DataTable();
+                dt = RelexService.GetEditRelex(id);
+                if (dt.Rows.Count > 0)
+                {
+                    br.Type = dt.Rows[0]["Foot_Note"].ToString();
+                    br.ID = id;
+
+                }
             }
             return View(br);
 
@@ -75,6 +86,54 @@ namespace TamilMurasu.Controllers.Admin
             }
 
             return View(Cy);
+        }
+        public ActionResult MyRelexgrid(string strStatus)
+        {
+            List<Relexgrid> Reg = new List<Relexgrid>();
+            DataTable dtUsers = new DataTable();
+            strStatus = strStatus == "" ? "Y" : strStatus;
+            dtUsers = RelexService.GetAllRelex(strStatus);
+            for (int i = 0; i < dtUsers.Rows.Count; i++)
+            {
+
+                string EditRow = string.Empty;
+                string DeleteRow = string.Empty;
+
+                EditRow = "<a href=Relex?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/editing-icon-vector.jpg' alt='Edit' width='30' /></a>";
+                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/Inactive.png' alt='Deactivate' width='20' /></a>";
+
+
+
+                Reg.Add(new Relexgrid
+                {
+                    id = Convert.ToInt64(dtUsers.Rows[i]["I_Id"].ToString()),
+                    relex = dtUsers.Rows[i]["Foot_Note"].ToString(),
+                    editrow = EditRow,
+                    delrow = DeleteRow,
+
+                });
+            }
+
+            return Json(new
+            {
+                Reg
+            });
+
+        }
+        public ActionResult DeleteMR(string tag, int id)
+        {
+
+            string flag = RelexService.StatusDeleteMR(tag, id);
+            if (string.IsNullOrEmpty(flag))
+            {
+
+                return RedirectToAction("ListRelex");
+            }
+            else
+            {
+                TempData["notice"] = flag;
+                return RedirectToAction("ListRelex");
+            }
         }
     }
 }

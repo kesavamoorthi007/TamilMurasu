@@ -37,7 +37,7 @@
                 <div class="widgets-container">
                     <h5 style="font-size:14px">Video Images</h5>
                     <hr>
-                    @using (Html.BeginForm("Video", "Video", FormMethod.Post))
+                    @using (Html.BeginForm("Video", "Video", FormMethod.Post, new { @id = "form1", @enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         <form>
@@ -55,11 +55,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <br /> <div class="form-group">
-                                        <label for="formFile" class="col-sm-4 control-label">Video Image<label class="mandatory">*</label></label>
-                                        <div class="col-md-8">
-                                            <input class="form-control" type="file" id="formFile">
+                                        <label for="formFile" class="col-sm-2 control-label">Video Image<label class="mandatory">*</label></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="file" name="file" multiple />
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                     <div class="form-group">
                                         <br /> <label for="datePicker" class="col-sm-4 control-label">Publish Up<label class="mandatory">*</label></label>
                                         <div class="input-group date form_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32", @readonly = true })
+                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32" })
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                     <div class="form-group">
                                         <br /> <label for="inputName3" class="col-sm-4 control-label">Publish Down<label class="mandatory">*</label></label>
                                         <div class="input-group date to_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32", @readonly = true })
+                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32"})
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
