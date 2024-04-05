@@ -8,6 +8,8 @@ using TamilMurasu.Services.Admin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DocumentFormat.OpenXml.Bibliography;
+using System.Text;
+
 
 namespace TamilMurasu.Controllers.Admin
 {
@@ -49,6 +51,12 @@ namespace TamilMurasu.Controllers.Admin
         }
         public IActionResult ListCategory()
         {
+            //string filePath = "Views/Category/ListCategory.cshtml";
+            //string content;
+            //using (StreamReader reader = new StreamReader(filePath, Encoding.GetEncoding("Windows-1252")))
+            //{
+            //    content = reader.ReadToEnd();
+            //}
             return View();
         }
         [HttpPost]
