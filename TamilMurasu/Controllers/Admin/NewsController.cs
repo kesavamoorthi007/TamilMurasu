@@ -56,6 +56,7 @@ namespace TamilMurasu.Controllers.Admin
                     br.PublishUp = dt.Rows[0]["Publish_Up"].ToString();
                     br.PublishDown = dt.Rows[0]["Publish_down"].ToString();
                     br.KeyWords = dt.Rows[0]["Keyword"].ToString();
+                    br.file = dt.Rows[0]["S_Image"].ToString();
 
                     br.ID = id;
 
@@ -122,6 +123,7 @@ namespace TamilMurasu.Controllers.Admin
                 throw ex;
             }
         }
+
         public ActionResult MyListNewsgrid(string strStatus)
         {
             List<Newsgrid> Reg = new List<Newsgrid>();

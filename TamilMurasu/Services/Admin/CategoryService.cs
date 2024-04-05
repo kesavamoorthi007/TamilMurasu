@@ -29,15 +29,15 @@ namespace TamilMurasu.Services.Admin
                 string StatementType = string.Empty;
                 string svSQL = "";
 
-                if (Cy.ID == null)
-                {
-                    svSQL = " SELECT Count(C_Name) as cnt FROM TMCategory_N WHERE C_Name = LTRIM(RTRIM('" + Cy.C_Name + "')) ";
-                    if (datatrans.GetDataId(svSQL) > 0)
-                    {
-                        msg = "Category Name(Tamil) Already Existed";
-                        return msg;
-                    }
-                }
+                //if (Cy.ID == null)
+                //{
+                //    svSQL = " SELECT Count(C_Name) as cnt FROM TMCategory_N WHERE C_Name = LTRIM(RTRIM('" + Cy.C_Name + "')) ";
+                //    if (datatrans.GetDataId(svSQL) > 0)
+                //    {
+                //        msg = "Category Name(Tamil) Already Existed";
+                //        return msg;
+                //    }
+                //}
                 using (SqlConnection objConn = new SqlConnection(_connectionString))
                 {
                     objConn.Open();

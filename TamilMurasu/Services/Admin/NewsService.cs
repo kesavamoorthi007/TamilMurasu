@@ -138,7 +138,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetEditNews(string id)
         {
             string SvSql = string.Empty;
-            SvSql = "select N_Id,C_Id,NT_Head,EditorPick,Highlights,Banner,N_Description,Publish_Up,Publish_down,Keyword from TMNews_N  Where TMNews_N.N_Id='" + id + "' ";
+            SvSql = "select N_Id,C_Id,NT_Head,EditorPick,Highlights,Banner,N_Description,Publish_Up,Publish_down,Keyword,S_Image from TMNews_N  Where TMNews_N.N_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
