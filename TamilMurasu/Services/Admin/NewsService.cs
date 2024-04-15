@@ -84,9 +84,10 @@ namespace TamilMurasu.Services.Admin
 
                 using (SqlConnection objConn = new SqlConnection(_connectionString))
                 {
-                    if (Cy.ID == null)
+					objConn.Open();
+					if (Cy.ID == null)
                     {
-                        objConn.Open();
+                        
                         if (files != null && files.Count > 0)
                         {
                             string filename1 = "";

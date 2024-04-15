@@ -23,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interface\User\" />
+    <Folder Include="Models\User\" />
+    <Folder Include="Services\User\" />
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 

@@ -102,7 +102,7 @@ namespace TamilMurasu.Services.Admin
                                 }
 
                             }
-                            svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,Addeddate,publish_up,publish_down,News_head,deletenews,most_view,tag) VALUES ('21','21','" + filename1 + "','0','" + Cy.Original + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.Comedy + "','Y','0','0')";
+                            svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,Addeddate,publish_up,publish_down,News_head,deletenews,most_view,tag) VALUES ('20','20','" + filename1 + "','0','" + Cy.Original + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.Comedy + "','Y','0','0')";
                             SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                             objCmds.ExecuteNonQuery();
 
