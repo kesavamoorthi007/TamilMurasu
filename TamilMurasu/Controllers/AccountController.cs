@@ -67,7 +67,10 @@ namespace TamilMurasu.Controllers
             bool isValidUser = false;//loginService.LoginCheck(model.Username, model.Password);
             try
             {
+
+
                 string _selUser = @"select username,UserPwd FROM userdetails where username='" + model.Username + "' and  UserPwd='" + model.Password + "' ";
+
 
                 DataTable _dtUser = new DataTable();
                 _dtUser = _dtransactions.GetData(_selUser);
