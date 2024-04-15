@@ -192,22 +192,6 @@
                     "background": ""
                 });
             }
-            if (document.getElementById("NewsDetail").value == "") {
-                isValid = false;
-                $(NewsDetail).css({
-                    "border": "1px solid red",
-                    "background": "#FFCECE"
-                });
-
-                alert("Please Enter News Detail");
-                return false;
-            }
-            else {
-                $(NewsDetail).css({
-                    "border": "",
-                    "background": ""
-                });
-            }
             if (isValid == false)
                 e.preventDefault();
         });
