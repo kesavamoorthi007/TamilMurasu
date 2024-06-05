@@ -58,7 +58,6 @@ namespace TamilMurasu.Controllers
 
 
         public IActionResult Login(LoginViewModel model )
-
         { 
             //bool res = loginService.LoginCheck(model.Username, model.Password);
             //if (res == true)
