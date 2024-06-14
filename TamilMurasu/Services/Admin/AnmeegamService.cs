@@ -44,14 +44,14 @@ namespace TamilMurasu.Services.Admin
                     objConn.Open();
                     if (Cy.ID == null)
                     {
-                        svSQL = "Insert into TMAanmegaKural (A_Cat,A_Name,A_Decription,Addeddate,APublish_Up,APublish_Down) VALUES ('" + Cy.Category + "','" + Cy.Aanmegam + "','" + Cy.NewsDetail + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "')";
+                        svSQL = "Insert into TMAanmegaKural (A_Cat,A_Name,A_Decription,Addeddate,APublish_Up,APublish_Down) VALUES ('" + Cy.Category + "',N'" + Cy.Aanmegam + "',N'" + Cy.NewsDetail + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "')";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
 
                     }
                     else
                     {
-                        svSQL = "Update TMAanmegaKural set A_Cat = '" + Cy.Category + "',A_Name = '" + Cy.Aanmegam + "',A_Decription = '" + Cy.NewsDetail + "',APublish_Up = '" + Cy.PublishUp + "',APublish_Down = '" + Cy.PublishDown + "' WHERE TMAanmegaKural.A_Id ='" + Cy.ID + "'";
+                        svSQL = "Update TMAanmegaKural set A_Cat = '" + Cy.Category + "',A_Name = N'" + Cy.Aanmegam + "',A_Decription = N'" + Cy.NewsDetail + "',APublish_Up = '" + Cy.PublishUp + "',APublish_Down = '" + Cy.PublishDown + "' WHERE TMAanmegaKural.A_Id ='" + Cy.ID + "'";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
                     }

@@ -136,8 +136,8 @@ namespace TamilMurasu.Controllers.Admin
                 string EditRow = string.Empty;
                 string DeleteRow = string.Empty;
 
-                EditRow = "<a href=News?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/editing-icon-vector.jpg' alt='Edit' width='30' /></a>";
-                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/Inactive.png' alt='Deactivate' width='20' /></a>";
+                EditRow = "<a href=News?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/edit(1).png' alt='Edit' width='30' /></a>";
+                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/delete(1).png' alt='Deactivate' width='20' /></a>";
 
 
                 Reg.Add(new Newsgrid
