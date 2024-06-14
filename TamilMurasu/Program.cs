@@ -65,8 +65,7 @@ internal class Program
         app.UseStaticFiles();
      
         app.UseRouting();
-
-
+        app.UseStaticFiles();
         app.UseAuthorization();
         app.UseSession();
 

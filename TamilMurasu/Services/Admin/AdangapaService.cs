@@ -26,11 +26,11 @@ namespace TamilMurasu.Services.Admin
             string SvSql = string.Empty;
             if (strStatus == "Y" || strStatus == null)
             {
-                SvSql = "select Top 100  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
             }
             else
             {
-                SvSql = "select Top 100  I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
             }
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
@@ -131,7 +131,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetEditAdangapa(string id)
         {
             string SvSql = string.Empty;
-            SvSql = "select I_Id,Foot_Note,publish_up,publish_down,News_head from TMImages_N  Where TMImages_N.I_Id='" + id + "' ";
+            SvSql = "select I_Id,Foot_Note,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1,News_head from TMImages_N  Where TMImages_N.I_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);

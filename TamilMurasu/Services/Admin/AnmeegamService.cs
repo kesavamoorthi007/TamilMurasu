@@ -72,7 +72,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetEditAnmeegam(string id)
         {
             string SvSql = string.Empty;
-            SvSql = "select A_Id,A_Cat,A_Name,A_Decription,APublish_Up,APublish_Down from TMAanmegaKural  Where TMAanmegaKural.A_Id='" + id + "' ";
+            SvSql = "select A_Id,A_Cat,A_Name,A_Decription,CONVERT(varchar, TMAanmegaKural.APublish_Up, 106) AS AddedDateFormatted,CONVERT(varchar, TMAanmegaKural.APublish_Down, 106) AS AddedDateFormatted1 from TMAanmegaKural  Where TMAanmegaKural.A_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
