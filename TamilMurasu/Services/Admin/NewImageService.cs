@@ -110,7 +110,7 @@ namespace TamilMurasu.Services.Admin
                                             file.CopyTo(fileStream);
                                     }
                                 }
-                                svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,Addeddate,publish_up,publish_down,News_head,deletenews,most_view,tag) VALUES ('23','" + Cy.Category + "','" + filename1 + "','" + filename1 + "','" + Cy.FootNote + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','0','Y','0','0')";
+                                svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,Addeddate,publish_up,publish_down,News_head,deletenews,most_view,tag) VALUES ('23','" + Cy.Category + "','" + filename1 + "','" + filename1 + "',N'" + Cy.FootNote + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','0','Y','0','0')";
                                 SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                                 objCmds.ExecuteNonQuery();
 
@@ -120,7 +120,7 @@ namespace TamilMurasu.Services.Admin
                     }
                     else
                     {
-                        svSQL = "Update TMImages_N set I_Cid = '" + Cy.Category + "',Foot_Note = '" + Cy.FootNote + "',publish_up = '" + Cy.PublishUp + "',publish_down = '" + Cy.PublishDown + "' WHERE TMImages_N.I_Id ='" + Cy.ID + "'";
+                        svSQL = "Update TMImages_N set I_Cid = '" + Cy.Category + "',Foot_Note = N'" + Cy.FootNote + "',publish_up = '" + Cy.PublishUp + "',publish_down = '" + Cy.PublishDown + "' WHERE TMImages_N.I_Id ='" + Cy.ID + "'";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
                     }

@@ -43,14 +43,14 @@ namespace TamilMurasu.Services.Admin
                     objConn.Open();
                     if (Cy.ID == null)
                     {
-                        svSQL = "Insert into TMCategory_N (C_Name,C_NameEN,Title_Eng) VALUES ('" + Cy.C_Name + "','" + Cy.C_NameEN + "','" + Cy.Title_Eng + "')";
+                        svSQL = "Insert into TMCategory_N (C_Name,C_NameEN,Title_Eng) VALUES (N'" + Cy.C_Name + "','" + Cy.C_NameEN + "','" + Cy.Title_Eng + "')";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
 
                     }
                     else
                     {
-                        svSQL = "Update TMCategory_N set C_Name = '" + Cy.C_Name + "',C_NameEN = '" + Cy.C_NameEN + "',Title_Eng = '" + Cy.Title_Eng + "' WHERE TMCategory_N.C_Id ='" + Cy.ID + "'";
+                        svSQL = "Update TMCategory_N set C_Name = N'" + Cy.C_Name + "',C_NameEN = '" + Cy.C_NameEN + "',Title_Eng = '" + Cy.Title_Eng + "' WHERE TMCategory_N.C_Id ='" + Cy.ID + "'";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
                     }
