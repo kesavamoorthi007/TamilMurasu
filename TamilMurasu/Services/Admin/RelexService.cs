@@ -75,14 +75,14 @@ namespace TamilMurasu.Services.Admin
                     objConn.Open();
                     if (Cy.ID == null)
                     {
-                        svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,publish_up,publish_down,News_head,deletenews,most_view,tag,AddedDate) VALUES ('30','30','0','0','" + Cy.Type + "','','','0','Y','1','0','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                        svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,publish_up,publish_down,News_head,deletenews,most_view,tag,AddedDate) VALUES ('30','30','0','0',N'" + Cy.Type + "','','','0','Y','1','0','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
 
                     }
                     else
                     {
-                        svSQL = "Update TMImages_N set Foot_Note = '" + Cy.Type + "' WHERE TMImages_N.I_Id ='" + Cy.ID + "'";
+                        svSQL = "Update TMImages_N set Foot_Note =N'" + Cy.Type + "' WHERE TMImages_N.I_Id ='" + Cy.ID + "'";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                         objCmds.ExecuteNonQuery();
                     }

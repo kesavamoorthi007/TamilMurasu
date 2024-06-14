@@ -51,12 +51,7 @@ namespace TamilMurasu.Controllers.Admin
         }
         public IActionResult ListCategory()
         {
-            //string filePath = "Views/Category/ListCategory.cshtml";
-            //string content;
-            //using (StreamReader reader = new StreamReader(filePath, Encoding.GetEncoding("Windows-1252")))
-            //{
-            //    content = reader.ReadToEnd();
-            //}
+            
             return View();
         }
         [HttpPost]
@@ -108,7 +103,7 @@ namespace TamilMurasu.Controllers.Admin
                 string EditRow = string.Empty;
                 
 
-               EditRow = "<a href=Category?id=" + dtUsers.Rows[i]["C_Id"].ToString() + "><img src='../Images/editing-icon-vector.jpg' alt='Edit' width='30' /></a>";
+               EditRow = "<a href=Category?id=" + dtUsers.Rows[i]["C_Id"].ToString() + "><img src='../Images/edit(1).png' alt='Edit' width='30' /></a>";
                 
 
                 Reg.Add(new Categorygrid
