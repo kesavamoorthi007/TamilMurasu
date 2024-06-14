@@ -46,8 +46,8 @@ namespace TamilMurasu.Controllers.Admin
                     br.Category = dt.Rows[0]["A_Cat"].ToString();
                     br.Aanmegam = dt.Rows[0]["A_Name"].ToString();
                     br.NewsDetail = dt.Rows[0]["A_Decription"].ToString();
-                    br.PublishUp = dt.Rows[0]["APublish_Up"].ToString();
-                    br.PublishDown = dt.Rows[0]["APublish_Down"].ToString();
+                    br.PublishUp = dt.Rows[0]["AddedDateFormatted"].ToString();
+                    br.PublishDown = dt.Rows[0]["AddedDateFormatted1"].ToString();
                     br.ID = id;
 
                 }

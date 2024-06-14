@@ -39,8 +39,8 @@ namespace TamilMurasu.Controllers.Admin
                 if (dt.Rows.Count > 0)
                 {
                     br.Original = dt.Rows[0]["Foot_Note"].ToString();
-                    br.PublishUp = dt.Rows[0]["publish_up"].ToString();
-                    br.PublishDown = dt.Rows[0]["publish_down"].ToString();
+                    br.PublishUp = dt.Rows[0]["AddedDateFormatted"].ToString();
+                    br.PublishDown = dt.Rows[0]["AddedDateFormatted1"].ToString();
                     br.Comedy = dt.Rows[0]["News_head"].ToString();
                     br.ID = id;
 
@@ -111,8 +111,8 @@ namespace TamilMurasu.Controllers.Admin
                 {
                     id = Convert.ToInt64(dtUsers.Rows[i]["I_Id"].ToString()),
                     footnote = dtUsers.Rows[i]["Foot_Note"].ToString(),
-                    publishup = dtUsers.Rows[i]["publish_up"].ToString(),
-                    publishdown = dtUsers.Rows[i]["publish_down"].ToString(),
+                    publishup = dtUsers.Rows[i]["AddedDateFormatted"].ToString(),
+                    publishdown = dtUsers.Rows[i]["AddedDateFormatted1"].ToString(),
                     head = dtUsers.Rows[i]["News_head"].ToString(),
                     editrow = EditRow,
                     delrow = DeleteRow,

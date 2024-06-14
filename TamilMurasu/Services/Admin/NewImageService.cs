@@ -139,7 +139,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetEditNewImage(string id)
         {
             string SvSql = string.Empty;
-            SvSql = "select I_Id,I_Cid,Foot_Note,publish_up,publish_down from TMImages_N  Where TMImages_N.I_Id='" + id + "' ";
+            SvSql = "select I_Id,I_Cid,Foot_Note,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1 from TMImages_N  Where TMImages_N.I_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);

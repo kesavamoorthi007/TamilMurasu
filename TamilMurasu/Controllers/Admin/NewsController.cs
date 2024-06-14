@@ -53,8 +53,8 @@ namespace TamilMurasu.Controllers.Admin
                     br.Highlights = Convert.ToBoolean(dt.Rows[0]["Highlights"].ToString());
                     br.Banner = Convert.ToBoolean(dt.Rows[0]["Banner"].ToString());
                     br.NewsDetail = dt.Rows[0]["N_Description"].ToString();
-                    br.PublishUp = dt.Rows[0]["Publish_Up"].ToString();
-                    br.PublishDown = dt.Rows[0]["Publish_down"].ToString();
+                    br.PublishUp = dt.Rows[0]["AddedDateFormatted"].ToString();
+                    br.PublishDown = dt.Rows[0]["AddedDateFormatted1"].ToString();
                     br.KeyWords = dt.Rows[0]["Keyword"].ToString();
                     br.file = dt.Rows[0]["S_Image"].ToString();
 

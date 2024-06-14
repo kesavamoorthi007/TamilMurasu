@@ -139,7 +139,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetEditNews(string id)
         {
             string SvSql = string.Empty;
-            SvSql = "select N_Id,C_Id,NT_Head,EditorPick,Highlights,Banner,N_Description,Publish_Up,Publish_down,Keyword,S_Image from TMNews_N  Where TMNews_N.N_Id='" + id + "' ";
+            SvSql = "select N_Id,C_Id,NT_Head,EditorPick,Highlights,Banner,N_Description,CONVERT(varchar, TMNews_N.Publish_Up, 106) AS AddedDateFormatted,CONVERT(varchar, TMNews_N.Publish_down, 106) AS AddedDateFormatted1,Keyword,S_Image from TMNews_N  Where TMNews_N.N_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);

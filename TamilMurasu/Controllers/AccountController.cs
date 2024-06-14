@@ -34,7 +34,8 @@ namespace TamilMurasu.Controllers
 
         //public IActionResult Login([Bind] LoginViewModel model)
         //{
-        //    int res = loginService.LoginCheck(model.Username, model.Password);
+        //    int res = loginServi
+        //    ce.LoginCheck(model.Username, model.Password);
         //    if (res == 1)
         //    {
         //        TempData["msg"] = "You are welcome to Admin Section";
