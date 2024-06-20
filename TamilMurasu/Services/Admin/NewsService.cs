@@ -74,7 +74,7 @@ namespace TamilMurasu.Services.Admin
             }
             return "";
         }
-        public string NewsCRUD(List<IFormFile> files,News Cy)
+        public string NewsCRUD(List<IFormFile> files, List<IFormFile> file1,News Cy)
         {
             string msg = "";
             try
@@ -87,7 +87,7 @@ namespace TamilMurasu.Services.Admin
 					objConn.Open();
 					if (Cy.ID == null)
                     {
-                        
+
                         if (files != null && files.Count > 0)
                         {
                             string filename1 = "";
@@ -101,23 +101,51 @@ namespace TamilMurasu.Services.Admin
                                     sFileType1 = System.IO.Path.GetExtension(file.FileName);
                                     sFileType1 = sFileType1.ToLower();
 
-                                    String strFleName = strLongFilePath1.Replace(sFileType1, "") + String.Format("{0:ddMMMyyyy-hhmmsstt}", DateTime.Now) + sFileType1;
-                                    var fileName = Path.Combine("wwwroot\\Uploads", strFleName);
+                                    String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
+                                    var fileName = Path.Combine("wwwroot\\Uploads\\ThumbImage", strFleName);
                                     filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
                                     var name = file.FileName;
                                     // Save the file to the target folder
                                     using (var fileStream = new FileStream(fileName, FileMode.Create))
                                     {
-                                            file.CopyTo(fileStream);
+                                        file.CopyTo(fileStream);
                                     }
                                 }
                             }
-                            svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES ('" + Cy.Category + "',N'" + Cy.NewsHead + "',N'" + Cy.NewsDetail + "','" + filename1 + "','" + filename1 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor  + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
-                            SqlCommand objCmds = new SqlCommand(svSQL, objConn);
-                            objCmds.ExecuteNonQuery();
+                            if (file1 != null && file1.Count > 0)
+                            {
+                                string filename2 = "";
+                                foreach (var file in file1)
+                                {
+                                    if (file.Length > 0)
+                                    {
+                                        // Get the file name and combine it with the target folder path
+                                        String strLongFilePath1 = file.FileName;
+                                        String sFileType1 = "";
+                                        sFileType1 = System.IO.Path.GetExtension(file.FileName);
+                                        sFileType1 = sFileType1.ToLower();
+
+                                        String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
+                                        var fileName = Path.Combine("wwwroot\\Uploads\\LargeImage", strFleName);
+                                        filename2 = filename2.Length > 0 ? filename2 + "," + fileName : fileName;
+                                        var name = file.FileName;
+                                        // Save the file to the target folder
+                                        using (var fileStream = new FileStream(fileName, FileMode.Create))
+                                        {
+                                            file.CopyTo(fileStream);
+                                        }
+                                    }
+                                }
+                                svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES ('" + Cy.Category + "',N'" + Cy.NewsHead + "',N'" + Cy.NewsDetail + "','" + filename1 + "','" + filename2 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                                SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                                objCmds.ExecuteNonQuery();
+
+                            }
+                            
                         }
+                       
                     }
-                    else
+                    else 
                     {
                         svSQL = "Update TMNews_N set C_Id = '" + Cy.Category + "',NT_Head = N'" + Cy.NewsHead + "',N_Description = N'" + Cy.NewsDetail + "',Banner = '" + Cy.Banner + "',Highlights = '" + Cy.Highlights + "',EditorPick = '" + Cy.Editor + "',Publish_Up = '" + Cy.PublishUp + "',Publish_down = '" + Cy.PublishDown + "',Keyword = '" + Cy.KeyWords + "' WHERE TMNews_N.N_Id ='" + Cy.ID + "'";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
