@@ -11,7 +11,7 @@ namespace TamilMurasu.Interface.Admin
         DataTable GetCategory();
         string StatusDeleteMR(string tag, int id);
 
-        string NewsCRUD(List<IFormFile> file, News Cy);
+        string NewsCRUD(List<IFormFile> file, List<IFormFile> file1, News Cy);
         DataTable GetEditNews(string id);
     }
 }

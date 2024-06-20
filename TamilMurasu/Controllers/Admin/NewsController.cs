@@ -69,13 +69,13 @@ namespace TamilMurasu.Controllers.Admin
             return View();
         }
         [HttpPost]
-        public ActionResult News(List<IFormFile> file,News Cy, string id)
+        public ActionResult News(List<IFormFile> file, List<IFormFile> file1,News Cy, string id)
        {
 
             try
             {
                 Cy.ID = id;
-                string Strout = NewsService.NewsCRUD(file,Cy);
+                string Strout = NewsService.NewsCRUD(file,file1,Cy);
                 if (string.IsNullOrEmpty(Strout))
                 {
                     if (Cy.ID == null)
@@ -148,7 +148,7 @@ namespace TamilMurasu.Controllers.Admin
                     des = dtUsers.Rows[i]["N_Description"].ToString(),
                     keyword = dtUsers.Rows[i]["Keyword"].ToString(),
                     editrow = EditRow,
-                     delrow = DeleteRow,
+                    delrow = DeleteRow,
 
                 });
             }

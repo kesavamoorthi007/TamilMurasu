@@ -103,7 +103,7 @@ namespace TamilMurasu.Controllers.Admin
                 string EditRow = string.Empty;
                 
 
-               EditRow = "<a href=Category?id=" + dtUsers.Rows[i]["C_Id"].ToString() + "><img src='../Images/edit(1).png' alt='Edit' width='30' /></a>";
+               EditRow = "<a href=Category?id=" + dtUsers.Rows[i]["C_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='25' /></a>";
                 
 
                 Reg.Add(new Categorygrid
