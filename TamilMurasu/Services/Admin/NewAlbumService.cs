@@ -79,6 +79,7 @@ namespace TamilMurasu.Services.Admin
                         if (files != null && files.Count > 0)
                         {
                             string filename1 = "";
+                            string filename2 = "";
                             foreach (var file in files)
                             {
                                 if (file.Length > 0)
@@ -90,10 +91,16 @@ namespace TamilMurasu.Services.Admin
                                     sFileType1 = sFileType1.ToLower();
 
                                     String strFleName = strLongFilePath1.Replace(sFileType1, "") + String.Format("{0:ddMMMyyyy-hhmmsstt}", DateTime.Now) + sFileType1;
+
+                                    var fileName = Path.Combine("wwwroot/Uploads/ThumbImage",strFleName);
+                                    var fileNme2 = "../Uploads/ThumbImage/"+strFleName;
+
                                     var fileName = Path.Combine("wwwroot/Uploads/ThumbImage", strFleName);
+
                                     filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
+                                    filename2 = filename2.Length > 0 ? filename2 + "," + fileNme2 : fileNme2;
                                     var name = file.FileName;
-                                    // Save the file to the target folder
+                                    // Save the file to the target folde
 
                                     using (var fileStream = new FileStream(fileName, FileMode.Create))
                                     {
@@ -102,7 +109,7 @@ namespace TamilMurasu.Services.Admin
                                 }
 
                             }
-                            svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,publish_up,publish_down,News_head,deletenews,most_view,tag,AddedDate) VALUES ('22','0','" + filename1 + "','0',N'" + Cy.Album + "','','','" + Cy.EnglishAlbum + "','Y','0','0','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                            svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,publish_up,publish_down,News_head,deletenews,most_view,tag,AddedDate) VALUES ('22','0','" + filename2 + "','0',N'" + Cy.Album + "','','','" + Cy.EnglishAlbum + "','Y','0','0','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                             SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                             objCmds.ExecuteNonQuery();
 
@@ -130,7 +137,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetEditNewAlbum(string id)
         {
             string SvSql = string.Empty;
-            SvSql = "select I_Id,Foot_Note,News_head from TMImages_N  Where TMImages_N.I_Id='" + id + "' ";
+            SvSql = "select I_Id,S_Image,Foot_Note,News_head from TMImages_N  Where TMImages_N.I_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);

@@ -41,6 +41,7 @@ namespace TamilMurasu.Controllers.Admin
                 {
                     br.Album = dt.Rows[0]["Foot_Note"].ToString();
                     br.EnglishAlbum = dt.Rows[0]["News_head"].ToString();
+                    br.filename1 = dt.Rows[0]["S_Image"].ToString();
                     br.ID = id;
 
                 }
@@ -101,8 +102,8 @@ namespace TamilMurasu.Controllers.Admin
                 string EditRow = string.Empty;
                 string DeleteRow = string.Empty;
 
-                EditRow = "<a href=NewAlbum?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/edit(1).png' alt='Edit' width='30' /></a>";
-                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/delete(1).png' alt='Deactivate' width='20' /></a>";
+                EditRow = "<a href=NewAlbum?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
+                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
 
 
 
