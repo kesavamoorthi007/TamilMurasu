@@ -87,8 +87,8 @@ namespace TamilMurasu.Services.Admin
                                     sFileType1 = System.IO.Path.GetExtension(file.FileName);
                                     sFileType1 = sFileType1.ToLower();
 
-									string strFleName = strLongFilePath1.Replace(sFileType1, "") + String.Format("{0:ddMMMyyyy-hhmmsstt}", DateTime.Now) + sFileType1;
-                                    var fileName = Path.Combine("wwwroot/Uploads", strFleName);
+									string strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
+                                    var fileName = Path.Combine("wwwroot//Uploads//ThumbImage", strFleName);
                                     filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
                                     var name = file.FileName;
                                     // Save the file to the target folder

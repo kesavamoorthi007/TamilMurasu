@@ -102,8 +102,8 @@ namespace TamilMurasu.Controllers.Admin
                 string EditRow = string.Empty;
                 string DeleteRow = string.Empty;
 
-                EditRow = "<a href=Adangapa?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/edit(1).png' alt='Edit' width='30' /></a>";
-                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/delete(1).png' alt='Deactivate' width='20' /></a>";
+                EditRow = "<a href=Adangapa?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
+                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
 
 
 

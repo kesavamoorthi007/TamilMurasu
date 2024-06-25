@@ -122,7 +122,7 @@ namespace TamilMurasu.Controllers.Admin
 
                 string EditRow = string.Empty;
 
-                EditRow = "<a href=Anmeegam?id=" + dtUsers.Rows[i]["A_Id"].ToString() + "><img src='../Images/edit(1).png' alt='Edit' width='30' /></a>";
+                EditRow = "<a href=Anmeegam?id=" + dtUsers.Rows[i]["A_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
 
 
                 Reg.Add(new Anmeegamgrid
