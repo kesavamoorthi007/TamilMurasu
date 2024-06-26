@@ -18,6 +18,8 @@ namespace TamilMurasu.Models
         public string PublishUp { get; set; }
         public string PublishDown { get; set; }
         public string ddlStatus { get; set; }
+        public string filename1 { get; set; }
+        public string filename2 { get; set; }
     }
     public class NewImagegrid
     {

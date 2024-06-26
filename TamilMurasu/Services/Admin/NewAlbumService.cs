@@ -89,16 +89,16 @@ namespace TamilMurasu.Services.Admin
                                     String sFileType1 = "";
                                     sFileType1 = System.IO.Path.GetExtension(file.FileName);
                                     sFileType1 = sFileType1.ToLower();
-
                                     String strFleName = strLongFilePath1.Replace(sFileType1, "") + String.Format("{0:ddMMMyyyy-hhmmsstt}", DateTime.Now) + sFileType1;
 
                                     var fileName = Path.Combine("wwwroot/Uploads/ThumbImage",strFleName);
+
                                     var fileNme2 = "../Uploads/ThumbImage/"+strFleName;
 
-                                    var fileName = Path.Combine("wwwroot/Uploads/ThumbImage", strFleName);
-
                                     filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
+
                                     filename2 = filename2.Length > 0 ? filename2 + "," + fileNme2 : fileNme2;
+
                                     var name = file.FileName;
                                     // Save the file to the target folde
 

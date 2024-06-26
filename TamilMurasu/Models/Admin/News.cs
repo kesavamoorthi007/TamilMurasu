@@ -25,7 +25,8 @@ namespace TamilMurasu.Models
         public string PublishDown { get; set; }
         public string KeyWords { get; set; }
         public string ddlStatus { get; set; }
-        public string file { get; set; }
+        public string filename1 { get; set; }
+        public string filename2 { get; set; }
     }
     public class Newsgrid
     {

@@ -56,7 +56,8 @@ namespace TamilMurasu.Controllers.Admin
                     br.PublishUp = dt.Rows[0]["AddedDateFormatted"].ToString();
                     br.PublishDown = dt.Rows[0]["AddedDateFormatted1"].ToString();
                     br.KeyWords = dt.Rows[0]["Keyword"].ToString();
-                    br.file = dt.Rows[0]["S_Image"].ToString();
+                    br.filename1 = dt.Rows[0]["S_Image"].ToString();
+                    br.filename2 = dt.Rows[0]["L_Image"].ToString();
 
                     br.ID = id;
 

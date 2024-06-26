@@ -39,8 +39,9 @@ namespace TamilMurasu.Controllers.Admin
                 if (dt.Rows.Count > 0)
                 {
                     br.VideoTittle = dt.Rows[0]["Foot_Note"].ToString();
-                    br.PublishUp = dt.Rows[0]["publish_up"].ToString();
-                    br.PublishDown = dt.Rows[0]["publish_down"].ToString();
+                    br.PublishUp = dt.Rows[0]["AddedDateFormatted"].ToString();
+                    br.PublishDown = dt.Rows[0]["AddedDateFormatted1"].ToString();
+                    br.filename1 = dt.Rows[0]["S_Image"].ToString();
                     br.ID = id;
 
                 }

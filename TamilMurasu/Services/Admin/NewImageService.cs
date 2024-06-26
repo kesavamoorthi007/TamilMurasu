@@ -73,7 +73,7 @@ namespace TamilMurasu.Services.Admin
             return "";
         }
 
-        public string NewImageCRUD(List<IFormFile> files, NewImage Cy)
+        public string NewImageCRUD(List<IFormFile> files, List<IFormFile> file1, NewImage Cy)
         {
             string msg = "";
             try
@@ -89,6 +89,7 @@ namespace TamilMurasu.Services.Admin
                         if (files != null && files.Count > 0)
                         {
                             string filename1 = "";
+                            string filesave1 = "";
                             foreach (var file in files)
                             {
                                 if (file.Length > 0)
@@ -100,8 +101,17 @@ namespace TamilMurasu.Services.Admin
                                     sFileType1 = sFileType1.ToLower();
 
                                     String strFleName = strLongFilePath1.Replace(sFileType1, "") + String.Format("{0:ddMMMyyyy-hhmmsstt}", DateTime.Now) + sFileType1;
+
                                     var fileName = Path.Combine("wwwroot/Uploads/ThumbImage", strFleName);
+
+                                    var fileNme1 = "../Uploads/ThumbImage/" + strFleName;
+
+
                                     filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
+
+                                    filesave1 = filesave1.Length > 0 ? filesave1 + "," + fileNme1 : fileNme1;
+
+
                                     var name = file.FileName;
                                     // Save the file to the target folder
 
@@ -110,10 +120,44 @@ namespace TamilMurasu.Services.Admin
                                             file.CopyTo(fileStream);
                                     }
                                 }
-                                svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,Addeddate,publish_up,publish_down,News_head,deletenews,most_view,tag) VALUES ('23','" + Cy.Category + "','" + filename1 + "','" + filename1 + "',N'" + Cy.FootNote + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','0','Y','0','0')";
+
+                            }
+                            if (file1 != null && file1.Count > 0)
+                            {
+                                string filename2 = "";
+                                string filesave2 = "";
+                                foreach (var file in file1)
+                                {
+                                    if (file.Length > 0)
+                                    {
+                                        // Get the file name and combine it with the target folder path
+                                        String strLongFilePath1 = file.FileName;
+                                        String sFileType1 = "";
+                                        sFileType1 = System.IO.Path.GetExtension(file.FileName);
+                                        sFileType1 = sFileType1.ToLower();
+
+                                        String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
+
+                                        var fileName = Path.Combine("wwwroot/Uploads/LargeImage", strFleName);
+
+                                        var fileNme2 = "../Uploads/LargeImage/" + strFleName;
+
+
+                                        filename2 = filename2.Length > 0 ? filename2 + "," + fileName : fileName;
+
+                                        filesave2 = filesave2.Length > 0 ? filesave2 + "," + fileNme2 : fileNme2;
+
+                                        var name = file.FileName;
+                                        // Save the file to the target folder
+                                        using (var fileStream = new FileStream(fileName, FileMode.Create))
+                                        {
+                                            file.CopyTo(fileStream);
+                                        }
+                                    }
+                                }
+                                svSQL = "Insert into TMImages_N (I_cat,I_Cid,S_Image,L_image,Foot_Note,Addeddate,publish_up,publish_down,News_head,deletenews,most_view,tag) VALUES ('23','" + Cy.Category + "','" + filesave1 + "','" + filesave2 + "',N'" + Cy.FootNote + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','0','Y','0','0')";
                                 SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                                 objCmds.ExecuteNonQuery();
-
                             }
                         }
                        
@@ -139,7 +183,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetEditNewImage(string id)
         {
             string SvSql = string.Empty;
-            SvSql = "select I_Id,I_Cid,Foot_Note,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1 from TMImages_N  Where TMImages_N.I_Id='" + id + "' ";
+            SvSql = "select I_Id,I_Cid,S_Image,L_Image,Foot_Note,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1 from TMImages_N  Where TMImages_N.I_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);

@@ -82,20 +82,28 @@
                                         <div class="col-md-10">
                                             <input type="file" name="file" id="file-input" multiple>
                                             <br /><div id="preview-container"></div>
-                                            <script src="script.js"></script>
+                                           
+                                            <img src='@Html.DisplayFor(C => C.filename1)' />
+
                                         </div>
                                   </div>
                                 </div>
-                               @*  <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <br /> <label for="formFile" class="col-sm-4 control-label">Picture Large<label class="mandatory">*</label></label>
-                                        <div class="col-md-8">
-                                            <input class="form-control" type="file" name="file" multiple />
+                                        <br /> <label for="formFile" class="col-sm-2 control-label">Picture Large<label class="mandatory">*</label></label>
+                                        <div class="col-md-10">
+                                            <input type="file" name="file1" id="file-input1" multiple>
+                                            <br /><div id="preview-container1"></div>
+                                            <script src="script.js"></script>
+                                            <img src='@Html.DisplayFor(C => C.filename2)' />
+
                                         </div>
                                     </div>
-                                </div> *@
+                                </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -154,6 +162,29 @@
         $("#preview-container").on("click", ".delete", function () {
             $(this).parent(".preview").remove();
             $("#file-input").val(""); // Clear input value if needed
+        });
+    });
+
+</script>
+<script>
+
+    $(document).ready(function () {
+        $("#file-input1").on("change", function () {
+            var files = $(this)[0].files;
+            $("#preview-container1").empty();
+            if (files.length > 0) {
+                for (var i = 0; i < files.length; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("<div class='preview'><img src='" + e.target.result + "'><button class='delete'>Delete</button></div>").appendTo("#preview-container1");
+                    };
+                    reader.readAsDataURL(files[i]);
+                }
+            }
+        });
+        $("#preview-container1").on("click", ".delete", function () {
+            $(this).parent(".preview").remove();
+            $("#file-input1").val(""); // Clear input value if needed
         });
     });
 
