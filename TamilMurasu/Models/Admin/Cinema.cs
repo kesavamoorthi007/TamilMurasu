@@ -10,6 +10,7 @@ namespace TamilMurasu.Models
         public string EnglishAlbum { get; set; }
         public string Tag { get; set; }
         public string ddlStatus { get; set; }
+        public string filename1 { get; set; }
         
 
     }

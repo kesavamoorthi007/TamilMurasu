@@ -43,6 +43,7 @@ namespace TamilMurasu.Controllers.Admin
                     br.Album = dt.Rows[0]["Foot_Note"].ToString();
                     br.EnglishAlbum = dt.Rows[0]["News_head"].ToString();
                     br.Tag = dt.Rows[0]["tag"].ToString();
+                    br.filename1 = dt.Rows[0]["S_Image"].ToString();
                     br.ID = id;
 
                 }

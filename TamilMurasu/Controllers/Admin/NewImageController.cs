@@ -44,6 +44,8 @@ namespace TamilMurasu.Controllers.Admin
                     br.FootNote = dt.Rows[0]["Foot_Note"].ToString();
                     br.PublishUp = dt.Rows[0]["AddedDateFormatted"].ToString();
                     br.PublishDown = dt.Rows[0]["AddedDateFormatted1"].ToString();
+                    br.filename1 = dt.Rows[0]["S_Image"].ToString();
+                    br.filename2 = dt.Rows[0]["L_Image"].ToString();
                     br.ID = id;
 
                 }
@@ -56,13 +58,13 @@ namespace TamilMurasu.Controllers.Admin
             return View();
         }
         [HttpPost]
-        public ActionResult NewImage(List<IFormFile> file, NewImage Cy, string id)
+        public ActionResult NewImage(List<IFormFile> file, List<IFormFile> file1, NewImage Cy, string id)
         {
 
             try
             {
                 Cy.ID = id;
-                string Strout = NewImageService.NewImageCRUD(file,Cy);
+                string Strout = NewImageService.NewImageCRUD(file, file1,Cy);
                 if (string.IsNullOrEmpty(Strout))
                 {
                     if (Cy.ID == null)

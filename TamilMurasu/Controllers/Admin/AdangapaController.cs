@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.InkML;
+using System.Text;
 
 namespace TamilMurasu.Controllers.Admin
 {
@@ -38,10 +39,13 @@ namespace TamilMurasu.Controllers.Admin
                 dt = AdangapaService.GetEditAdangapa(id);
                 if (dt.Rows.Count > 0)
                 {
+                    int shift = 1;
                     br.Original = dt.Rows[0]["Foot_Note"].ToString();
+                    br.Original = Decrypt(br.Original, shift);
                     br.PublishUp = dt.Rows[0]["AddedDateFormatted"].ToString();
                     br.PublishDown = dt.Rows[0]["AddedDateFormatted1"].ToString();
                     br.Comedy = dt.Rows[0]["News_head"].ToString();
+                    br.filename1 = dt.Rows[0]["S_Image"].ToString();
                     br.ID = id;
 
                 }
@@ -141,5 +145,35 @@ namespace TamilMurasu.Controllers.Admin
                 return RedirectToAction("ListAdangapa");
             }
         }
+
+        public string Decrypt(string cipherText, int shift)
+        {
+            // StringBuilder to store the decrypted text
+            StringBuilder decryptedText = new StringBuilder();
+             cipherText = "A®•à®¾à®²à®¿à®¸à¯?à®¤à®¾à®©à¯? à®†à®¤à®°à®µà®¾à®³à®°à¯?à®•à®³à®¾à®²à¯? à®‡à®¨à¯?à®¤à®¿à®¯ à®ªà®¤à¯?à®¤à®¿à®°à®¿à®•à¯ˆà®¯à®¾à®³à®°à¯?à®•à®³à¯? à®®à¯€à®¤à¯? à®¤à®¾à®•à¯?à®•à¯?à®¤à®²à¯? à®µà®¾à®·à®¿à®™à¯?à®Ÿà®©à®¿à®²à¯? à®ªà®°à®ªà®°à®ªà¯?à®ªà¯?";
+
+            // Iterate through each character in the cipherText
+            foreach (char ch in cipherText)
+            {
+                // Check if the character is a Tamil letter (Unicode range: 0B80 to 0BFF)
+                if (ch >= 0x0B80  && ch <= 0x0BFF)
+                {
+                    // Shift the character back by the shift value and wrap around if necessary
+                    int newCharCode = ((ch - 0x0B80) - shift + 128) % 128 + 0x0B80;
+                    decryptedText.Append((char)newCharCode);
+                }
+                else
+                {
+                    // If the character is not a Tamil letter, add it to the decrypted text without changing it
+                    decryptedText.Append(ch);
+                }
+            }
+
+            // Return the decrypted text
+            return decryptedText.ToString();
+        }
+
+       
+
     }
 }

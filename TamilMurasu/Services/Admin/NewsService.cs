@@ -91,6 +91,7 @@ namespace TamilMurasu.Services.Admin
                         if (files != null && files.Count > 0)
                         {
                             string filename1 = "";
+                            string filesave1 = "";
                             foreach (var file in files)
                             {
                                 if (file.Length > 0)
@@ -102,8 +103,15 @@ namespace TamilMurasu.Services.Admin
                                     sFileType1 = sFileType1.ToLower();
 
                                     String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
+
                                     var fileName = Path.Combine("wwwroot/Uploads/ThumbImage", strFleName);
+
+                                    var fileNme1 = "../Uploads/ThumbImage/" + strFleName;
+
                                     filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
+
+                                    filesave1 = filesave1.Length > 0 ? filesave1 + "," + fileNme1 : fileNme1;
+
                                     var name = file.FileName;
                                     // Save the file to the target folder
                                     using (var fileStream = new FileStream(fileName, FileMode.Create))
@@ -115,6 +123,7 @@ namespace TamilMurasu.Services.Admin
                             if (file1 != null && file1.Count > 0)
                             {
                                 string filename2 = "";
+                                string filesave2 = "";
                                 foreach (var file in file1)
                                 {
                                     if (file.Length > 0)
@@ -126,8 +135,16 @@ namespace TamilMurasu.Services.Admin
                                         sFileType1 = sFileType1.ToLower();
 
                                         String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
-                                        var fileName = Path.Combine("wwwroot\\Uploads\\LargeImage", strFleName);
+
+                                        var fileName = Path.Combine("wwwroot/Uploads/LargeImage", strFleName);
+
+                                        var fileNme2 = "../Uploads/LargeImage/" + strFleName;
+
+
                                         filename2 = filename2.Length > 0 ? filename2 + "," + fileName : fileName;
+
+                                        filesave2 = filesave2.Length > 0 ? filesave2 + "," + fileNme2 : fileNme2;
+
                                         var name = file.FileName;
                                         // Save the file to the target folder
                                         using (var fileStream = new FileStream(fileName, FileMode.Create))
@@ -136,7 +153,7 @@ namespace TamilMurasu.Services.Admin
                                         }
                                     }
                                 }
-                                svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES ('" + Cy.Category + "',N'" + Cy.NewsHead + "',N'" + Cy.NewsDetail + "','" + filename1 + "','" + filename2 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                                svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES ('" + Cy.Category + "',N'" + Cy.NewsHead + "',N'" + Cy.NewsDetail + "','" + filesave1 + "','" + filesave2 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "','" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                                 SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                                 objCmds.ExecuteNonQuery();
 
@@ -167,7 +184,7 @@ namespace TamilMurasu.Services.Admin
         public DataTable GetEditNews(string id)
         {
             string SvSql = string.Empty;
-            SvSql = "select N_Id,C_Id,NT_Head,EditorPick,Highlights,Banner,N_Description,CONVERT(varchar, TMNews_N.Publish_Up, 106) AS AddedDateFormatted,CONVERT(varchar, TMNews_N.Publish_down, 106) AS AddedDateFormatted1,Keyword,S_Image from TMNews_N  Where TMNews_N.N_Id='" + id + "' ";
+            SvSql = "select N_Id,C_Id,NT_Head,EditorPick,Highlights,Banner,N_Description,CONVERT(varchar, TMNews_N.Publish_Up, 106) AS AddedDateFormatted,CONVERT(varchar, TMNews_N.Publish_down, 106) AS AddedDateFormatted1,Keyword,S_Image,L_Image from TMNews_N  Where TMNews_N.N_Id='" + id + "' ";
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
