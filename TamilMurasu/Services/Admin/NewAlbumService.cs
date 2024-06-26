@@ -95,7 +95,7 @@ namespace TamilMurasu.Services.Admin
                                     var fileName = Path.Combine("wwwroot/Uploads/ThumbImage",strFleName);
                                     var fileNme2 = "../Uploads/ThumbImage/"+strFleName;
 
-                                    var fileName = Path.Combine("wwwroot/Uploads/ThumbImage", strFleName);
+                                   
 
                                     filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
                                     filename2 = filename2.Length > 0 ? filename2 + "," + fileNme2 : fileNme2;
