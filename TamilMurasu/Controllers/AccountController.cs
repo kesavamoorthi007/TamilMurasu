@@ -85,7 +85,6 @@ namespace TamilMurasu.Controllers
                     //Response.Cookies.Append("UserId", _dtUser.Rows[0]["EMPMASTID"].ToString(), option);
                     //Response.Cookies.Append("UserName", _dtUser.Rows[0]["Username"].ToString(), option);
                     //Response.Cookies.Append("Department", _dtUser.Rows[0]["empdept"].ToString(), option);
-
                     //HttpContext.Session.SetString("UserId", _dtUser.Rows[0]["EMPMASTID"].ToString());
                     //HttpContext.Session.SetString("UserName", _dtUser.Rows[0]["Username"].ToString());
                     //HttpContext.Session.SetString("Department", _dtUser.Rows[0]["empdept"].ToString());
@@ -103,8 +102,8 @@ namespace TamilMurasu.Controllers
             
             if (isValidUser == true)
             {
-                //TempData["msg"] = "You are welcome to Admin Section";
-                // return RedirectToAction(actionName: "Index", controllerName: "Home");
+                TempData["msg"] = "You are welcome to Admin Section";
+                //return RedirectToAction(actionName: "Index", controllerName: "Home");
                 return RedirectToAction(actionName: "Index", controllerName: "Home");
             }
             else

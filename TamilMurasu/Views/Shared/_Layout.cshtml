@@ -62,7 +62,7 @@
 
 <body class="page-header-fixed ">
     @{
-        string strName = "Admin";
+        string strName = "";
         if (HttpContextAccessor.HttpContext.Request.Cookies["UserName"] != null || HttpContextAccessor.HttpContext.Request.Cookies["UserName"] != "")
         {
             strName = HttpContextAccessor.HttpContext.Request.Cookies["UserName"];
@@ -78,10 +78,15 @@
             <div class="top-menu">
 <!--  TOP NAVIGATION MENU -->
                 <div class="hor-menu  hor-menu-light hidden-sm hidden-xs">
-                    <ul class="nav navbar-nav pull-left" style="padding-left: 500px;padding-top:10px;">
+                    <ul class="nav navbar-nav pull-left" style="padding-left: 50px;padding-top:10px;">
                         <li>
 
-                            <h3><span style="color:white"> ! WELCOME ADMIN !  </span>	</h3>
+                           @*  <h3><span style="color:white"> ! WELCOME ADMIN !  </span>	</h3> *@
+                            <h3><span style="color:white"> User Name : </span>	</h3>
+                        </li>
+                        <li>
+
+                            <h3><span style="color:white"> &nbsp;&nbsp;@strName </span>	</h3>
                         </li>
                     </ul>
 
