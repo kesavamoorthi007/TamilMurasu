@@ -101,9 +101,19 @@ namespace TamilMurasu.Controllers.Admin
 
                 string EditRow = string.Empty;
                 string DeleteRow = string.Empty;
+                if (dtUsers.Rows[i]["deletenews"].ToString() == "Y")
+                {
+                    EditRow = "<a href=NewAlbum?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
+                    DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
+                }
+                else
+                {
 
-                EditRow = "<a href=NewAlbum?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
-                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
+                    EditRow = "";
+                    DeleteRow = "<a href=Remove?tag=Del&id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/close_icon.png' alt='Deactivate' /></a>";
+
+                }
+
 
 
 
@@ -124,6 +134,21 @@ namespace TamilMurasu.Controllers.Admin
             });
 
         }
+        public ActionResult Remove(string tag, int id)
+        {
+
+            string flag = NewAlbumService.RemoveChange(tag, id);
+            if (string.IsNullOrEmpty(flag))
+            {
+
+                return RedirectToAction("ListNewAlbum");
+            }
+            else
+            {
+                TempData["notice"] = flag;
+                return RedirectToAction("ListNewAlbum");
+            }
+        }
         public ActionResult DeleteMR(string tag, int id)
         {
 
@@ -131,12 +156,12 @@ namespace TamilMurasu.Controllers.Admin
             if (string.IsNullOrEmpty(flag))
             {
 
-                return RedirectToAction("ListNewImage");
+                return RedirectToAction("ListNewAlbum");
             }
             else
             {
                 TempData["notice"] = flag;
-                return RedirectToAction("ListNewImage");
+                return RedirectToAction("ListNewAlbum");
             }
         }
     }

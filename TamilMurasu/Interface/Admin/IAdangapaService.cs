@@ -12,5 +12,6 @@ namespace TamilMurasu.Interface.Admin
         DataTable GetAllAdangapa(string strStatus);
         DataTable GetEditAdangapa(string id);
         string StatusDeleteMR(string tag, int id);
+        string RemoveChange(string tag, int id);
     }
 }
