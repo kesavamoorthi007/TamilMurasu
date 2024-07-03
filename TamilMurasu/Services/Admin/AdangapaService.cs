@@ -26,11 +26,11 @@ namespace TamilMurasu.Services.Admin
             string SvSql = string.Empty;
             if (strStatus == "Y" || strStatus == null)
             {
-                SvSql = "select  I_Id,Foot_Note,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,deletenews,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
             }
             else
             {
-                SvSql = "select  I_Id,Foot_Note,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,deletenews,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
             }
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
@@ -59,6 +59,29 @@ namespace TamilMurasu.Services.Admin
                 throw ex;
             }
             return "";
+        }
+        public string RemoveChange(string tag, int id)
+        {
+
+            try
+            {
+                string svSQL = string.Empty;
+                using (SqlConnection objConnT = new SqlConnection(_connectionString))
+                {
+                    svSQL = "UPDATE TMImages_N SET deletenews ='Y' WHERE I_Id='" + id + "'";
+                    SqlCommand objCmds = new SqlCommand(svSQL, objConnT);
+                    objConnT.Open();
+                    objCmds.ExecuteNonQuery();
+                    objConnT.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return "";
+
         }
         public string AdangapaCRUD(List<IFormFile> files, Adangapa Cy)
         {

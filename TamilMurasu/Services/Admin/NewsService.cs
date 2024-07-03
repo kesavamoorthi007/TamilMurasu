@@ -74,6 +74,29 @@ namespace TamilMurasu.Services.Admin
             }
             return "";
         }
+        public string RemoveChange(string tag, int id)
+        {
+
+            try
+            {
+                string svSQL = string.Empty;
+                using (SqlConnection objConnT = new SqlConnection(_connectionString))
+                {
+                    svSQL = "UPDATE TMNews_N SET deletenews ='Y' WHERE N_Id='" + id + "'";
+                    SqlCommand objCmds = new SqlCommand(svSQL, objConnT);
+                    objConnT.Open();
+                    objCmds.ExecuteNonQuery();
+                    objConnT.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return "";
+
+        }
         public string NewsCRUD(List<IFormFile> files, List<IFormFile> file1,News Cy)
         {
             string msg = "";

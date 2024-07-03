@@ -137,8 +137,20 @@ namespace TamilMurasu.Controllers.Admin
                 string EditRow = string.Empty;
                 string DeleteRow = string.Empty;
 
-                EditRow = "<a href=News?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
-                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
+                if (dtUsers.Rows[i]["deletenews"].ToString() == "Y")
+                {
+                    EditRow = "<a href=News?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
+                    DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
+
+                }
+                else
+                {
+
+                    EditRow = "";
+                    DeleteRow = "<a href=Remove?tag=Del&id=" + dtUsers.Rows[i]["N_Id"].ToString() + "><img src='../Images/close_icon.png' alt='Deactivate' /></a>";
+
+                }
+                
 
 
                 Reg.Add(new Newsgrid
@@ -159,6 +171,21 @@ namespace TamilMurasu.Controllers.Admin
                 Reg
             });
 
+        }
+        public ActionResult Remove(string tag, int id)
+        {
+
+            string flag = NewsService.RemoveChange(tag, id);
+            if (string.IsNullOrEmpty(flag))
+            {
+
+                return RedirectToAction("ListNews");
+            }
+            else
+            {
+                TempData["notice"] = flag;
+                return RedirectToAction("ListNews");
+            }
         }
         public ActionResult DeleteMR(string tag, int id)
         {

@@ -11,6 +11,7 @@ namespace TamilMurasu.Interface.Admin
         DataTable GetEditNewAlbum(string id);
         string NewAlbumCRUD(List<IFormFile> file, NewAlbum Cy);
         string StatusDeleteMR(string tag, int id);
+        string RemoveChange(string tag, int id);
 
     }
 }

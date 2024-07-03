@@ -12,6 +12,7 @@ namespace TamilMurasu.Interface.Admin
         DataTable GetAllCinema(string strStatus);
         DataTable GetEditCinema(string id);
         string StatusDeleteMR(string tag, int id);
+        string RemoveChange(string tag, int id);
 
     }
 }
