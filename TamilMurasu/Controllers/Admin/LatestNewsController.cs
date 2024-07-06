@@ -50,7 +50,7 @@ namespace TamilMurasu.Controllers.Admin
 
                 }
             }
-            return View(br);
+            return View();
 
         }
         public IActionResult ListLatestNews()
@@ -107,7 +107,7 @@ namespace TamilMurasu.Controllers.Admin
                 string DeleteRow = string.Empty;
 
                 EditRow = "<a href=LatestNews?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
-                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
+                DeleteRow = "DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "";
 
 
 

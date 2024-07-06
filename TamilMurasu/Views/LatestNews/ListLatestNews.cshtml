@@ -38,7 +38,7 @@
                 // synchronize with the server - send update command
             },
             datafields: [
-                { name: 'footnote', type: 'string' },
+                //{ name: 'footnote', type: 'string' },
                 { name: 'head', type: 'string' },
                 { name: 'editrow', type: 'string' },
                 { name: 'delrow', type: 'string' },
@@ -54,6 +54,12 @@
             }
         }
         );
+        var linkrenderer1 = function (row, column, value) {
+
+            return '<a href="' + value + '" onclick="return ConfirmDelete()"><img  src="../Images/delete.png"  /></a>';
+
+        }
+       
 
         $("#grid").jqxGrid(
             {
@@ -79,10 +85,10 @@
 
                 columns: [
 
-                    { text: 'News Detail', filtertype: 'checkedlist', datafield: 'footnote', width: 450 },
-                    { text: 'News Head', filtertype: 'input', datafield: 'head', width: 450 },
+                    //{ text: 'News Detail', filtertype: 'checkedlist', datafield: 'footnote', width: 450 },
+                    { text: 'News Head', filtertype: 'input', datafield: 'head', width: 650 },
                     { text: 'Edit', datafield: 'editrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
-                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
+                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 , cellsrenderer: linkrenderer1},
                 ]
             });
         $("#ddlStatus").change(function () {
@@ -95,6 +101,7 @@
             };
             $("#grid").jqxGrid({ source: source });
         });
+       
     });
 
 </script>
@@ -136,12 +143,12 @@
         </div>
     </div>
 </div>
-<script>
+  <script>
     function ConfirmDelete() {
         return confirm("Are you sure you want to delete?");
     }
 </script>
-
+ 
 
 <script>
     $(document).ready(function () {
