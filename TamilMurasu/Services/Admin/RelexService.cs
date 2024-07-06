@@ -27,11 +27,11 @@ namespace TamilMurasu.Services.Admin
             string SvSql = string.Empty;
             if (strStatus == "Y" || strStatus == null)
             {
-                SvSql = "  Select Top 100 I_Id,I_cat,S_Image,Foot_Note from TMImages_N WHERE  deletenews='Y' Order by I_Id desc";
+                SvSql = "  Select Top 100 I_Id,I_cat,S_Image,deletenews,Foot_Note from TMImages_N WHERE  deletenews='Y' Order by I_Id desc";
             }
             else
             {
-                SvSql = "  Select Top 100 I_Id,I_cat,S_Image,Foot_Note from TMImages_N WHERE  deletenews='N' Order by I_Id desc";
+                SvSql = "  Select Top 100 I_Id,I_cat,S_Image,deletenews,Foot_Note from TMImages_N WHERE  deletenews='N' Order by I_Id desc";
             }
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
@@ -60,6 +60,29 @@ namespace TamilMurasu.Services.Admin
                 throw ex;
             }
             return "";
+        }
+        public string RemoveChange(string tag, int id)
+        {
+
+            try
+            {
+                string svSQL = string.Empty;
+                using (SqlConnection objConnT = new SqlConnection(_connectionString))
+                {
+                    svSQL = "UPDATE TMImages_N SET deletenews ='Y' WHERE I_Id='" + id + "'";
+                    SqlCommand objCmds = new SqlCommand(svSQL, objConnT);
+                    objConnT.Open();
+                    objCmds.ExecuteNonQuery();
+                    objConnT.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return "";
+
         }
 
         public string RelexCRUD(Relex Cy)

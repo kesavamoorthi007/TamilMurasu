@@ -11,5 +11,6 @@ namespace TamilMurasu.Interface.Admin
         DataTable GetEditLatestNews(string id);
         string LatestNewsCRUD(LatestNews Cy);
         string StatusDeleteMR(string tag, int id);
+        string RemoveChange(string tag, int id);
     }
 }

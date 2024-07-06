@@ -11,5 +11,6 @@ namespace TamilMurasu.Interface.Admin
         DataTable GetEditRelex(string id);
         string RelexCRUD(Relex Cy);
          string StatusDeleteMR(string tag, int id);
+        string RemoveChange(string tag, int id);
     }
 }

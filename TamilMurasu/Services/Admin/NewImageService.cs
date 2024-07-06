@@ -27,11 +27,11 @@ namespace TamilMurasu.Services.Admin
             string SvSql = string.Empty;
             if (strStatus == "Y" || strStatus == null)
             {
-                SvSql = "select  I_Id,Foot_Note,S_Image,L_image from TMImages_N where I_cat='23' and TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,S_Image,deletenews,L_image from TMImages_N where I_cat='23' and TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
             }
             else
             {
-                SvSql = "select  I_Id,Foot_Note,S_Image,L_image from TMImages_N where I_cat='23' and TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,S_Image,deletenews,L_image from TMImages_N where I_cat='23' and TMImages_N.deletenews='N' ORDER BY TMImages_N.I_Id DESC";
             }
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);
@@ -71,6 +71,29 @@ namespace TamilMurasu.Services.Admin
                 throw ex;
             }
             return "";
+        }
+        public string RemoveChange(string tag, int id)
+        {
+
+            try
+            {
+                string svSQL = string.Empty;
+                using (SqlConnection objConnT = new SqlConnection(_connectionString))
+                {
+                    svSQL = "UPDATE TMImages_N SET deletenews ='Y' WHERE I_Id='" + id + "'";
+                    SqlCommand objCmds = new SqlCommand(svSQL, objConnT);
+                    objConnT.Open();
+                    objCmds.ExecuteNonQuery();
+                    objConnT.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return "";
+
         }
 
         public string NewImageCRUD(List<IFormFile> files, List<IFormFile> file1, NewImage Cy)

@@ -10,6 +10,7 @@ namespace TamilMurasu.Interface.Admin
         DataTable GetAllVideo(string strStatus);
         string VideoCRUD(List<IFormFile> file,Video Cy);
         string StatusDeleteMR(string tag, int id);
+        string RemoveChange(string tag, int id);
         DataTable GetEditVideo(string id);
     }
 }

@@ -41,7 +41,7 @@ namespace TamilMurasu.Controllers.Admin
                 {
                     int shift = 1;
                     br.Original = dt.Rows[0]["Foot_Note"].ToString();
-                    br.Original = Decrypt(br.Original, shift);
+                    //br.Original = Decrypt(br.Original, shift);
                     br.PublishUp = dt.Rows[0]["AddedDateFormatted"].ToString();
                     br.PublishDown = dt.Rows[0]["AddedDateFormatted1"].ToString();
                     br.Comedy = dt.Rows[0]["News_head"].ToString();
@@ -105,10 +105,21 @@ namespace TamilMurasu.Controllers.Admin
 
                 string EditRow = string.Empty;
                 string DeleteRow = string.Empty;
+                if (dtUsers.Rows[i]["deletenews"].ToString() == "Y")
+                {
+                    EditRow = "<a href=Adangapa?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
+                    DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
 
-                EditRow = "<a href=Adangapa?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
-                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
+                }
+                else
+                {
 
+                    EditRow = "";
+                    DeleteRow = "<a href=Remove?tag=Del&id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/close_icon.png' alt='Deactivate' /></a>";
+
+                }
+
+              
 
 
                 Reg.Add(new Adangapagrid
@@ -130,6 +141,21 @@ namespace TamilMurasu.Controllers.Admin
             });
 
         }
+        public ActionResult Remove(string tag, int id)
+        {
+
+            string flag = AdangapaService.RemoveChange(tag, id);
+            if (string.IsNullOrEmpty(flag))
+            {
+
+                return RedirectToAction("ListAdangapa");
+            }
+            else
+            {
+                TempData["notice"] = flag;
+                return RedirectToAction("ListAdangapa");
+            }
+        }
         public ActionResult DeleteMR(string tag, int id)
         {
 
@@ -146,32 +172,32 @@ namespace TamilMurasu.Controllers.Admin
             }
         }
 
-        public string Decrypt(string cipherText, int shift)
-        {
-            // StringBuilder to store the decrypted text
-            StringBuilder decryptedText = new StringBuilder();
-             cipherText = "A®•à®¾à®²à®¿à®¸à¯?à®¤à®¾à®©à¯? à®†à®¤à®°à®µà®¾à®³à®°à¯?à®•à®³à®¾à®²à¯? à®‡à®¨à¯?à®¤à®¿à®¯ à®ªà®¤à¯?à®¤à®¿à®°à®¿à®•à¯ˆà®¯à®¾à®³à®°à¯?à®•à®³à¯? à®®à¯€à®¤à¯? à®¤à®¾à®•à¯?à®•à¯?à®¤à®²à¯? à®µà®¾à®·à®¿à®™à¯?à®Ÿà®©à®¿à®²à¯? à®ªà®°à®ªà®°à®ªà¯?à®ªà¯?";
+        //public string Decrypt(string cipherText, int shift)
+        //{
+        //    // StringBuilder to store the decrypted text
+        //    StringBuilder decryptedText = new StringBuilder();
+        //     cipherText = "A®•à®¾à®²à®¿à®¸à¯?à®¤à®¾à®©à¯? à®†à®¤à®°à®µà®¾à®³à®°à¯?à®•à®³à®¾à®²à¯? à®‡à®¨à¯?à®¤à®¿à®¯ à®ªà®¤à¯?à®¤à®¿à®°à®¿à®•à¯ˆà®¯à®¾à®³à®°à¯?à®•à®³à¯? à®®à¯€à®¤à¯? à®¤à®¾à®•à¯?à®•à¯?à®¤à®²à¯? à®µà®¾à®·à®¿à®™à¯?à®Ÿà®©à®¿à®²à¯? à®ªà®°à®ªà®°à®ªà¯?à®ªà¯?";
 
-            // Iterate through each character in the cipherText
-            foreach (char ch in cipherText)
-            {
-                // Check if the character is a Tamil letter (Unicode range: 0B80 to 0BFF)
-                if (ch >= 0x0B80  && ch <= 0x0BFF)
-                {
-                    // Shift the character back by the shift value and wrap around if necessary
-                    int newCharCode = ((ch - 0x0B80) - shift + 128) % 128 + 0x0B80;
-                    decryptedText.Append((char)newCharCode);
-                }
-                else
-                {
-                    // If the character is not a Tamil letter, add it to the decrypted text without changing it
-                    decryptedText.Append(ch);
-                }
-            }
+        //    // Iterate through each character in the cipherText
+        //    foreach (char ch in cipherText)
+        //    {
+        //        // Check if the character is a Tamil letter (Unicode range: 0B80 to 0BFF)
+        //        if (ch >= 0x0B80  && ch <= 0x0BFF)
+        //        {
+        //            // Shift the character back by the shift value and wrap around if necessary
+        //            int newCharCode = ((ch - 0x0B80) - shift + 128) % 128 + 0x0B80;
+        //            decryptedText.Append((char)newCharCode);
+        //        }
+        //        else
+        //        {
+        //            // If the character is not a Tamil letter, add it to the decrypted text without changing it
+        //            decryptedText.Append(ch);
+        //        }
+        //    }
 
-            // Return the decrypted text
-            return decryptedText.ToString();
-        }
+        //    // Return the decrypted text
+        //    return decryptedText.ToString();
+        //}
 
        
 

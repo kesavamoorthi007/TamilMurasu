@@ -43,6 +43,29 @@ namespace TamilMurasu.Services.Admin
             }
             return "";
         }
+        public string RemoveChange(string tag, int id)
+        {
+
+            try
+            {
+                string svSQL = string.Empty;
+                using (SqlConnection objConnT = new SqlConnection(_connectionString))
+                {
+                    svSQL = "UPDATE TMImages_N SET deletenews ='Y' WHERE I_Id='" + id + "'";
+                    SqlCommand objCmds = new SqlCommand(svSQL, objConnT);
+                    objConnT.Open();
+                    objCmds.ExecuteNonQuery();
+                    objConnT.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return "";
+
+        }
 
 
         public DataTable GetAllNewAlbum(string strStatus)
@@ -50,11 +73,11 @@ namespace TamilMurasu.Services.Admin
             string SvSql = string.Empty;
             if (strStatus == "Y" || strStatus == null)
             {
-                SvSql = "select I_id,S_Image,L_image,Foot_Note,News_head,Addeddate,I_cat from TMImages_N where I_cat='22' and deletenews='Y' and I_Cid=0 order by I_id desc";
+                SvSql = "select I_id,S_Image,L_image,Foot_Note,News_head,deletenews,Addeddate,I_cat from TMImages_N where I_cat='22' and deletenews='Y' and I_Cid=0 order by I_id desc";
             }
             else
             {
-                SvSql = "select  I_id,S_Image,L_image,Foot_Note,News_head,Addeddate,I_cat from TMImages_N where I_cat='22' and deletenews='N' and I_Cid=0 order by I_id desc ";
+                SvSql = "select  I_id,S_Image,L_image,Foot_Note,News_head,deletenews,Addeddate,I_cat from TMImages_N where I_cat='22' and deletenews='N' and I_Cid=0 order by I_id desc ";
             }
             DataTable dtt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(SvSql, _connectionString);

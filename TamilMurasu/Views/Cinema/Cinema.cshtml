@@ -80,8 +80,9 @@
                                     <br /> <div class="form-group">
                                         <label for="formFile" class="col-sm-2 control-label">Picture Thumbnail<label class="mandatory">*</label></label>
                                         <div class="col-md-10">
-                                            <input type="file" name="file" id="file-input" multiple>
+                                            <input type="file" required="required" name="file" id="file-input" accept=".jpg, .jpeg, .png" onchange="validateFileType()" multiple>
                                             <br /><div id="preview-container"></div>
+                                              <p id="error" style="color: red;"></p>
 
                                             <img src='@Html.DisplayFor(C => C.filename1)' />
                                         </div>
@@ -111,6 +112,22 @@
         </div>
     </div>
 </div>
+<script>
+    function validateFileType() {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        var fileInput = document.getElementById('file-input');
+        var filePath = fileInput.value;
+        if (!allowedExtensions.exec(filePath)) {
+            document.getElementById('error').innerHTML = 'Invalid file type. Only .jpg, .jpeg, or .png files are allowed.';
+            fileInput.value = '';
+            return false;
+        } else {
+            // Clear any previous error message
+            document.getElementById('error').innerHTML = '';
+        }
+    }
+
+</script>
 <script>
 
     $(document).ready(function () {
@@ -171,6 +188,23 @@
             }
             else {
                 $(txtEnglishAlbum).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            
+            if (document.getElementById("Tag").value == "") {
+                isValid = false;
+                $(Tag).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Enter English Tag");
+                return false;
+            }
+            else {
+                $(Tag).css({
                     "border": "",
                     "background": ""
                 });

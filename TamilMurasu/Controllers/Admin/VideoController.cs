@@ -100,11 +100,18 @@ namespace TamilMurasu.Controllers.Admin
 
                 string EditRow = string.Empty;
                 string DeleteRow = string.Empty;
+                if (dtUsers.Rows[i]["deletenews"].ToString() == "Y")
+                {
+                    EditRow = "<a href=Video?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
+                    DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
+                }
+                else
+                {
 
-                EditRow = "<a href=Video?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
-                DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/DeleteIcon.png' alt='Deactivate' width='20' /></a>";
+                    EditRow = "";
+                    DeleteRow = "<a href=Remove?tag=Del&id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/close_icon.png' alt='Deactivate' /></a>";
 
-
+                }
 
                 Reg.Add(new Videogrid
                 {
@@ -122,6 +129,21 @@ namespace TamilMurasu.Controllers.Admin
                 Reg
             });
 
+        }
+        public ActionResult Remove(string tag, int id)
+        {
+
+            string flag = VideoService.RemoveChange(tag, id);
+            if (string.IsNullOrEmpty(flag))
+            {
+
+                return RedirectToAction("ListVideo");
+            }
+            else
+            {
+                TempData["notice"] = flag;
+                return RedirectToAction("ListVideo");
+            }
         }
         public ActionResult DeleteMR(string tag, int id)
         {
