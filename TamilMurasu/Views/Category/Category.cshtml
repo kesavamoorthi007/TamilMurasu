@@ -97,64 +97,64 @@
 </div>
 <script>
 
-    $(function () {
-        $('._select').select2();
-    });
-                $(document).ready(function () {
-                    $('#btnSave').click(function (e) {
-                        var isValid = true;
-                        if (document.getElementById("txtC_Name").value == "") {
-                            isValid = false;
-                            $(txtC_Name).css({
-                                "border": "1px solid red",
-                                "background": "#FFCECE"
-                            });
-
-                            alert("Please Enter  CategoryName(Tamil)");
-                            return false;
-                        }
-                        else {
-                            $(txtC_Name).css({
-                                "border": "",
-                                "background": ""
-                            });
-                        }
-                         if (document.getElementById("Title_Eng").value == "") {
-                            isValid = false;
-                            $(Title_Eng).css({
-                                "border": "1px solid red",
-                                "background": "#FFCECE"
-                            });
-
-                            alert("Please Enter  CategoryName(English)");
-                            return false;
-                        }
-                        else {
-                            $(Title_Eng).css({
-                                "border": "",
-                                "background": ""
-                            });
-                        }
-                         if (document.getElementById("Title_Eng").value == "") {
-                            isValid = false;
-                            $(Title_Eng).css({
-                                "border": "1px solid red",
-                                "background": "#FFCECE"
-                            });
-
-                            alert("Please Enter  Enter Title");
-                            return false;
-                        }
-                        else {
-                            $(Title_Eng).css({
-                                "border": "",
-                                "background": ""
-                            });
-                        }
-
-                    if (isValid == false)
-                            e.preventDefault();
-                    });
-
+        $(function () {
+            $('._select').select2();
+        });
+    $(document).ready(function () {
+        $('#btnSave').click(function (e) {
+            var isValid = true;
+            if (document.getElementById("txtC_Name").value == "") {
+                isValid = false;
+                $(txtC_Name).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
                 });
+
+                alert("Please Enter  CategoryName(Tamil)");
+                return false;
+            }
+            else {
+                $(txtC_Name).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (document.getElementById("txtC_NameEN").value == "") {
+                isValid = false;
+                $(txtC_NameEN).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Enter  Category Name (English)");
+                return false;
+            }
+            else {
+                $(txtC_NameEN).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (document.getElementById("txtTitle_Eng").value == "") {
+                isValid = false;
+                $(txtTitle_Eng).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Enter Enter Title");
+                return false;
+            }
+            else {
+                $(txtTitle_Eng).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+
+            if (isValid == false)
+                e.preventDefault();
+        });
+
+    });
 </script>

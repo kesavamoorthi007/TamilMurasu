@@ -67,7 +67,15 @@
                         <form>
 
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <br /> <label for="inputName3" class="col-sm-4 control-label">Category<label class="mandatory">*</label></label>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(C => C.Category, Model.Categorylst, "--Please Select--", new { @id = "ddlCategory", @Class = "form-control _select", @TabIndex = 1 })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <br><label for="inputName3" class="col-sm-4 control-label">News Head<label class="mandatory">*</label></label>
                                         <div class="col-sm-8">
@@ -77,47 +85,40 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <br /> <label for="inputName3" class="col-sm-4 control-label">Category<label class="mandatory">*</label></label>
-                                        <div class="col-sm-8">
-                                            @Html.DropDownListFor(C => C.Category, Model.Categorylst, "--Please Select--", new { @id = "ddlCategory", @Class = "form-control _select", @TabIndex = 1 })
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
+                          
+                                <div class="col-lg-4">
                                     <div class="form-group checkbox-xl">
-                                        <br /><label for="form-check-label" class="col-sm-4 control-label">Editor Pick<label class="mandatory">*</label></label>
-                                        <div class="col-sm-8">
+                                        <br /><label for="form-check-label" class="col-sm-6 control-label">Editor Pick<label class="mandatory">*</label></label>
+                                        <div class="col-sm-6">
 @*                                             <input class="form-check-input" type="checkbox" value="Editor" id="Editor">
                                         *@    @Html.CheckBoxFor(C => C.Editor, new { @id = "txtEditor", @class = "form-check-input" })
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
+                        
+                          
+                                <div class="col-lg-4">
                                     <div class="form-group checkbox-xl">
-                                        <br /><label for="form-check-label" class="col-sm-4 control-label">Highlights News<label class="mandatory">*</label></label>
-                                        <div class="col-sm-8">
+                                        <br /><label for="form-check-label" class="col-sm-6 control-label">Highlights News<label class="mandatory">*</label></label>
+                                        <div class="col-sm-6">
 @*                                             <input class="form-check-input" type="checkbox" value="Highlights" id="Highlights">
-                                        *@  @Html.CheckBoxFor(C => C.Highlights, new { @id = "txtHighlights", @class = "form-check-input" })
+                                        *@     @Html.CheckBoxFor(C => C.Highlights, new { @id = "txtHighlights", @class = "form-check-input" })
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
+                            
+                         
+                                <div class="col-lg-4">
                                     <div class="form-group checkbox-xl">
-                                        <br /><label for="form-check-label" class="col-sm-4 control-label">Banner News<label class="mandatory">*</label></label>
-                                        <div class="col-sm-8">
-                                            @Html.CheckBoxFor(C => C.Banner, new { @id = "txtBanner", @class = "form-check-input" })
+                                        <br /><label for="form-check-label" class="col-sm-6 control-label">Banner News<label class="mandatory">*</label></label>
+                                        <div class="col-sm-6">
+                                             @Html.CheckBoxFor(C => C.Banner, new { @id = "txtBanner", @class = "form-check-input" })
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -134,14 +135,16 @@
                                     <br /> <div class="form-group">
                                         <label for="formFile" class="col-sm-2 control-label">Picture Thumbnail<label class="mandatory">*</label></label>
                                         <div class="col-md-10">
-                                            <input type="file" name="file" id="file-input" multiple>
+                                            <input type="file" required="required" name="file" id="file-input" accept=".jpg, .jpeg, .png" onchange="validateFileType()" multiple>
                                             <br /><div id="preview-container"></div>
                                             <script src="script.js"></script>
-                                            <img src='@Html.DisplayFor(C => C.filename1)'  />
+                                            <p id="error" style="color: red;"></p>
+                                            <img src='@Html.DisplayFor(C => C.filename1)'/>
 
                                         </div>
                                   </div>
                                 </div>
+
                                
                             </div>
                             <div class="row">
@@ -149,21 +152,31 @@
                                     <div class="form-group">
                                         <br /> <label for="formFile" class="col-sm-2 control-label">Picture Large<label class="mandatory">*</label></label>
                                         <div class="col-md-10">
-                                            <input type="file" name="file1" id="file-input1" multiple>
+                                            <input type="file" required="required" name="file1" id="file-input1" accept=".jpg, .jpeg, .png" onchange="validateFileType1()" multiple>
                                             <br /><div id="preview-container1"></div>
                                             <script src="script.js"></script>
+                                            <p id="errorone" style="color: red;"></p>
+
                                             <img src='@Html.DisplayFor(C => C.filename2)' />
 
                                         </div>
                                     </div>
                                 </div>
                             </div> 
+                           @* <form id="uploadForm" enctype="multipart/form-data">
+                                <input type="file" id="fileInput" accept="image/*">
+                                <button type="submit" onclick="validateForm(event)">Upload Image</button>
+                            </form>
+                            <form id="uploadForm" enctype="multipart/form-data">
+                                <input type="file" id="fileinput1" accept="image/*">
+                                <button type="submit" onclick="validateForm(event)">Upload Image</button>
+                            </form>*@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <br /> <label for="datePicker" class="col-sm-4 control-label">Publish Up<label class="mandatory">*</label></label>
                                         <div class="input-group date form_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32"})
+                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32" ,@readonly="readonly"})
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -172,7 +185,7 @@
                                     <div class="form-group">
                                         <br /> <label for="inputName3" class="col-sm-4 control-label">Publish Down<label class="mandatory">*</label></label>
                                         <div class="input-group date to_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32" })
+                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32" ,@readonly="" })
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -202,6 +215,38 @@
         </div>
     </div>
 </div>
+<script>
+    function validateFileType() {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        var fileInput = document.getElementById('file-input');
+        var filePath = fileInput.value;
+        if (!allowedExtensions.exec(filePath)) {
+            document.getElementById('error').innerHTML = 'Invalid file type. Only .jpg, .jpeg, or .png files are allowed.';
+            fileInput.value = '';
+            return false;
+        } else {
+            // Clear any previous error message
+            document.getElementById('error').innerHTML = '';
+        }
+    }
+
+</script>
+<script>
+    function validateFileType1() {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        var fileInput = document.getElementById('file-input1');
+        var filePath = fileInput.value;
+        if (!allowedExtensions.exec(filePath)) {
+            document.getElementById('errorone').innerHTML = 'Invalid file type. Only .jpg, .jpeg, or .png files are allowed.';
+            fileInput.value = '';
+            return false;
+        } else {
+            // Clear any previous error message
+            document.getElementById('errorone').innerHTML = '';
+        }
+    }
+
+</script>
 <script>
 
     $(document).ready(function () {
@@ -330,6 +375,67 @@
                     "background": ""
                 });
             }
+        //    if (document.getElementById("file-input").value > 0 ) {
+        //        isValid = false;
+        //        $(file - input).css({
+        //            "border": "1px solid red",
+        //            "background": "#FFCECE"
+        //        });
+
+        //        alert("Please Select Picture Thumbnail");
+        //        return false;
+        //    }
+        //    else {
+        //    $(file - input).css({
+        //            "border": "",
+        //            "background": ""
+        //        });
+        //    }
+        //    alert ("fileinput1");
+        //if (document.getElementById("fileinput1").value.length > 0) {
+        //        isValid = false;
+        //        $(file - input1).css({
+        //            "border": "1px solid red",
+        //            "background": "#FFCECE"
+        //        });
+
+        //        alert("Please Select Picture Large");
+        //        return false;
+        //    }
+        //    else {
+        //        $(fileinput1).css({
+        //            "border": "",
+        //            "background": ""
+        //        });
+        //    }
+            //function validateForm(event) {
+            //    event.preventDefault();  Prevent form submission for now
+
+            //    var fileInput = document.getElementById('fileInput');
+            //    var file = fileInput.files[0];  Get the selected file
+
+            //    if (fileInput) {
+            //         File selected, you can proceed with uploading or further processing
+            //        uploadImage(file);
+            //    } else {
+            //         No file selected, show an error message or alert
+            //        alert('Please select an Picture Large.');
+            //    }
+            //}
+            //function validateForm(event) {
+            //    event.preventDefault();  Prevent form submission for now
+
+            //    var fileinput1 = document.getElementById('fileinput1');
+            //    var file = fileinput1.files[0];  Get the selected file
+
+            //    if (fileinput1) {
+            //         File selected, you can proceed with uploading or further processing
+            //        uploadImage(file);
+            //    } else {
+            //         No file selected, show an error message or alert
+            //        alert('Please select an Picture Thumbnail.');
+            //    }
+            //}
             if (document.getElementById("PublishUp").value == "") {
                 isValid = false;
                 $(PublishUp).css({
@@ -358,6 +464,22 @@
             }
             else {
                 $(PublishDown).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (document.getElementById("txtKeyWords").value == "") {
+                isValid = false;
+                $(txtKeyWords).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Select KeyWords");
+                return false;
+            }
+            else {
+                $(txtKeyWords).css({
                     "border": "",
                     "background": ""
                 });

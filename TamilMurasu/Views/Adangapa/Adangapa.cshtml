@@ -80,9 +80,9 @@
                                     <div class="form-group">
                                         <br /> <label for="formFile" class="col-sm-2 control-label">Picture<label class="mandatory">*</label></label>
                                         <div class="col-md-10">
-                                            <input type="file" name="file" id="file-input" multiple>
+                                            <input type="file" required="required" name="file" id="file-input" accept=".jpg, .jpeg, .png" onchange="validateFileType()" multiple>
                                             <br /><div id="preview-container"></div>
-                                            <script src="script.js"></script>
+                                            <p id="error" style="color: red;"></p>
 
                                             <img src='@Html.DisplayFor(C => C.filename1)' />
 
@@ -95,7 +95,7 @@
                                     <div class="form-group">
                                         <br /> <label for="datePicker" class="col-sm-4 control-label">Publish Up<label class="mandatory">*</label></label>
                                         <div class="input-group date form_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32" })
+                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32" ,@readonly="readonly" })
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -104,7 +104,7 @@
                                     <div class="form-group">
                                         <br /> <label for="inputName3" class="col-sm-4 control-label">Publish Down<label class="mandatory">*</label></label>
                                         <div class="input-group date to_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32" })
+                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32" ,@readonly="readonly" })
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -124,6 +124,22 @@
         </div>
     </div>
 </div>
+<script>
+    function validateFileType() {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        var fileInput = document.getElementById('file-input');
+        var filePath = fileInput.value;
+        if (!allowedExtensions.exec(filePath)) {
+            document.getElementById('error').innerHTML = 'Invalid file type. Only .jpg, .jpeg, or .png files are allowed.';
+            fileInput.value = '';
+            return false;
+        } else {
+            // Clear any previous error message
+            document.getElementById('error').innerHTML = '';
+        }
+    }
+
+    </script>
 <script>
 
     $(document).ready(function () {
@@ -212,6 +228,22 @@
                     "background": ""
                 });
             }
+            //if (document.getElementById("file-input").value > 0 "") {
+            //    isValid = false;
+            //    $(file - input).css({
+            //        "border": "1px solid red",
+            //        "background": "#FFCECE"
+            //    });
+
+            //    alert("Please Enter Picture");
+            //    return false;
+            //}
+            //else {
+            //    $(file - input).css({
+            //        "border": "",
+            //        "background": ""
+            //    });
+            //}
             if (document.getElementById("PublishUp").value == "") {
                 isValid = false;
                 $(PublishUp).css({
@@ -224,6 +256,38 @@
             }
             else {
                 $(PublishUp).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (document.getElementById("PublishDown").value == "") {
+                isValid = false;
+                $(PublishDown).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Select PublishDown");
+                return false;
+            }
+            else {
+                $(PublishDown).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+            if (document.getElementById("txtOriginal").value == "") {
+                isValid = false;
+                $(txtOriginal).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Enter Original");
+                return false;
+            }
+            else {
+                $(txtOriginal).css({
                     "border": "",
                     "background": ""
                 });
