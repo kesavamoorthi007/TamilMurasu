@@ -58,7 +58,7 @@
                                     <div class="form-group">
                                         <label for="inputName3" class="col-sm-4 control-label">Image Type<label class="mandatory">*</label></label>
                                         <div class="col-sm-8">
-                                            @Html.DropDownListFor(C => C.Category, Model.Categorylst, "--Please Select--", new { @id = "ddlCategory", @Class = "form-control _select", @TabIndex = 1 })
+                                            @Html.DropDownListFor(C => C.Category, Model.Categorylst, "--Please Select--", new { @id = "ddlCategory", @Class = "form-control _select", @TabIndex = 1/*,onchange = "check_Category()"*/})
                                         </div>
                                     </div>
                                 </div>
@@ -80,9 +80,10 @@
                                     <br /> <div class="form-group">
                                         <label for="formFile" class="col-sm-2 control-label">Picture Thumbnail<label class="mandatory">*</label></label>
                                         <div class="col-md-10">
-                                            <input type="file" name="file" id="file-input" multiple>
+                                            <input type="file" required="required" name="file" id="file-input" accept=".jpg, .jpeg, .png" onchange="validateFileType()" multiple>
                                             <br /><div id="preview-container"></div>
-                                           
+                                            <p id="error" style="color: red;"></p>
+
                                             <img src='@Html.DisplayFor(C => C.filename1)' />
 
                                         </div>
@@ -94,9 +95,11 @@
                                     <div class="form-group">
                                         <br /> <label for="formFile" class="col-sm-2 control-label">Picture Large<label class="mandatory">*</label></label>
                                         <div class="col-md-10">
-                                            <input type="file" name="file1" id="file-input1" multiple>
+                                            <input type="file" required="required" name="file1" id="file-input1" accept=".jpg, .jpeg, .png" onchange="validateFileType1()" multiple>
                                             <br /><div id="preview-container1"></div>
                                             <script src="script.js"></script>
+                                            <p id="errorone" style="color: red;"></p>
+
                                             <img src='@Html.DisplayFor(C => C.filename2)' />
 
                                         </div>
@@ -109,7 +112,7 @@
                                     <div class="form-group">
                                         <br /> <label for="datePicker" class="col-sm-4 control-label">Publish Up<label class="mandatory">*</label></label>
                                         <div class="input-group date form_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32"})
+                                            @Html.TextBoxFor(C => C.PublishUp, new { @id = "PublishUp", @class = "form-control", @TabIndex = 2, @size = "32" ,@readonly="readonly"})
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -118,7 +121,7 @@
                                     <div class="form-group">
                                         <br /> <label for="inputName3" class="col-sm-4 control-label">Publish Down<label class="mandatory">*</label></label>
                                         <div class="input-group date to_date col-sm-8" data-date="" data-date-format="dd-M-yyyy">
-                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32" })
+                                            @Html.TextBoxFor(C => C.PublishDown, new { @id = "PublishDown", @class = "form-control", @TabIndex = 2, @size = "32" ,@readonly="readonly"})
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -127,7 +130,7 @@
                             <div style="height:30px;"></div>
                             <div class="col-lg-5"></div>
                             <div class="text-center">
-                                <button type="submit" name="submit" class="btn btn-primary" id="btnSave" value="Save" tabindex="18">Save</button>
+                                <button type="submit" name="submit"   class="btn btn-primary" id="btnSave" value="Save" tabindex="18">Save</button>
                                 <a button class="btn btn-danger" type="submit" href="@Url.Action("ListNewImage", "NewImage")">Cancel</a>
                             </div>
                         </form>
@@ -137,6 +140,62 @@
         </div>
     </div>
 </div>
+<script>
+    function validateFileType() {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        var fileInput = document.getElementById('file-input');
+        var filePath = fileInput.value;
+        if (!allowedExtensions.exec(filePath)) {
+            document.getElementById('error').innerHTML = 'Invalid file type. Only .jpg, .jpeg, or .png files are allowed.';
+            fileInput.value = '';
+            return false;
+        } else {
+            // Clear any previous error message
+            document.getElementById('error').innerHTML = '';
+        }
+    }
+
+</script>
+@*<script>
+    function check_Category() {
+        var selectedCondition = document.getElementById("ddlCategory").value;
+        if (selectedCondition === "") {
+            alert("Please select a Category!");
+        } else {
+            alert("You selected: " + selectedCondition);
+            // Perform further actions based on the selected condition
+        }
+    }
+</script>*@
+@*<script>
+    function validateForm() {
+        var fileInput = document.getElementById('file-input');
+
+        // Check if a file is selected
+        if (fileInput.files.length === 0) {
+            alert('Please select a file.');
+            return false;
+        }
+
+        return true;
+    }
+</script>*@
+<script>
+    function validateFileType1() {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        var fileInput = document.getElementById('file-input1');
+        var filePath = fileInput.value;
+        if (!allowedExtensions.exec(filePath)) {
+            document.getElementById('errorone').innerHTML = 'Invalid file type. Only .jpg, .jpeg, or .png files are allowed.';
+            fileInput.value = '';
+            return false;
+        } else {
+            // Clear any previous error message
+            document.getElementById('errorone').innerHTML = '';
+        }
+    }
+
+</script>
 <script>
     $(function () {
         $('._select').select2();
@@ -221,6 +280,23 @@
     $(document).ready(function () {
         $('#btnSave').click(function (e) {
             var isValid = true;
+
+            if (document.getElementById("ddlCategory").value == "") {
+                isValid = false;
+                $(ddlCategory).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+
+                alert("Please Select Image Type");
+                return false;
+            }
+            else {
+                $(ddlCategory).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
             if (document.getElementById("txtFootNote").value == "") {
                 isValid = false;
                 $(txtFootNote).css({
@@ -237,6 +313,7 @@
                     "background": ""
                 });
             }
+          
             if (document.getElementById("PublishUp").value == "") {
                 isValid = false;
                 $(PublishUp).css({
