@@ -108,7 +108,7 @@ namespace TamilMurasu.Controllers.Admin
                 if (dtUsers.Rows[i]["deletenews"].ToString() == "Y")
                 {
                     EditRow = "<a href=LatestNews?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
-                    DeleteRow ="DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "";
+                    DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/Inactive.png' alt='Edit' width='20' /></a>";
 
                 }
                 else
@@ -116,7 +116,7 @@ namespace TamilMurasu.Controllers.Admin
 
                     EditRow = "";
                     DeleteRow = "<a href=Remove?tag=Del&id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/close_icon.png' alt='Deactivate' /></a>";
-
+                     
                 }  
 
 
@@ -158,7 +158,7 @@ namespace TamilMurasu.Controllers.Admin
             else
             {
                 TempData["notice"] = flag;
-                return RedirectToAction("LisListLatestNewstNews");
+                return RedirectToAction("ListLatestNews");
             }
         }
         public ActionResult DeleteMR(string tag, int id)

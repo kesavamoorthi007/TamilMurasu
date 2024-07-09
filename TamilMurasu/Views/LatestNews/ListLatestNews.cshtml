@@ -54,11 +54,13 @@
             }
         }
         );
-        var linkrenderer1 = function (row, column, value) {
+        // var linkrenderer1 = function (row, column, value) {
 
-            return '<a href="' + value + '" onclick="return ConfirmDelete()"><img  src="../Images/delete.png"  /></a>';
 
-        }
+
+        //     return '<a href="' + value + '" onclick="return ConfirmDelete()"><img  src="../Images/Inactive.png"  style="text-align: center; margin-top: 15px;padding-left:25px;"/></a>';
+
+        // }
 
 
         $("#grid").jqxGrid(
@@ -85,13 +87,10 @@
 
                 columns: [
 
-                    //{ text: 'News Detail', filtertype: 'checkedlist', datafield: 'footnote', width: 450 },
+                  //{ text: 'News Detail', filtertype: 'checkedlist', datafield: 'footnote', width: 450 },
                     { text: 'News Head', filtertype: 'input', datafield: 'head', width: 650 },
                     { text: 'Edit', datafield: 'editrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
-
-                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 , cellsrenderer: linkrenderer1},
-
-                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70, cellsrenderer: linkrenderer1 },
+                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70/* , cellsrenderer: linkrenderer1 */ },
 
                 ]
             });
@@ -147,7 +146,7 @@
         </div>
     </div>
 </div>
-  <script>
+ <script>
     function ConfirmDelete() {
         return confirm("Are you sure you want to delete?");
     }
