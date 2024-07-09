@@ -13,7 +13,6 @@
         @:alert('@TempData["notice"]');
     }
 </script>
-
 <div class="row wrapper border-bottom page-heading">
     <div class="col-lg-12">
         <ol class="breadcrumb">
@@ -53,6 +52,11 @@
             }
         }
         );
+        var linkrenderer1 = function (row, column, value) {
+
+            return '<a href="' + value + '" onclick="return ConfirmDelete()"><img  src="../Images/delete.png"  /></a>';
+
+        }
 
         $("#grid").jqxGrid(
             {
@@ -80,7 +84,7 @@
 
                     { text: 'Foot Note', filtertype: 'checkedlist', datafield: 'foot', width: 600 },
                     { text: 'Edit', datafield: 'editrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
-                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
+                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70, cellsrenderer: linkrenderer1 },
                 ]
             });
         $("#ddlStatus").change(function () {

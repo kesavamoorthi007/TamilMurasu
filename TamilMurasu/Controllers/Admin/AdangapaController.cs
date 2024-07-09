@@ -108,7 +108,11 @@ namespace TamilMurasu.Controllers.Admin
                 if (dtUsers.Rows[i]["deletenews"].ToString() == "Y")
                 {
                     EditRow = "<a href=Adangapa?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
+
                     DeleteRow = "<a href=DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/Inactive.png' alt='Deactivate' width='20' /></a>";
+
+                   // DeleteRow = "DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "";
+
 
                 }
                 else
