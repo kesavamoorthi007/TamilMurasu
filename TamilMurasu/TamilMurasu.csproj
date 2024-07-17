@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\Uploads\**" />
-    <Content Remove="wwwroot\Uploads\**" />
-    <EmbeddedResource Remove="wwwroot\Uploads\**" />
-    <None Remove="wwwroot\Uploads\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.102.2" />
     <PackageReference Include="Dapper" Version="2.0.143" />
     <PackageReference Include="Google.Apis.Translate.v2" Version="1.67.0.875" />
