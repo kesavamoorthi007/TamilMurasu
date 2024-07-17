@@ -124,12 +124,12 @@ namespace TamilMurasu.Services.Admin
                                     String sFileType1 = "";
                                     sFileType1 = System.IO.Path.GetExtension(file.FileName);
                                     sFileType1 = sFileType1.ToLower();
-
+                                     
                                     String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
 
-                                    var fileName = Path.Combine(@"C:/images/", strFleName);
+                                    var fileName = Path.Combine("wwwroot/Uploads/ThumbImage", strFleName);
 
-                                    var fileNme1 = @"C:/images/" + strFleName;
+                                    var fileNme1 = "../Uploads/ThumbImage/" + strFleName;
 
                                     filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
 
@@ -176,7 +176,7 @@ namespace TamilMurasu.Services.Admin
                                         }
                                     }
                                 }
-                                svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES ('" + Cy.Category + "',N'" + Cy.NewsHead + "',N'" + Cy.NewsDetail + "','" + filesave1 + "','" + filesave2 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "',N'" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                                svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES (N'" + Cy.Category + "',N'" + Cy.NewsHead + "',N'" + Cy.NewsDetail + "','" + filesave1 + "','" + filesave2 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "',N'" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                                 SqlCommand objCmds = new SqlCommand(svSQL, objConn);
                                 objCmds.ExecuteNonQuery();
 

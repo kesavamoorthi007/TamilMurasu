@@ -39,7 +39,7 @@ namespace TamilMurasu.Controllers.Admin
                 dt = AdangapaService.GetEditAdangapa(id);
                 if (dt.Rows.Count > 0)
                 {
-                    int shift = 1;
+                    //int shift = 1;
                     br.Original = dt.Rows[0]["Foot_Note"].ToString();
                     //br.Original = Decrypt(br.Original, shift);
                     br.PublishUp = dt.Rows[0]["AddedDateFormatted"].ToString();
