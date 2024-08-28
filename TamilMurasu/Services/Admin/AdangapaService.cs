@@ -26,7 +26,7 @@ namespace TamilMurasu.Services.Admin
             string SvSql = string.Empty;
             if (strStatus == "Y" || strStatus == null)
             {
-                SvSql = "select  I_Id,Foot_Note,deletenews,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='Y' ORDER BY TMImages_N.I_Id DESC";
+                SvSql = "select  I_Id,Foot_Note,deletenews,CONVERT(varchar, TMImages_N.publish_up, 106) AS AddedDateFormatted,CONVERT(varchar, TMImages_N.publish_down, 106) AS AddedDateFormatted1,News_head from TMImages_N WHERE I_cat='20' and TMImages_N.deletenews='Y'ORDER BY TMImages_N.I_Id DESC";
             }
             else
             {
