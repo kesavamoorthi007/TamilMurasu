@@ -83,9 +83,11 @@
                                         <div class="col-md-10">
                                             <input type="file" required="required" name="file" id="file-input" accept=".jpg, .jpeg, .png" onchange="validateFileType()" multiple>
                                             <br /><div id="preview-container"></div>
+                                            <script src="script.js"></script>
                                             <p id="error" style="color: red;"></p>
 
-                                            <img src='@Html.DisplayFor(C => C.filename1)' />
+                                            @Model.filename1
+                                            <br /><img src='@Html.DisplayFor(C => C.filename1)' />
                                         </div>
                                     </div>
                                 </div>

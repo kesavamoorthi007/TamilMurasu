@@ -120,8 +120,8 @@ namespace TamilMurasu.Controllers.Admin
                 }  
 
 
-                EditRow = "<a href=LatestNews?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
-                DeleteRow = "DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "";
+                //EditRow = "<a href=LatestNews?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "><img src='../Images/EditIcon.png' alt='Edit' width='20' /></a>";
+                //DeleteRow = "DeleteMR?id=" + dtUsers.Rows[i]["I_Id"].ToString() + "";
 
 
 

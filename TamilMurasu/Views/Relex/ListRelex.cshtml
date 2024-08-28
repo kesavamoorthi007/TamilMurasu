@@ -53,11 +53,11 @@
             }
         }
         );
-        var linkrenderer1 = function (row, column, value) {
+        //var linkrenderer1 = function (row, column, value) {
 
-            return '<a href="' + value + '" onclick="return ConfirmDelete()"><img  src="../Images/delete.png"  /></a>';
+        //    return '<a href="' + value + '" onclick="return ConfirmDelete()"><img  src="../Images/delete.png"  /></a>';
 
-        }
+        //}
 
         $("#grid").jqxGrid(
             {
@@ -85,7 +85,7 @@
 
                     { text: 'Image Type', filtertype: 'checkedlist', datafield: 'relex', width: 800 },
                     { text: 'Edit', datafield: 'editrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70 },
-                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70, cellsrenderer: linkrenderer1 },
+                    { text: 'Delete', datafield: 'delrow', sortable: false, exportable: false, filterable: false, groupable: false, autoshowfiltericon: false, cellsalign: 'center', width: 70/*, cellsrenderer: linkrenderer1*/ },
                 ]
             });
         $("#ddlStatus").change(function () {
