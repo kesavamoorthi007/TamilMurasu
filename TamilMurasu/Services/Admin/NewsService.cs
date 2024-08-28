@@ -28,11 +28,11 @@ namespace TamilMurasu.Services.Admin
             string SvSql = string.Empty;
             if (strStatus == "Y" || strStatus == null)
             {
-                SvSql = "select top 100 N_Id,NT_Head,N_Description,Keyword,deletenews from TMNews_N  WHERE deletenews='Y' ORDER BY TMNews_N.N_Id DESC";
+                SvSql = "select  N_Id,NT_Head,N_Description,Keyword,CONVERT(varchar, TMNews_N.Publish_Up, 106) AS AddedDateFormatted,CONVERT(varchar, TMNews_N.Publish_down, 106) AS AddedDateFormatted1,deletenews from TMNews_N  WHERE deletenews='Y' and  DATEDIFF(day,Publish_Up,GETDATE()) < 30 ORDER BY TMNews_N.N_Id DESC";
             }
             else
             {
-                SvSql = "select top 100 N_Id,NT_Head,N_Description,Keyword,deletenews from TMNews_N  WHERE deletenews='N' ORDER BY TMNews_N.N_Id DESC";
+                SvSql = "select  N_Id,NT_Head,N_Description,Keyword,CONVERT(varchar, TMNews_N.Publish_Up, 106) AS AddedDateFormatted,CONVERT(varchar, TMNews_N.Publish_down, 106) AS AddedDateFormatted1,deletenews from TMNews_N  WHERE deletenews='N' ORDER BY  TMNews_N.N_Id DESC";
 
             }
             DataTable dtt = new DataTable();

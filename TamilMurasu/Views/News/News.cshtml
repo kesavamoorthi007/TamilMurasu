@@ -142,11 +142,9 @@
                                             <br /><div id="preview-container"></div>
                                             <script src="script.js"></script>
                                             <p id="error" style="color: red;"></p>
-                                            <img src='@Html.DisplayFor(C => C.filename1)'/>
-                                           @*  <td>
-                                                <img src="../Uploads/ThumbImage/@Html.DisplayFor(C => C.filename1)" />
-                                                <img src='@Html.DisplayFor(C => C.filename1)' />
-                                            </td> *@
+
+                                                @Model.filename1
+                                                <br /> <img src='@Html.DisplayFor(C => C.filename1)' />
                                         </div>
                                   </div>
                                 </div>
@@ -163,8 +161,9 @@
                                             <script src="script.js"></script>
                                             <p id="errorone" style="color: red;"></p>
 
-                                            <img src='@Html.DisplayFor(C => C.filename2)' />
-
+                                            @Model.filename2
+                                            <br /> <img src='@Html.DisplayFor(C => C.filename2)' />
+                                           
                                         </div>
                                     </div>
                                 </div>
