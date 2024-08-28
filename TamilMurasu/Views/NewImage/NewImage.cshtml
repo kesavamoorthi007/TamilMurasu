@@ -84,7 +84,8 @@
                                             <br /><div id="preview-container"></div>
                                             <p id="error" style="color: red;"></p>
 
-                                            <img src='@Html.DisplayFor(C => C.filename1)' />
+                                            @Model.filename1
+                                            <br /><img src='@Html.DisplayFor(C => C.filename1)' />
 
                                         </div>
                                   </div>
@@ -95,12 +96,13 @@
                                     <div class="form-group">
                                         <br /> <label for="formFile" class="col-sm-2 control-label">Picture Large<label class="mandatory">*</label></label>
                                         <div class="col-md-10">
-                                            <input type="file" required="required" name="file1" id="file-input1" accept=".jpg, .jpeg, .png" onchange="validateFileType1()" multiple>
+                                                <input type="file" required="required" name="file1" id="file-input1" accept=".jpg, .jpeg, .png" onchange="validateFileType1()" multiple>
                                             <br /><div id="preview-container1"></div>
                                             <script src="script.js"></script>
                                             <p id="errorone" style="color: red;"></p>
 
-                                            <img src='@Html.DisplayFor(C => C.filename2)' />
+                                            @Model.filename2
+                                            <br /><img src='@Html.DisplayFor(C => C.filename2)' />
 
                                         </div>
                                     </div>

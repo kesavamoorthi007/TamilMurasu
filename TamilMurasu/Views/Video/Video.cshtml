@@ -73,7 +73,8 @@
                                             <input type="file" required="required" name="file" id="file-input" multiple>
                                             <br /><div id="preview-container"></div>
 
-                                            <img src='@Html.DisplayFor(C => C.filename1)' />
+                                            @Model.filename1
+                                            <br /><img src='@Html.DisplayFor(C => C.filename1)' />
                                         </div>
                                     </div>
                                 </div>
