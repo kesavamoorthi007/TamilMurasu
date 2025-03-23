@@ -127,9 +127,13 @@ namespace TamilMurasu.Services.Admin
                                      
                                     String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
 
-                                    var fileName = Path.Combine("wwwroot/Uploads/ThumbImage", strFleName);
+                                    //var fileName = Path.Combine("/wwwroot/Uploads/ThumbImage", strFleName);
+                                    var fileName = Path.Combine("D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/ThumbImage", strFleName);
 
-                                    var fileNme1 = "../Uploads/ThumbImage/" + strFleName;
+                                   // fileName = Path.Combine("D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/ThumbImage", strFleName);
+
+
+                                    var fileNme1 = "D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/ThumbImage/" + strFleName;
 
                                     filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
 
@@ -159,7 +163,7 @@ namespace TamilMurasu.Services.Admin
 
                                         String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
 
-                                        var fileName = Path.Combine("wwwroot/Uploads/LargeImage", strFleName);
+                                        var fileName = Path.Combine("D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/LargeImage/LargeImage", strFleName);
 
                                         var fileNme2 = "../Uploads/LargeImage/" + strFleName;
 
