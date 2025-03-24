@@ -12,7 +12,6 @@ using System.ComponentModel.Design;
 using System.ComponentModel;
 using TamilMurasu.Interface.Admin;
 using TamilMurasu.Services.Admin;
-using Microsoft.Extensions.FileProviders;
 
 
 internal class Program
@@ -20,7 +19,7 @@ internal class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        var imageFolderPath = builder.Configuration["ImageSettings:LargeImagePath"];
+        
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
@@ -60,17 +59,6 @@ internal class Program
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
-        // Serve static files from the external folder (LargeImage)
-        if (!string.IsNullOrEmpty(imageFolderPath))
-        {
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(imageFolderPath),
-                RequestPath = "/Image/LargeImage" // URL prefix for accessing these images
-            });
-        }
-
-
         app.UseHttpsRedirection();
         app.UseStaticFiles();
      
