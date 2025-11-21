@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
 using TamilMurasu.Interface;
 using TamilMurasu.Services;
 using TamilMurasu.Models;
@@ -12,7 +12,7 @@ using System.ComponentModel.Design;
 using System.ComponentModel;
 using TamilMurasu.Interface.Admin;
 using TamilMurasu.Services.Admin;
-
+using Microsoft.Extensions.FileProviders;
 
 internal class Program
 {
@@ -61,7 +61,12 @@ internal class Program
         }
         app.UseHttpsRedirection();
         app.UseStaticFiles();
-     
+        // ✅ Serve shared Uploads folder (D:\Tamilmurusu\Uploads)
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(@"D:\Tamilmurusu\Uploads"),
+            RequestPath = "/Uploads"
+        });
         app.UseRouting();
         app.UseStaticFiles();
         app.UseAuthorization();

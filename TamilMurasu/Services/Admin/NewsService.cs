@@ -97,99 +97,84 @@ namespace TamilMurasu.Services.Admin
             return "";
 
         }
-        public string NewsCRUD(List<IFormFile> files, List<IFormFile> file1,News Cy)
+        public string NewsCRUD(List<IFormFile> files, List<IFormFile> file1, News Cy)
         {
             string msg = "";
             try
             {
-                string StatementType = string.Empty;
-                string svSQL = "";
-
                 using (SqlConnection objConn = new SqlConnection(_connectionString))
                 {
-					objConn.Open();
-					if (Cy.ID == null)
-                    {
+                    objConn.Open();
+                    string svSQL = "";
 
+                    if (Cy.ID == null) // Insert
+                    {
+                        string thumbImagePath = "";
+                        string largeImagePath = "";
+
+                        // 📌 Save Thumbnail Images
                         if (files != null && files.Count > 0)
                         {
-                            string filename1 = "";
-                            string filesave1 = "";
                             foreach (var file in files)
                             {
                                 if (file.Length > 0)
                                 {
-                                    // Get the file name and combine it with the target folder path
-                                    String strLongFilePath1 = file.FileName;
-                                    String sFileType1 = "";
-                                    sFileType1 = System.IO.Path.GetExtension(file.FileName);
-                                    sFileType1 = sFileType1.ToLower();
-                                     
-                                    String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
+                                    string ext = Path.GetExtension(file.FileName).ToLower();
+                                    string uniqueName = Path.GetFileNameWithoutExtension(file.FileName)
+                                                        + "_" + DateTime.Now.ToString("ddMMyyyyHHmmss")
+                                                        + ext;
 
-                                    //var fileName = Path.Combine("/wwwroot/Uploads/ThumbImage", strFleName);
-                                    var fileName = Path.Combine("D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/ThumbImage", strFleName);
+                                    string uploadFolder = Path.Combine("D:/Tamilmurusu/Uploads/ThumbImage");
+                                    if (!Directory.Exists(uploadFolder))
+                                        Directory.CreateDirectory(uploadFolder);
 
-                                   // fileName = Path.Combine("D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/ThumbImage", strFleName);
+                                    string filePath = Path.Combine(uploadFolder, uniqueName);
 
-
-                                    var fileNme1 = "D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/ThumbImage/" + strFleName;
-
-                                    filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
-
-                                    filesave1 = filesave1.Length > 0 ? filesave1 + "," + fileNme1 : fileNme1;
-
-                                    var name = file.FileName;
-                                    // Save the file to the target folder
-                                    using (var fileStream = new FileStream(fileName, FileMode.Create))
+                                    using (var stream = new FileStream(filePath, FileMode.Create))
                                     {
-                                        file.CopyTo(fileStream);
+                                        file.CopyTo(stream);
                                     }
+
+                                    // ✅ Store relative path (used in <img src="...">)
+                                    string dbPath = "/Uploads/Thumbimage/" + uniqueName;
+                                    thumbImagePath = thumbImagePath.Length > 0 ? thumbImagePath + "," + dbPath : dbPath;
                                 }
                             }
-                            if (file1 != null && file1.Count > 0)
-                            {
-                                string filename2 = "";
-                                string filesave2 = "";
-                                foreach (var file in file1)
-                                {
-                                    if (file.Length > 0)
-                                    {
-                                        // Get the file name and combine it with the target folder path
-                                        String strLongFilePath1 = file.FileName;
-                                        String sFileType1 = "";
-                                        sFileType1 = System.IO.Path.GetExtension(file.FileName);
-                                        sFileType1 = sFileType1.ToLower();
-
-                                        String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
-
-                                        var fileName = Path.Combine("D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/LargeImage/LargeImage", strFleName);
-
-                                        var fileNme2 = "../Uploads/LargeImage/" + strFleName;
-
-
-                                        filename2 = filename2.Length > 0 ? filename2 + "," + fileName : fileName;
-
-                                        filesave2 = filesave2.Length > 0 ? filesave2 + "," + fileNme2 : fileNme2;
-
-                                        var name = file.FileName;
-                                        // Save the file to the target folder
-                                        using (var fileStream = new FileStream(fileName, FileMode.Create))
-                                        {
-                                            file.CopyTo(fileStream);
-                                        }
-                                    }
-                                }
-                                svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES (N'" + Cy.Category + "',N'" + Cy.NewsHead + "',N'" + Cy.NewsDetail + "','" + filesave1 + "','" + filesave2 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "',N'" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
-                                SqlCommand objCmds = new SqlCommand(svSQL, objConn);
-                                objCmds.ExecuteNonQuery();
-
-                            }
-                            
                         }
-                       
+
+                        // 📌 Save Large Images
+                        if (file1 != null && file1.Count > 0)
+                        {
+                            foreach (var file in file1)
+                            {
+                                if (file.Length > 0)
+                                {
+                                    string ext = Path.GetExtension(file.FileName).ToLower();
+                                    string uniqueName = Path.GetFileNameWithoutExtension(file.FileName)
+                                                        + "_" + DateTime.Now.ToString("ddMMyyyyHHmmss")
+                                                        + ext;
+
+                                    string uploadFolder = Path.Combine("D:/Tamilmurusu/Uploads/LargeImage");
+                                    if (!Directory.Exists(uploadFolder))
+                                        Directory.CreateDirectory(uploadFolder);
+
+                                    string filePath = Path.Combine(uploadFolder, uniqueName);
+
+                                    using (var stream = new FileStream(filePath, FileMode.Create))
+                                    {
+                                        file.CopyTo(stream);
+                                    }
+
+                                    string dbPath = "/Uploads/LargeImage/" + uniqueName;
+                                    largeImagePath = largeImagePath.Length > 0 ? largeImagePath + "," + dbPath : dbPath;
+                                }
+                            }
+                        }
+                        svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES (N'" + Cy.Category + "',N'" + Cy.NewsHead + "',N'" + Cy.NewsDetail + "','" + thumbImagePath + "','" + largeImagePath + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "',N'" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                        SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+                        objCmds.ExecuteNonQuery();
                     }
-                    else 
+                    else
                     {
                         svSQL = "Update TMNews_N set C_Id = '" + Cy.Category + "',NT_Head = N'" + Cy.NewsHead + "',N_Description = N'" + Cy.NewsDetail + "',Banner = '" + Cy.Banner + "',Highlights = '" + Cy.Highlights + "',EditorPick = '" + Cy.Editor + "',Publish_Up = '" + Cy.PublishUp + "',Publish_down = '" + Cy.PublishDown + "',Keyword = N'" + Cy.KeyWords + "' WHERE TMNews_N.N_Id ='" + Cy.ID + "'";
                         SqlCommand objCmds = new SqlCommand(svSQL, objConn);
@@ -202,11 +187,122 @@ namespace TamilMurasu.Services.Admin
             catch (Exception ex)
             {
                 msg = "Error Occurs, While inserting / updating Data";
-                throw ex;
+                throw;
             }
 
             return msg;
         }
+
+     //   public string NewsCRUD(List<IFormFile> files, List<IFormFile> file1,News Cy)
+     //   {
+     //       string msg = "";
+     //       try
+     //       {
+     //           string StatementType = string.Empty;
+     //           string svSQL = "";
+
+     //           using (SqlConnection objConn = new SqlConnection(_connectionString))
+     //           {
+					//objConn.Open();
+					//if (Cy.ID == null)
+     //               {
+
+     //                   if (files != null && files.Count > 0)
+     //                   {
+     //                       string filename1 = "";
+     //                       string filesave1 = "";
+     //                       foreach (var file in files)
+     //                       {
+     //                           if (file.Length > 0)
+     //                           {
+     //                               // Get the file name and combine it with the target folder path
+     //                               String strLongFilePath1 = file.FileName;
+     //                               String sFileType1 = "";
+     //                               sFileType1 = System.IO.Path.GetExtension(file.FileName);
+     //                               sFileType1 = sFileType1.ToLower();
+                                     
+     //                               String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
+
+     //                               //var fileName = Path.Combine("/wwwroot/Uploads/ThumbImage", strFleName);
+     //                               var fileName = Path.Combine("D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/ThumbImage", strFleName);
+
+     //                              // fileName = Path.Combine("D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/ThumbImage", strFleName);
+
+
+     //                               var fileNme1 = "D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/ThumbImage/" + strFleName;
+
+     //                               filename1 = filename1.Length > 0 ? filename1 + "," + fileName : fileName;
+
+     //                               filesave1 = filesave1.Length > 0 ? filesave1 + "," + fileNme1 : fileNme1;
+
+     //                               var name = file.FileName;
+     //                               // Save the file to the target folder
+     //                               using (var fileStream = new FileStream(fileName, FileMode.Create))
+     //                               {
+     //                                   file.CopyTo(fileStream);
+     //                               }
+     //                           }
+     //                       }
+     //                       if (file1 != null && file1.Count > 0)
+     //                       {
+     //                           string filename2 = "";
+     //                           string filesave2 = "";
+     //                           foreach (var file in file1)
+     //                           {
+     //                               if (file.Length > 0)
+     //                               {
+     //                                   // Get the file name and combine it with the target folder path
+     //                                   String strLongFilePath1 = file.FileName;
+     //                                   String sFileType1 = "";
+     //                                   sFileType1 = System.IO.Path.GetExtension(file.FileName);
+     //                                   sFileType1 = sFileType1.ToLower();
+
+     //                                   String strFleName = strLongFilePath1.Replace(sFileType1, "") + sFileType1;
+
+     //                                   var fileName = Path.Combine("D:/Project/TamilMurasuWebsite/TamilMurasuWebsite/wwwroot/Uploads/LargeImage/LargeImage", strFleName);
+
+     //                                   var fileNme2 = "../Uploads/LargeImage/" + strFleName;
+
+
+     //                                   filename2 = filename2.Length > 0 ? filename2 + "," + fileName : fileName;
+
+     //                                   filesave2 = filesave2.Length > 0 ? filesave2 + "," + fileNme2 : fileNme2;
+
+     //                                   var name = file.FileName;
+     //                                   // Save the file to the target folder
+     //                                   using (var fileStream = new FileStream(fileName, FileMode.Create))
+     //                                   {
+     //                                       file.CopyTo(fileStream);
+     //                                   }
+     //                               }
+     //                           }
+     //                           svSQL = "Insert into TMNews_N (C_Id,NT_Head,N_Description,S_Image,L_Image,Banner,Highlights,EditorPick,Publish_Up,Publish_down,Keyword,Most_read,Most_comment,deletenews,AddedDate) VALUES (N'" + Cy.Category + "',N'" + Cy.NewsHead + "',N'" + Cy.NewsDetail + "','" + filesave1 + "','" + filesave2 + "','" + Cy.Banner + "','" + Cy.Highlights + "','" + Cy.Editor + "','" + Cy.PublishUp + "','" + Cy.PublishDown + "',N'" + Cy.KeyWords + "','0','0','Y','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+     //                           SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+     //                           objCmds.ExecuteNonQuery();
+
+     //                       }
+                            
+     //                   }
+                       
+     //               }
+     //               else 
+     //               {
+     //                   svSQL = "Update TMNews_N set C_Id = '" + Cy.Category + "',NT_Head = N'" + Cy.NewsHead + "',N_Description = N'" + Cy.NewsDetail + "',Banner = '" + Cy.Banner + "',Highlights = '" + Cy.Highlights + "',EditorPick = '" + Cy.Editor + "',Publish_Up = '" + Cy.PublishUp + "',Publish_down = '" + Cy.PublishDown + "',Keyword = N'" + Cy.KeyWords + "' WHERE TMNews_N.N_Id ='" + Cy.ID + "'";
+     //                   SqlCommand objCmds = new SqlCommand(svSQL, objConn);
+     //                   objCmds.ExecuteNonQuery();
+
+     //               }
+     //               objConn.Close();
+     //           }
+     //       }
+     //       catch (Exception ex)
+     //       {
+     //           msg = "Error Occurs, While inserting / updating Data";
+     //           throw ex;
+     //       }
+
+     //       return msg;
+     //   }
 
         public DataTable GetEditNews(string id)
         {
